@@ -1,10 +1,10 @@
-package com.trading212.chat;
+package com.trading212.serverchat;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ChatApplicationTests {
+class ServerChatApplicationTests {
 
 	@Test
 	void contextLoads() {
