@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/login")
+@RequestMapping(value = "/api/auth")
 public class UserController {
     private UserService userService;
 
@@ -15,7 +15,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping
+    @GetMapping(value = "/login")
     public UserModel creatUser() {
         int id = 3;
         String firstName = "John";
