@@ -1,9 +1,7 @@
 package com.trading212.chat.repository;
 
-import com.trading212.chat.repository.entities.User;
-import org.springframework.data.cassandra.repository.CassandraRepository;
+import com.trading212.chat.repository.entities.UserEntity;
 
-import java.util.UUID;
-
-public interface UserRepository extends CassandraRepository<User, UUID> {
+public interface UserRepository {
+    UserEntity crateUser(int id, String firstName, String lastName);
 }

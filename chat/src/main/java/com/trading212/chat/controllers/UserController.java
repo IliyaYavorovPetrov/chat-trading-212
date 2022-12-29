@@ -1,7 +1,7 @@
 package com.trading212.chat.controllers;
 
 import com.trading212.chat.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.trading212.chat.services.models.UserModel;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,12 +9,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/login")
 public class UserController {
-    @Autowired
     private UserService userService;
 
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
     @GetMapping
-    public void creatKurcho() {
-        userService.createUser("kurcho", "123");
-        System.out.println("aaa");
+    public UserModel creatUser() {
+        int id = 3;
+        String firstName = "John";
+        String lastName = "Smith";
+
+        return  userService.createUser(id, firstName, lastName);
     }
 }

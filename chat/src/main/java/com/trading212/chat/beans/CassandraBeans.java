@@ -1,4 +1,4 @@
-package com.trading212.chat.config;
+package com.trading212.chat.beans;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -8,7 +8,7 @@ import org.springframework.data.cassandra.repository.config.EnableCassandraRepos
 
 @Configuration
 @EnableCassandraRepositories
-public class CassandraConfig extends AbstractCassandraConfiguration {
+public class CassandraBeans extends AbstractCassandraConfiguration {
 
     @Value("${cassandra.contactpoints}")
     private String contactPoints;

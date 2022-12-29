@@ -1,22 +1,16 @@
 package com.trading212.chat.services;
 
 import com.trading212.chat.repository.UserRepository;
-import com.trading212.chat.repository.entities.User;
-import org.springframework.stereotype.Service;
+import com.trading212.chat.services.models.UserModel;
 
-@Service
 public class UserService {
-    private final UserRepository userRepository;
+    private final UserRepository repository;
 
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserService(UserRepository repository) {
+        this.repository = repository;
     }
 
-    public void createUser(String firstName, String lastName) {
-        User user = new User();
-        user.setId(1);
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-        userRepository.save(user);
+    public UserModel createUser(int id, String firstName, String lastName) {
+        return Mappers.fromUserEntity(repository.crateUser(id, firstName, lastName));
     }
 }
