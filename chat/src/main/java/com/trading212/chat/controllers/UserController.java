@@ -17,10 +17,6 @@ public class UserController {
 
     @GetMapping(value = "/login")
     public UserModel creatUser() {
-        int id = 3;
-        String firstName = "John";
-        String lastName = "Smith";
-
-        return  userService.createUser(id, firstName, lastName);
+        return  userService.createUser(3, "gosho", "petrov");
     }
 }
