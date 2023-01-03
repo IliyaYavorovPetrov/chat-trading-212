@@ -15,9 +15,6 @@ function Login() {
                       <label>Password</label>
                       <input className='p-2 rounded-lg bg-gray-700 mt-2 focus:border-blue-500 focus:bg-gray-800 focus:outline-none' type="password" />
                   </div>
-                  <div className='flex text-blue py-2 justify-center underline'>
-                      <p>Already have an account?</p>
-                  </div>
                   <Button text="Sign in"/>
               </form>
           </div>
