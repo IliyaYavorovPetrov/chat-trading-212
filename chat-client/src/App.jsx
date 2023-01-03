@@ -6,13 +6,10 @@ import Login from "./views/auth/Login";
 function App() {
   return (
     <div>
-      <Login />
-      {/* <Routes>
-        <Route path="/chat-trading212">
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-        </Route>
-      </Routes> */}
+      <Routes>
+        <Route path="/chat-trading212/login" element={<Login />} />
+        <Route path="/chat-trading212/register" element={<Register />} />
+      </Routes>
     </div>
   );
 }
