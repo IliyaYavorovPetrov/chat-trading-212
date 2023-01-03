@@ -5,12 +5,15 @@ import Login from "./views/auth/Login";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/chat-trading212">
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-      </Route>
-    </Routes>
+    <div>
+      <Login />
+      {/* <Routes>
+        <Route path="/chat-trading212">
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Route>
+      </Routes> */}
+    </div>
   );
 }
 

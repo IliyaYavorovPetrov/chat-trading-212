@@ -21,7 +21,7 @@ function Register() {
                       <input className='p-2 rounded-lg bg-gray-700 mt-2 focus:border-blue-500 focus:bg-gray-800 focus:outline-none' type="password" />
                   </div>
                   <div className='flex text-blue py-2 justify-center underline'>
-                      <li><Link to="/chat-trading212/register">Already have an account?</Link></li>
+                      <p><Link to="/chat-trading212/register">Already have an account?</Link></p>
                   </div>
                   <Button text="Create Account"/>
               </form>
