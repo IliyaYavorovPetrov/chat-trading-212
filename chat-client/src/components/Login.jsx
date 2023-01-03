@@ -1,9 +1,8 @@
 import React from "react";
-import loginImg from "../assets/logo.png"
 
 function Login() {
     return (
-      <div className='grid grid-cols-1 sm:grid-cols-2 h-screen w-full'>
+      <div className='grid grid-cols-1 sm:grid-cols-1 h-screen w-full'>
           <div className='bg-gray-800 flex flex-col justify-center'>
               <form className='max-w-[400px] w-full mx-auto rounded-lg bg-gray-900 p-8 px-8'>
                   <h2 className='text-4xl text-white font-bold text-center'>Log in</h2>
@@ -20,10 +19,6 @@ function Login() {
                   </div>
                   <button className='w-full my-5 py-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg'>Sign in</button>
               </form>
-          </div>
-
-          <div className='hidden sm:block bg-gray-900'>
-              <img className='w-full h-screen object-cover' src={loginImg} alt="" />
           </div>
       </div>
     )
