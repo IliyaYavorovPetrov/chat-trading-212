@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom"
-import Button from "../../widgets/Button";
+import Button from "./widgets/Button";
 
 function Login() {
     return (
@@ -19,7 +19,10 @@ function Login() {
                   <div className='flex text-blue py-2 justify-center underline'>
                       <p><Link to="/chat-trading212/register">Don't have an account?</Link></p>
                   </div>
-                  <Button text="Sign in"/>
+
+                  <Link to="/chat-trading212/home">
+                    <Button text="Sign in" />
+                  </Link>
               </form>
           </div>
       </div>

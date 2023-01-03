@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom"
-import Button from "../../widgets/Button";
+import Button from "./widgets/Button";
 
 function Register() {
     return (
@@ -23,7 +23,10 @@ function Register() {
                   <div className='flex text-blue py-2 justify-center underline'>
                       <p><Link to="/chat-trading212/login">Already have an account?</Link></p>
                   </div>
-                  <Button text="Create Account"/>
+
+                  <Link to="/chat-trading212/home">
+                    <Button text="Create Account" />
+                  </Link>
               </form>
           </div>
       </div>
