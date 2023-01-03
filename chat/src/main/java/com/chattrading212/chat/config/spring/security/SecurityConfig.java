@@ -1,4 +1,4 @@
-package com.chattrading212.chat.config.security;
+package com.chattrading212.chat.config.spring.security;
 
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
