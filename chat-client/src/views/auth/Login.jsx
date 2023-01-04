@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Button from "./widgets/Button";
 
 import ThemeIcon from "../../widgets/ThemeIcon";
+import BigLogo from "../../widgets/BigLogo";
 
 function Login() {
   return (
@@ -10,6 +11,9 @@ function Login() {
       <div className="dark:bg-gray-800 flex flex-col justify-center">
         <div className="fixed top-3 left-0">
           <ThemeIcon />
+        </div>
+        <div className="m-10">
+          <BigLogo />
         </div>
         <form className="max-w-[400px] w-full mx-auto rounded-lg dark:bg-gray-900 shadow-2xl p-8 px-8">
           <h2 className="text-4xl dark:text-white font-bold text-center">
