@@ -16,12 +16,12 @@ public class CassandraUserRepository implements UserRepository {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserEntity getByEmail(String email) {
         return null;
     }
 
     @Override
-    public Optional<UserEntity> findByUsername(String username) {
-        return Optional.empty();
+    public Boolean doesEmailExists(String email) {
+        return null;
     }
 }
