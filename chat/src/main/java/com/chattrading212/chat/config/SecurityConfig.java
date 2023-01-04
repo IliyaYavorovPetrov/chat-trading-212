@@ -1,4 +1,4 @@
-package com.chattrading212.chat.config.spring.security;
+package com.chattrading212.chat.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package com.chattrading212.chat.config.spring.repository;
+package com.chattrading212.chat.config;
 
 import com.chattrading212.chat.repositories.UserRepository;
 import com.chattrading212.chat.repositories.cassandra.CassandraUserRepository;
