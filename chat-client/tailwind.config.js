@@ -1,18 +1,11 @@
-/** @type {import('tailwindcss').Config} */
+const colors = require('tailwindcss/colors')
+
 module.exports = {
-  mode: 'jit',
-  content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
-  ],
+  content: ['./src/**/*.{js,jsx}', './public/index.html'],
   darkMode: 'class',
   theme: {
     extend: {
       colors: {
-        white: '#FFFFFF',
-        black: '#FFFF0F',
-        green: '#3BA55D',
-        red:   '#ED4245',
-        blue:  '#5865F2',
         gray: {
           900: '#202225',
           800: '#2f3136',
@@ -26,8 +19,8 @@ module.exports = {
       },
       spacing: {
         88: '22rem',
-      }, 
+      },
     },
   },
   plugins: [],
-}
+};

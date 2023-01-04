@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom"
+import { Route, Routes } from "react-router-dom";
 import Register from "./views/auth/Register";
 import Login from "./views/auth/Login";
 import Home from "./views/home/Home";
