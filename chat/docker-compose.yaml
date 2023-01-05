@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  chat-trading212-db:
+    image: cassandra:latest
+    container_name: chat-trading212-db
+    ports:
+      - 9042:9042
+    restart: unless-stopped
+    volumes:
+      - ./cfgs/cassandra.yaml:/etc/cassandra/cassandra.yaml

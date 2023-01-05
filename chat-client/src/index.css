@@ -10,7 +10,7 @@
 }
 
 @layer components {
-  .sidebar-icon {
+  /* .sidebar-icon {
     @apply relative flex items-center justify-center 
     h-12 w-12 mt-2 mb-2 mx-auto  
   bg-gray-400 hover:bg-blue-600 dark:bg-gray-800 
@@ -47,13 +47,13 @@
     transition duration-300 ease-in-out 
     hover:text-blue-400 
     cursor-pointer;
-  }
+  } */
 
   .top-navigation-icon:first {
     @apply ml-auto mr-4;
   }
 
-  .title-hashtag {
+  /* .title-hashtag {
     @apply text-lg tracking-wider font-semibold text-gray-500 
     ml-2 my-auto;
   }
@@ -213,7 +213,7 @@
     transition duration-300 ease-in-out 
     hover:text-pink-500 dark:hover:text-gray-500
     cursor-pointer;
-  }
+  } */
 }
 
 @tailwind utilities;

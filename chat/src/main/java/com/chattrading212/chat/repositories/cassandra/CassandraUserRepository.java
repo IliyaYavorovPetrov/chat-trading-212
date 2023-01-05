@@ -7,9 +7,7 @@ import com.datastax.oss.driver.api.core.CqlSession;
 
 import com.datastax.oss.driver.api.core.cql.*;
 
-import java.text.ParseException;
 import java.time.Instant;
-import java.time.LocalDate;
 import java.util.UUID;
 
 public class CassandraUserRepository implements UserRepository {

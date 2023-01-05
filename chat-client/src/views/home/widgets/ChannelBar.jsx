@@ -8,9 +8,9 @@ const random = ['variants', 'plugins'];
 
 const ChannelBar = () => {
   return (
-    <div className='channel-bar shadow-lg'>
+    <div className='w-80 h-auto m-0 ml-16 bg-gray-200 dark:bg-gray-800 overflow-hidden shadow-lg'>
       <ChannelBlock />
-      <div className='channel-container'>
+      <div className='flex flex-col items-center justify-start p-1 m-0'>
         <Dropdown header='Topics' selections={topics} />
         <Dropdown header='Questions' selections={questions} />
         <Dropdown header='Random' selections={random} />
@@ -23,12 +23,11 @@ const Dropdown = ({ header, selections }) => {
   const [expanded, setExpanded] = useState(true);
 
   return (
-    <div className='dropdown'>
-      <div onClick={() => setExpanded(!expanded)} className='dropdown-header'>
+    <div className='m-0 w-full px-2 pb-2 transition duration-300 ease-in-out'>
+      <div onClick={() => setExpanded(!expanded)} className='flex flex-row items-center justify-evenly mx-0 text-gray-500 cursor-pointer'>
         <ChevronIcon expanded={expanded} />
         <h5
-          className={expanded ? 'dropdown-header-text-selected' : 'dropdown-header-text'}
-        >
+          className={expanded ? 'text-blue-500 text-opacity-90 text-lg font-bold' : 'ext-gray-500  text-opacity-90 text-lg font-semibold cursor-default'}>
           {header}
         </h5>
         <FaPlus size='12' className='text-accent text-opacity-80 my-auto ml-auto' />
@@ -50,15 +49,15 @@ const ChevronIcon = ({ expanded }) => {
 };
 
 const TopicSelection = ({ selection }) => (
-  <div className='dropdown-selection'>
+  <div className='flex flex-row items-center justify-evenly mt-1 mr-auto ml-2 transition duration-300 ease-in-out cursor-pointer'>
     <BsHash size='24' className='text-gray-400' />
-    <h5 className='dropdown-selection-text'>{selection}</h5>
+    <h5 className='text-gray-500 font-semibold tracking-wide mr-auto transition duration-300 ease-in-out hover:text-blue-500 dark:hover:text-gray-500 cursor-pointer'>{selection}</h5>
   </div>
 );
 
 const ChannelBlock = () => (
-  <div className='channel-block'>
-    <h5 className='channel-block-text'>Channels</h5>
+  <div className='flex items-center justify-center h-16 m-0 p-0'>
+    <h5 className='text-lg tracking-wider font-bold text-gray-600 dark:text-gray-400 mr-auto ml-4 my-auto align-middle'>Channels</h5>
   </div>
 );
 

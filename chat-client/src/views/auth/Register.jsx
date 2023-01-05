@@ -41,11 +41,11 @@ function Register() {
           </div>
           <div className="flex text-blue-500 py-2 justify-center underline">
             <p>
-              <Link to="/chat-trading212/login">Already have an account?</Link>
+              <Link to="/login">Already have an account?</Link>
             </p>
           </div>
 
-          <Link to="/chat-trading212/home">
+          <Link to="/home">
             <Button text="Create Account" />
           </Link>
         </form>

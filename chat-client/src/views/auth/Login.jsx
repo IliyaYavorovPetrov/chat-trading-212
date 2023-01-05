@@ -35,11 +35,11 @@ function Login() {
           </div>
           <div className="flex text-blue-500 py-2 justify-center underline">
             <p>
-              <Link to="/chat-trading212/register">Don't have an account?</Link>
+              <Link to="/register">Don't have an account?</Link>
             </p>
           </div>
 
-          <Link to="/chat-trading212/home">
+          <Link to="/home">
             <Button text="Sign in" />
           </Link>
         </form>
