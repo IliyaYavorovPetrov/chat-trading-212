@@ -8,6 +8,7 @@ import com.datastax.oss.driver.api.core.CqlSession;
 import com.datastax.oss.driver.api.core.cql.*;
 
 import java.time.Instant;
+import java.util.Optional;
 import java.util.UUID;
 
 public class CassandraUserRepository implements UserRepository {
@@ -43,16 +44,48 @@ public class CassandraUserRepository implements UserRepository {
 
     @Override
     public Boolean doesUUIDExists(UUID userUuid) {
-        return null;
+        ResultSet resultSet = session.execute(CassandraUserQueries.DOES_UUID_EXIST, userUuid);
+        Row row = resultSet.one();
+
+        if (row != null) {
+            long countUUID = row.getLong("count");
+
+            return countUUID == 1;
+        }
+
+        return false;
     }
 
     @Override
     public UserEntity getByEmail(String email) {
+        ResultSet resultSet = session.execute(CassandraUserQueries.GET_USER_BY_EMAIL, email);
+        Row row = resultSet.one();
+
+        if (row != null) {
+            UUID userEntityUuid = row.getUuid("user_uuid");
+            String userEntityEmail = row.getString("email");
+            String userEntityPassword = row.getString("password");
+            String userEntityNickname = row.getString("nickname");
+            Instant userEntityCreatedAt = row.getInstant("created_at");
+            Boolean userEntityIsDeleted = row.getBoolean("is_deleted");
+
+            return new UserEntity(userEntityUuid, userEntityEmail, userEntityPassword, userEntityNickname, userEntityCreatedAt, userEntityIsDeleted);
+        }
+
         return null;
     }
 
     @Override
     public Boolean doesEmailExists(String email) {
-        return null;
+        ResultSet resultSet = session.execute(CassandraUserQueries.DOES_EMAIL_EXIST, email);
+        Row row = resultSet.one();
+
+        if (row != null) {
+            long countUUID = row.getLong("count");
+
+            return countUUID == 1;
+        }
+
+        return false;
     }
 }

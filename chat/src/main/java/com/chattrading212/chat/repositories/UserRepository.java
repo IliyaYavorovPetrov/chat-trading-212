@@ -3,6 +3,7 @@ package com.chattrading212.chat.repositories;
 import com.chattrading212.chat.repositories.entities.UserEntity;
 
 import java.text.ParseException;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface UserRepository {

@@ -13,6 +13,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.text.ParseException;
+import java.util.Optional;
 
 public class AuthService {
     private UserRepository userRepository;
