@@ -6,6 +6,6 @@ public class CassandraUserQueries {
     public static final String DOES_UUID_EXIST = "SELECT COUNT(*) FROM chat.users_by_uuid WHERE user_uuid=?";
     public static final String GET_USER_BY_EMAIL = "SELECT * FROM chat.users_by_email WHERE email=? LIMIT 1";
     public static final String DOES_EMAIL_EXIST = "SELECT COUNT(*) FROM chat.users_by_email WHERE email=?";
-//    public static final String GET_USER_BY_UUID = "SELECT * FROM chat.users_by_uuid WHERE user_uuid=?";
-//    public static final String DOES_UUID_EXIST = "SELECT COUNT(*) FROM chat.users_by_uuid WHERE user_uuid=?";
+    public static final String GET_USER_BY_NICKNAME = "SELECT * FROM chat.users_by_nickname WHERE user_nickname=?";
+    public static final String DOES_NICKNAME_EXIST = "SELECT COUNT(*) FROM chat.users_by_nickname WHERE user_nickname=?";
 }

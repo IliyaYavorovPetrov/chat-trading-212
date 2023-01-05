@@ -8,7 +8,6 @@ import com.datastax.oss.driver.api.core.CqlSession;
 import com.datastax.oss.driver.api.core.cql.*;
 
 import java.time.Instant;
-import java.util.Optional;
 import java.util.UUID;
 
 public class CassandraUserRepository implements UserRepository {
