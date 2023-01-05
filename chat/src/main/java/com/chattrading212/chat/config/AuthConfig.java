@@ -1,6 +1,8 @@
 package com.chattrading212.chat.config;
 
 import com.chattrading212.chat.auth.JwtAuthFilter;
+import com.chattrading212.chat.mappers.UserDetailsMapper;
+import com.chattrading212.chat.services.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,15 +23,17 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class AuthConfig {
     private final JwtAuthFilter jwtAuthenticationFilter;
     private final AuthenticationProvider authenticationProvider;
+    private final UserService userService;
 
-    public AuthConfig(JwtAuthFilter jwtAuthenticationFilter, AuthenticationProvider authenticationProvider) {
+    public AuthConfig(JwtAuthFilter jwtAuthenticationFilter, AuthenticationProvider authenticationProvider, UserService userService) {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
         this.authenticationProvider = authenticationProvider;
+        this.userService = userService;
     }
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return username -> UserMapper.toUserDTO(userRepository.getByUsername(username));
+        return username -> UserDetailsMapper.toUserDetailsDto(userService.getByEmail(username));
     }
 
     @Bean
