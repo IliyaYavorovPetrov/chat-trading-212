@@ -1,3 +1,4 @@
+import React from "react";
 import { FaSearch, FaHashtag, FaRegBell, FaUserCircle } from "react-icons/fa";
 
 import ThemeIcon from "../../../widgets/ThemeIcon";
