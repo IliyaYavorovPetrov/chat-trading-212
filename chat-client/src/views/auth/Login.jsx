@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "./widgets/Button";
 
 import ThemeIcon from "../../widgets/ThemeIcon";
@@ -10,6 +10,8 @@ function Login() {
   const [jwt, setJwt] = useLocalStorage("", "jwt");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
 
   function sendLoginRequest() {
     const loginBody = {
@@ -27,8 +29,12 @@ function Login() {
       .then((response) => Promise.all([response.json(), response.headers]))
       .then(([body, headers]) => {
         setJwt(headers.get("authorization"));
-        console.log(jwt);
-        console.log(body);
+        setEmail("");
+        setPassword("");
+
+        if (body.hasOwnProperty("token")) {
+          navigate("/home");
+        }
       });
   }
 
