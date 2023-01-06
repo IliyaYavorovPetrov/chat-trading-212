@@ -1,7 +1,6 @@
 package com.chattrading212.chat.config;
 
 import com.chattrading212.chat.auth.JwtAuthFilter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -28,7 +27,7 @@ public class SecurityConfig {
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/login", "/register")
+                .requestMatchers("/login", "/register", "/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

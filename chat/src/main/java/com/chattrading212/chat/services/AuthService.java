@@ -13,13 +13,12 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.text.ParseException;
-import java.util.Optional;
 
 public class AuthService {
-    private UserRepository userRepository;
-    private PasswordEncoder passwordEncoder;
-    private JwtService jwtService;
-    private AuthenticationManager authenticationManager;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
+    private final AuthenticationManager authenticationManager;
 
     public AuthService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtService jwtService, AuthenticationManager authenticationManager) {
         this.userRepository = userRepository;
@@ -36,7 +35,7 @@ public class AuthService {
 
     public AuthDto register(RegisterDto registerDto) throws ParseException {
         UserDetailsDto userDetailsDto = new UserDetailsDto(registerDto.email, registerDto.password, registerDto.roles, registerDto.isEnabled);
-        userRepository.createUser(registerDto.email, registerDto.password, registerDto.nickname);
+        userRepository.createUser(registerDto.email, passwordEncoder.encode(registerDto.password), registerDto.nickname);
         return new AuthDto(jwtService.generateToken(userDetailsDto));
     }
 }

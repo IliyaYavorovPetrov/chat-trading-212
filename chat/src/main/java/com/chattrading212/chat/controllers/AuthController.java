@@ -13,7 +13,11 @@ import java.text.ParseException;
 
 @RestController
 public class AuthController {
-    private AuthService authService;
+    private final AuthService authService;
+
+    public AuthController(AuthService authService) {
+        this.authService = authService;
+    }
 
     @PostMapping("/login")
     public ResponseEntity<AuthDto> login(@RequestBody LoginDto loginDto) {

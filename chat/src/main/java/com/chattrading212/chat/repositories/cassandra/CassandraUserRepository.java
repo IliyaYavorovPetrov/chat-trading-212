@@ -6,6 +6,8 @@ import com.chattrading212.chat.repositories.entities.UserEntity;
 import com.datastax.oss.driver.api.core.CqlSession;
 
 import com.datastax.oss.driver.api.core.cql.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -13,6 +15,7 @@ import java.util.UUID;
 public class CassandraUserRepository implements UserRepository {
     private final CqlSession session;
 
+    @Autowired
     public CassandraUserRepository(CqlSession session) {
         this.session = session;
     }

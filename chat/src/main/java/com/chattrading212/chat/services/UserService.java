@@ -1,5 +1,6 @@
 package com.chattrading212.chat.services;
 
+import com.chattrading212.chat.mappers.UserMapper;
 import com.chattrading212.chat.repositories.UserRepository;
 import com.chattrading212.chat.repositories.entities.UserEntity;
 import com.chattrading212.chat.services.models.UserModel;
@@ -23,7 +24,7 @@ public class UserService {
         return null;
     }
     public UserModel getByEmail(String email) {
-        return null;
+        return UserMapper.toUserEntity(repository.getByEmail(email));
     }
     Boolean doesEmailExists(String email) {
         return null;
