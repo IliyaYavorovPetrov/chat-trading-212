@@ -1,11 +1,37 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Button from "./widgets/Button";
 
 import ThemeIcon from "../../widgets/ThemeIcon";
 import BigLogo from "../../widgets/BigLogo";
+import useLocalStorage from "../../hooks/LocalStorage";
 
 function Login() {
+  const [jwt, setJwt] = useLocalStorage("", "jwt");
+
+  useEffect(() => {
+    if (!jwt) {
+      const loginBody = {
+        email: "iliao@abv.bg",
+        password: "admin",
+      };
+  
+      fetch("/login", {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "post",
+        body: JSON.stringify(loginBody),
+      })
+        .then((response) => Promise.all([response.json(), response.headers]))
+        .then(([body, headers]) => {
+          setJwt(headers.get("authorization"));
+          console.log(jwt);
+          console.log(body);
+        });
+    }
+  });
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-1 h-screen w-full">
       <div className="dark:bg-gray-800 flex flex-col justify-center">

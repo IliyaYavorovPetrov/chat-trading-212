@@ -84,7 +84,7 @@ const Post = ({ name, timestamp, text }) => {
   const seed = Math.round(Math.random() * 100);
   return (
     <div className="w-full flex flex-row items-center justify-evenly py-4 px-8 m-0 cursor-pointer">
-      <div className="lex flex-col items-center w-12 m-0 ml-auto mb-auto">
+      <div className="flex flex-col items-center w-12 m-0 ml-auto mb-auto">
         <img
           src={`https://robohash.org/${seed}?set=set2&size=180x180`}
           alt=""
