@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Button from "./widgets/Button";
 
@@ -8,29 +8,29 @@ import useLocalStorage from "../../hooks/LocalStorage";
 
 function Login() {
   const [jwt, setJwt] = useLocalStorage("", "jwt");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  useEffect(() => {
-    if (!jwt) {
-      const loginBody = {
-        email: "iliao@abv.bg",
-        password: "admin",
-      };
-  
-      fetch("/login", {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        method: "post",
-        body: JSON.stringify(loginBody),
-      })
-        .then((response) => Promise.all([response.json(), response.headers]))
-        .then(([body, headers]) => {
-          setJwt(headers.get("authorization"));
-          console.log(jwt);
-          console.log(body);
-        });
-    }
-  });
+  function sendLoginRequest() {
+    const loginBody = {
+      email: email,
+      password: password,
+    };
+
+    fetch("/login", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "post",
+      body: JSON.stringify(loginBody),
+    })
+      .then((response) => Promise.all([response.json(), response.headers]))
+      .then(([body, headers]) => {
+        setJwt(headers.get("authorization"));
+        console.log(jwt);
+        console.log(body);
+      });
+  }
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-1 h-screen w-full">
@@ -50,6 +50,8 @@ function Login() {
             <input
               className="rounded-lg dark:bg-gray-700 shadow-lg mt-2 p-2 focus:border-blue-500 focus:dark:bg-gray-800 focus:outline-none"
               type="text"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
             />
           </div>
           <div className="flex flex-col text-gray-400 py-2">
@@ -57,6 +59,8 @@ function Login() {
             <input
               className="p-2 rounded-lg dark:bg-gray-700 shadow-lg mt-2 focus:border-blue-500 focus:dark:bg-gray-800 focus:outline-none"
               type="password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
             />
           </div>
           <div className="flex text-blue-500 py-2 justify-center underline">
@@ -64,10 +68,7 @@ function Login() {
               <Link to="/register">Don't have an account?</Link>
             </p>
           </div>
-
-          <Link to="/home">
-            <Button text="Sign in" />
-          </Link>
+          <Button text="Sign in" onClick={() => sendLoginRequest()} />
         </form>
       </div>
     </div>
