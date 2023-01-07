@@ -27,7 +27,7 @@ public class CassandraFriendshipRepository implements FriendshipRepository {
 
     @Override
     public void deleteFriendship(UUID userUuid, UUID friendUuid) {
-
+        session.execute(CassandraFriendshipQueries.DELETE_FRIENDSHIP_USER_UUID, userUuid);
     }
 
     @Override

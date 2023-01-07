@@ -11,4 +11,6 @@ public interface UserRepository {
     Boolean doesUUIDExists(UUID userUuid);
     UserEntity getByEmail(String email);
     Boolean doesEmailExists(String email);
+
+    void deleteUser(UUID userUuid);
 }

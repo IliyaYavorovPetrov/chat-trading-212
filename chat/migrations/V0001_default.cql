@@ -23,6 +23,7 @@ primary key ( (nickname ), user_uuid );
 
 create table chat.friends_by_uuid
 (
+--   friendship_uuid uuid,
   user_uuid uuid,
   created_at timestamp,
   is_deleted boolean,
@@ -31,3 +32,9 @@ create table chat.friends_by_uuid
   friend_picture_id int,
   primary key ( (user_uuid), friend_uuid )
 );
+
+-- create materialized view chat.friends_by_friend_uuid
+-- as select user_uuid, created_at, is_deleted, friend_uuid, friend_nickname, friend_picture_id
+--    from chat.friends_by_uuid
+--    where user_uuid is not null and friend_uuid is not null
+-- primary key ( (friend_uuid ), user_uuid );

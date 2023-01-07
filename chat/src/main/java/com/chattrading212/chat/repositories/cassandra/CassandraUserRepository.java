@@ -91,4 +91,9 @@ public class CassandraUserRepository implements UserRepository {
 
         return false;
     }
+
+    @Override
+    public void deleteUser(UUID userUuid) {
+        session.execute(CassandraUserQueries.DELETE_USER_BY_UUID, userUuid);
+    }
 }

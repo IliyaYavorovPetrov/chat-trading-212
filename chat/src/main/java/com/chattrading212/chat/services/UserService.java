@@ -25,4 +25,8 @@ public class UserService {
     public Boolean doesEmailExists(String email) {
         return repository.doesEmailExists(email);
     }
+
+    public void deleteUser(UUID userUuid) {
+        repository.deleteUser(userUuid);
+    }
 }

@@ -31,7 +31,7 @@ public class AuthService {
     public UserDto login(LoginDto loginDto) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDto.email, loginDto.password));
         UserModel userModel = UserMapper.toUserModel(userRepository.getByEmail(loginDto.email));
-        return new UserDto(jwtService.generateToken(UserDetailsMapper.toUserDetailsDto(userModel)), userModel.nickname, userModel.email, userModel.pictureId);
+        return new UserDto(jwtService.generateToken(UserDetailsMapper.toUserDetailsDto(userModel)), userModel.userUuid, userModel.nickname, userModel.email, userModel.pictureId, userModel.isDeleted);
     }
 
     public UserDto register(RegisterDto registerDto) throws ParseException {
@@ -39,6 +39,7 @@ public class AuthService {
         Random random = new Random();
         Integer pictureId = random.nextInt(5);
         userRepository.createUser(registerDto.email, passwordEncoder.encode(registerDto.password), registerDto.nickname, pictureId);
-        return new UserDto(jwtService.generateToken(userDetailsDto), registerDto.nickname, registerDto.email, pictureId);
+        UserModel userModel = UserMapper.toUserModel(userRepository.getByEmail(registerDto.email));
+        return new UserDto(jwtService.generateToken(userDetailsDto), userModel.userUuid, registerDto.nickname, registerDto.email, pictureId, userModel.isDeleted);
     }
 }

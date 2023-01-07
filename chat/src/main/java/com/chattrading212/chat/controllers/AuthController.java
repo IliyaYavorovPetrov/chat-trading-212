@@ -5,6 +5,7 @@ import com.chattrading212.chat.controllers.dtos.LoginDto;
 import com.chattrading212.chat.controllers.dtos.RegisterDto;
 import com.chattrading212.chat.services.AuthService;
 import com.chattrading212.chat.services.UserService;
+import com.chattrading212.chat.services.models.UserModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.text.ParseException;
+import java.util.UUID;
 
 @RestController
 public class AuthController {
@@ -25,6 +27,10 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<UserDto> login(@RequestBody LoginDto loginDto) {
+        UserModel userModel = userService.getByEmail(loginDto.email);
+        if (userModel.isDeleted) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
         return ResponseEntity.ok(authService.login(loginDto));
     }
 
@@ -34,5 +40,12 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
         return ResponseEntity.ok(authService.register(registerDto));
+    }
+
+    @PostMapping("/home/settings")
+    public ResponseEntity<UserDto> deleteUser(@RequestBody UserDto userDto) throws ParseException {
+        userService.deleteUser(userDto.userUuid);
+        userDto.isDeleted = true;
+        return ResponseEntity.ok(userDto);
     }
 }
