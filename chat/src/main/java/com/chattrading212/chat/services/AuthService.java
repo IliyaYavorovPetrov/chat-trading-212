@@ -30,7 +30,7 @@ public class AuthService {
 
     public UserDto login(LoginDto loginDto) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDto.email, loginDto.password));
-        UserModel userModel = UserMapper.toUserEntity(userRepository.getByEmail(loginDto.email));
+        UserModel userModel = UserMapper.toUserModel(userRepository.getByEmail(loginDto.email));
         return new UserDto(jwtService.generateToken(UserDetailsMapper.toUserDetailsDto(userModel)), userModel.nickname, userModel.email, userModel.pictureId);
     }
 
