@@ -7,10 +7,12 @@ import BigLogo from "../../widgets/BigLogo";
 import useLocalStorage from "../../hooks/LocalStorage";
 
 function Register() {
-  const [jwt, setJwt] = useLocalStorage("", "jwt");
+  const [jwt, setJwt] = useLocalStorage("default_token", "jwt");
   const [nickname, setNickname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
 
   function sendRegisterRequest() {
     const registerBody = {
@@ -28,13 +30,14 @@ function Register() {
     })
       .then((response) => Promise.all([response.json(), response.headers]))
       .then(([body, headers]) => {
-        setJwt(headers.get("authorization"));
         setNickname("")
         setEmail("");
         setPassword("");
 
+        console.log(body);
         if (body.hasOwnProperty("token")) {
-          redirect("/home");
+          setJwt(body.token);
+          navigate("/home");
         }
       });
   }

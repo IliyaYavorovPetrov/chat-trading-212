@@ -7,7 +7,7 @@ import BigLogo from "../../widgets/BigLogo";
 import useLocalStorage from "../../hooks/LocalStorage";
 
 function Login() {
-  const [jwt, setJwt] = useLocalStorage("", "jwt");
+  const [jwt, setJwt] = useLocalStorage("default_token", "jwt");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -28,11 +28,12 @@ function Login() {
     })
       .then((response) => Promise.all([response.json(), response.headers]))
       .then(([body, headers]) => {
-        setJwt(headers.get("authorization"));
         setEmail("");
         setPassword("");
 
+        console.log(body);
         if (body.hasOwnProperty("token")) {
+          setJwt(body.token);
           navigate("/home");
         }
       });
