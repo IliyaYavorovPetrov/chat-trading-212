@@ -1,6 +1,6 @@
 package com.chattrading212.chat.services;
 
-import com.chattrading212.chat.controllers.dtos.AuthDto;
+import com.chattrading212.chat.controllers.dtos.UserDto;
 import com.chattrading212.chat.controllers.dtos.LoginDto;
 import com.chattrading212.chat.controllers.dtos.RegisterDto;
 import com.chattrading212.chat.controllers.dtos.UserDetailsDto;
@@ -27,15 +27,15 @@ public class AuthService {
         this.authenticationManager = authenticationManager;
     }
 
-    public AuthDto login(LoginDto loginDto) {
+    public UserDto login(LoginDto loginDto) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDto.email, loginDto.password));
         UserModel userModel = UserMapper.toUserEntity(userRepository.getByEmail(loginDto.email));
-        return new AuthDto(jwtService.generateToken(UserDetailsMapper.toUserDetailsDto(userModel)));
+        return new UserDto(jwtService.generateToken(UserDetailsMapper.toUserDetailsDto(userModel)), userModel.nickname, userModel.email);
     }
 
-    public AuthDto register(RegisterDto registerDto) throws ParseException {
+    public UserDto register(RegisterDto registerDto) throws ParseException {
         UserDetailsDto userDetailsDto = new UserDetailsDto(registerDto.email, registerDto.password, registerDto.roles, registerDto.isEnabled);
         userRepository.createUser(registerDto.email, passwordEncoder.encode(registerDto.password), registerDto.nickname);
-        return new AuthDto(jwtService.generateToken(userDetailsDto));
+        return new UserDto(jwtService.generateToken(userDetailsDto), registerDto.nickname, registerDto.email);
     }
 }
