@@ -1,9 +1,9 @@
 package com.chattrading212.chat.config;
 
-import com.chattrading212.chat.repositories.FriendsRepository;
+import com.chattrading212.chat.repositories.FriendshipRepository;
 import com.chattrading212.chat.repositories.UserRepository;
 import com.chattrading212.chat.services.AuthService;
-import com.chattrading212.chat.services.FriendService;
+import com.chattrading212.chat.services.FriendshipService;
 import com.chattrading212.chat.services.JwtService;
 import com.chattrading212.chat.services.UserService;
 import org.springframework.context.annotation.Bean;
@@ -29,7 +29,7 @@ public class ServiceConfig {
     }
 
     @Bean
-    public FriendService friendsService(FriendsRepository friendsRepository) {
-        return new FriendService(friendsRepository);
+    public FriendshipService friendsService(FriendshipRepository friendsRepository) {
+        return new FriendshipService(friendsRepository);
     }
 }

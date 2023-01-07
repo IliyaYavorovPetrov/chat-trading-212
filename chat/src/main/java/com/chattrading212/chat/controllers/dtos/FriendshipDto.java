@@ -1,9 +1,8 @@
 package com.chattrading212.chat.controllers.dtos;
 
-import java.time.Instant;
 import java.util.UUID;
 
-public class FriendsDto {
+public class FriendshipDto {
     public final UUID userUuid;
     public final String userNickname;
     public final Integer userPictureId;
@@ -11,7 +10,7 @@ public class FriendsDto {
     public final String friendNickname;
     public final Integer friendPictureId;
 
-    public FriendsDto(UUID userUuid, String userNickname, Integer userPictureId, UUID friendUuid, String friendNickname, Integer friendPictureId) {
+    public FriendshipDto(UUID userUuid, String userNickname, Integer userPictureId, UUID friendUuid, String friendNickname, Integer friendPictureId) {
         this.userUuid = userUuid;
         this.userNickname = userNickname;
         this.userPictureId = userPictureId;

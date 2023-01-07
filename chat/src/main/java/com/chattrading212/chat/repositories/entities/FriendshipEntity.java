@@ -1,9 +1,9 @@
-package com.chattrading212.chat.services.models;
+package com.chattrading212.chat.repositories.entities;
 
 import java.time.Instant;
 import java.util.UUID;
 
-public class FriendsModel {
+public class FriendshipEntity {
     public final UUID userUuid;
     public final Instant createdAt;
     public final Boolean isDeleted;
@@ -11,7 +11,7 @@ public class FriendsModel {
     public final String friendNickname;
     public final Integer friendPictureId;
 
-    public FriendsModel(UUID userUuid, Instant createdAt, Boolean isDeleted, UUID friendUuid, String friendNickname, Integer friendPictureId) {
+    public FriendshipEntity(UUID userUuid, Instant createdAt, Boolean isDeleted, UUID friendUuid, String friendNickname, Integer friendPictureId) {
         this.userUuid = userUuid;
         this.createdAt = createdAt;
         this.isDeleted = isDeleted;
@@ -22,7 +22,7 @@ public class FriendsModel {
 
     @Override
     public String toString() {
-        return "FriendsModel{" +
+        return "FriendsEntity{" +
                 "userUuid=" + userUuid +
                 ", createdAt=" + createdAt +
                 ", isDeleted=" + isDeleted +

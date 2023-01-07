@@ -1,8 +1,8 @@
 package com.chattrading212.chat.repositories.cassandra;
 
-import com.chattrading212.chat.repositories.FriendsRepository;
-import com.chattrading212.chat.repositories.cassandra.queries.CassandraFriendsQueries;
-import com.chattrading212.chat.repositories.entities.FriendsEntity;
+import com.chattrading212.chat.repositories.FriendshipRepository;
+import com.chattrading212.chat.repositories.cassandra.queries.CassandraFriendshipQueries;
+import com.chattrading212.chat.repositories.entities.FriendshipEntity;
 import com.datastax.oss.driver.api.core.CqlSession;
 
 import com.datastax.oss.driver.api.core.cql.*;
@@ -11,18 +11,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.time.Instant;
 import java.util.UUID;
 
-public class CassandraFriendsRepository implements FriendsRepository {
+public class CassandraFriendshipRepository implements FriendshipRepository {
 
     private final CqlSession session;
 
     @Autowired
-    public CassandraFriendsRepository(CqlSession session) {
+    public CassandraFriendshipRepository(CqlSession session) {
         this.session = session;
     }
 
     @Override
     public void createFriendship(UUID userUuid, UUID friendUuid, String friendNickname, Integer friendPictureId) {
-        session.execute(CassandraFriendsQueries.CREATE_FRIENDSHIP, userUuid, friendUuid, friendNickname, friendPictureId);
+        session.execute(CassandraFriendshipQueries.CREATE_FRIENDSHIP, userUuid, friendUuid, friendNickname, friendPictureId);
     }
 
     @Override
@@ -31,8 +31,8 @@ public class CassandraFriendsRepository implements FriendsRepository {
     }
 
     @Override
-    public FriendsEntity getFriendship(UUID userUuid, UUID friendUuid) {
-        ResultSet resultSet = session.execute(CassandraFriendsQueries.GET_USER_BY_USER_UUID, userUuid, friendUuid);
+    public FriendshipEntity getFriendship(UUID userUuid, UUID friendUuid) {
+        ResultSet resultSet = session.execute(CassandraFriendshipQueries.GET_USER_BY_USER_UUID, userUuid, friendUuid);
         Row row = resultSet.one();
 
         if (row != null) {
@@ -43,7 +43,7 @@ public class CassandraFriendsRepository implements FriendsRepository {
             String friendEntityFriendNickname = row.getString("friend_nickname");
             Integer friendEntityFriendPictureId = row.getInt("friend_picture_id");
 
-            return new FriendsEntity(friendEntityUserUuid, friendEntityCreatedAt, friendEntityIsDeleted, friendEntityFriendUuid, friendEntityFriendNickname, friendEntityFriendPictureId);
+            return new FriendshipEntity(friendEntityUserUuid, friendEntityCreatedAt, friendEntityIsDeleted, friendEntityFriendUuid, friendEntityFriendNickname, friendEntityFriendPictureId);
         }
 
         return null;
