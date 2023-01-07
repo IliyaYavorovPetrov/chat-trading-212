@@ -14,7 +14,8 @@ public class FriendService {
     }
 
     public FriendsModel createFriendship(UUID userUuid, String userNickname, Integer userPictureId, UUID friendUuid, String friendNickname, Integer friendPictureId) {
-        repository.createFriendship(userUuid, userNickname, userPictureId, friendUuid, friendNickname, friendPictureId);
+        repository.createFriendship(userUuid, friendUuid, friendNickname, friendPictureId);
+        repository.createFriendship(friendUuid, userUuid, userNickname, userPictureId);
         return FriendsMapper.toFriendModel(repository.getFriendship(userUuid, friendUuid));
     }
 

@@ -21,9 +21,8 @@ public class CassandraFriendsRepository implements FriendsRepository {
     }
 
     @Override
-    public void createFriendship(UUID userUuid, String userNickname, Integer userPictureId, UUID friendUuid, String friendNickname, Integer friendPictureId) {
+    public void createFriendship(UUID userUuid, UUID friendUuid, String friendNickname, Integer friendPictureId) {
         session.execute(CassandraFriendsQueries.CREATE_FRIENDSHIP, userUuid, friendUuid, friendNickname, friendPictureId);
-        session.execute(CassandraFriendsQueries.CREATE_FRIENDSHIP, friendUuid, userUuid, userNickname, userPictureId);
     }
 
     @Override
