@@ -1,7 +1,6 @@
 package com.chattrading212.chat.repositories.entities;
 
 import java.time.Instant;
-import java.time.LocalDate;
 import java.util.UUID;
 
 public class UserEntity {
@@ -11,14 +10,16 @@ public class UserEntity {
     public final String nickname;
     public final Instant createdAt;
     public final Boolean isDeleted;
+    public final Integer pictureId;
 
-    public UserEntity(UUID userUuid, String email, String password, String nickname, Instant createdAt, Boolean isDeleted) {
+    public UserEntity(UUID userUuid, String email, String password, String nickname, Instant createdAt, Boolean isDeleted, Integer pictureId) {
         this.userUuid = userUuid;
         this.email = email;
         this.password = password;
         this.nickname = nickname;
         this.createdAt = createdAt;
         this.isDeleted = isDeleted;
+        this.pictureId = pictureId;
     }
 
     @Override

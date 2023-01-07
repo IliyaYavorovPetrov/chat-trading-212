@@ -13,6 +13,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.text.ParseException;
+import java.util.Random;
 
 public class AuthService {
     private final UserRepository userRepository;
@@ -30,12 +31,14 @@ public class AuthService {
     public UserDto login(LoginDto loginDto) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDto.email, loginDto.password));
         UserModel userModel = UserMapper.toUserEntity(userRepository.getByEmail(loginDto.email));
-        return new UserDto(jwtService.generateToken(UserDetailsMapper.toUserDetailsDto(userModel)), userModel.nickname, userModel.email);
+        return new UserDto(jwtService.generateToken(UserDetailsMapper.toUserDetailsDto(userModel)), userModel.nickname, userModel.email, userModel.pictureId);
     }
 
     public UserDto register(RegisterDto registerDto) throws ParseException {
         UserDetailsDto userDetailsDto = new UserDetailsDto(registerDto.email, registerDto.password, registerDto.roles, registerDto.isEnabled);
-        userRepository.createUser(registerDto.email, passwordEncoder.encode(registerDto.password), registerDto.nickname);
-        return new UserDto(jwtService.generateToken(userDetailsDto), registerDto.nickname, registerDto.email);
+        Random random = new Random();
+        Integer pictureId = random.nextInt(5);
+        userRepository.createUser(registerDto.email, passwordEncoder.encode(registerDto.password), registerDto.nickname, pictureId);
+        return new UserDto(jwtService.generateToken(userDetailsDto), registerDto.nickname, registerDto.email, pictureId);
     }
 }

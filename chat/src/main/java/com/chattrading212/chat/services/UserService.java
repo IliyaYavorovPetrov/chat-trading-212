@@ -6,6 +6,7 @@ import com.chattrading212.chat.repositories.entities.UserEntity;
 import com.chattrading212.chat.services.models.UserModel;
 
 import java.text.ParseException;
+import java.util.Random;
 import java.util.UUID;
 
 public class UserService {
@@ -15,10 +16,6 @@ public class UserService {
         this.repository = repository;
     }
 
-    public UserModel createUser(String email, String password, String nickname) throws ParseException {
-        repository.createUser(email, password, nickname);
-        return UserMapper.toUserEntity(repository.getByEmail(email));
-    }
     public UserModel getByUUID(UUID userUuid) {
         return UserMapper.toUserEntity(repository.getByUUID(userUuid));
     }

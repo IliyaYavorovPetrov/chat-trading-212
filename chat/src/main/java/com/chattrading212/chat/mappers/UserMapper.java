@@ -5,10 +5,10 @@ import com.chattrading212.chat.services.models.UserModel;
 
 public class UserMapper {
     public static UserModel toUserEntity(UserEntity userEntity) {
-        return new UserModel(userEntity.userUuid, userEntity.email, userEntity.password, userEntity.nickname, userEntity.createdAt, userEntity.isDeleted);
+        return new UserModel(userEntity.userUuid, userEntity.email, userEntity.password, userEntity.nickname, userEntity.createdAt, userEntity.isDeleted, userEntity.pictureId);
     }
 
     public static UserEntity toUserModel(UserModel userModel) {
-        return new UserEntity(userModel.userUuid, userModel.email, userModel.password, userModel.nickname, userModel.createdAt, userModel.isDeleted);
+        return new UserEntity(userModel.userUuid, userModel.email, userModel.password, userModel.nickname, userModel.createdAt, userModel.isDeleted, userModel.pictureId);
     }
 }

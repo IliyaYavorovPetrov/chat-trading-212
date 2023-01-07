@@ -7,7 +7,6 @@ import com.datastax.oss.driver.api.core.CqlSession;
 
 import com.datastax.oss.driver.api.core.cql.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -21,8 +20,8 @@ public class CassandraUserRepository implements UserRepository {
     }
 
     @Override
-    public void createUser(String email, String password, String nickname) {
-        session.execute(CassandraUserQueries.CREATE_USER, email, password, nickname);
+    public void createUser(String email, String password, String nickname, Integer pictureId) {
+        session.execute(CassandraUserQueries.CREATE_USER, email, password, nickname, pictureId);
     }
 
     @Override
@@ -37,8 +36,9 @@ public class CassandraUserRepository implements UserRepository {
             String userEntityNickname = row.getString("nickname");
             Instant userEntityCreatedAt = row.getInstant("created_at");
             Boolean userEntityIsDeleted = row.getBoolean("is_deleted");
+            Integer userEntityPictureId = row.getInt("picture_id");
 
-            return new UserEntity(userEntityUuid, userEntityEmail, userEntityPassword, userEntityNickname, userEntityCreatedAt, userEntityIsDeleted);
+            return new UserEntity(userEntityUuid, userEntityEmail, userEntityPassword, userEntityNickname, userEntityCreatedAt, userEntityIsDeleted, userEntityPictureId);
         }
 
         return null;
@@ -70,8 +70,9 @@ public class CassandraUserRepository implements UserRepository {
             String userEntityNickname = row.getString("nickname");
             Instant userEntityCreatedAt = row.getInstant("created_at");
             Boolean userEntityIsDeleted = row.getBoolean("is_deleted");
+            Integer userEntityPictureId = row.getInt("picture_id");
 
-            return new UserEntity(userEntityUuid, userEntityEmail, userEntityPassword, userEntityNickname, userEntityCreatedAt, userEntityIsDeleted);
+            return new UserEntity(userEntityUuid, userEntityEmail, userEntityPassword, userEntityNickname, userEntityCreatedAt, userEntityIsDeleted, userEntityPictureId);
         }
 
         return null;
