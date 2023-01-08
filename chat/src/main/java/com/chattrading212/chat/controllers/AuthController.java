@@ -3,6 +3,7 @@ package com.chattrading212.chat.controllers;
 import com.chattrading212.chat.controllers.dtos.UserDto;
 import com.chattrading212.chat.controllers.dtos.LoginDto;
 import com.chattrading212.chat.controllers.dtos.RegisterDto;
+import com.chattrading212.chat.mappers.UserMapper;
 import com.chattrading212.chat.services.AuthService;
 import com.chattrading212.chat.services.FriendshipService;
 import com.chattrading212.chat.services.UserService;
@@ -48,13 +49,7 @@ public class AuthController {
 
     @PostMapping("/home/settings")
     public ResponseEntity<UserDto> deleteUser(@RequestBody UserDto userDto) {
-        userService.deleteUser(userDto.userUuid);
-        List<FriendshipModel> friendshipModelList = friendshipService.getUserFriendships(userDto.userUuid);
-
-        for (var friendship : friendshipModelList) {
-            friendship.isDeleted = true;
-        }
-
-        return ResponseEntity.ok(userDto);
+        UserDto userDtoDeleted = UserMapper.toUserDto(userDto.jwtToken, userService.deleteUser(userDto.userUuid));
+        return ResponseEntity.ok(userDtoDeleted);
     }
 }

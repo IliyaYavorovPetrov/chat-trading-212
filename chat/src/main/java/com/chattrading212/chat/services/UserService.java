@@ -31,11 +31,12 @@ public class UserService {
         return userRepository.doesEmailExists(email);
     }
 
-    public void deleteUser(UUID userUuid) {
-        userRepository.deleteUser(userUuid);
+    public UserModel deleteUser(UUID userUuid) {
+        UserModel userModel = UserMapper.toUserModel(userRepository.deleteUser(userUuid));
         List<FriendshipEntity> friendshipEntityList = friendshipRepository.getUserFriendships(userUuid);
         for (var friendship : friendshipEntityList) {
             friendshipRepository.deleteFriendship(friendship.friendshipUuid);
         }
+        return userModel;
     }
 }
