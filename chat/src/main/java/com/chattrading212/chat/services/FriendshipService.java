@@ -14,12 +14,15 @@ public class FriendshipService {
     }
 
     public FriendshipModel createFriendship(UUID userUuid, String userNickname, Integer userPictureId, UUID friendUuid, String friendNickname, Integer friendPictureId) {
-        repository.createFriendship(userUuid, friendUuid, friendNickname, friendPictureId);
-        repository.createFriendship(friendUuid, userUuid, userNickname, userPictureId);
-        return FriendshipMapper.toFriendModel(repository.getFriendship(userUuid, friendUuid));
+        UUID friendshipUuid = UUID.randomUUID();
+        return FriendshipMapper.toFriendshipModel(repository.createFriendship(friendshipUuid, userUuid, userNickname, userPictureId, friendUuid, friendNickname, friendPictureId));
     }
 
-    public FriendshipModel getFriendship(UUID userUuid, UUID friendUuid) {
-        return FriendshipMapper.toFriendModel(repository.getFriendship(userUuid, friendUuid));
+    public FriendshipModel getFriendship(UUID friendshipUuid) {
+        return FriendshipMapper.toFriendshipModel(repository.getFriendship(friendshipUuid));
+    }
+
+    public FriendshipModel deleteFriendship(UUID friendshipUuid) {
+        return FriendshipMapper.toFriendshipModel(repository.deleteFriendship(friendshipUuid));
     }
 }

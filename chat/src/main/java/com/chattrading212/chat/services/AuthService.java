@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.text.ParseException;
 import java.util.Random;
+import java.util.UUID;
 
 public class AuthService {
     private final UserRepository userRepository;
@@ -36,9 +37,10 @@ public class AuthService {
 
     public UserDto register(RegisterDto registerDto) throws ParseException {
         UserDetailsDto userDetailsDto = new UserDetailsDto(registerDto.email, registerDto.password, registerDto.roles, registerDto.isEnabled);
+        UUID userUuid = UUID.randomUUID();
         Random random = new Random();
         Integer pictureId = random.nextInt(5);
-        userRepository.createUser(registerDto.email, passwordEncoder.encode(registerDto.password), registerDto.nickname, pictureId);
+        userRepository.createUser(userUuid, registerDto.email, passwordEncoder.encode(registerDto.password), registerDto.nickname, pictureId);
         UserModel userModel = UserMapper.toUserModel(userRepository.getByEmail(registerDto.email));
         return new UserDto(jwtService.generateToken(userDetailsDto), userModel.userUuid, registerDto.nickname, registerDto.email, pictureId, userModel.isDeleted);
     }

@@ -20,8 +20,9 @@ public class CassandraUserRepository implements UserRepository {
     }
 
     @Override
-    public void createUser(String email, String password, String nickname, Integer pictureId) {
-        session.execute(CassandraUserQueries.CREATE_USER, email, password, nickname, pictureId);
+    public UserEntity createUser(UUID userUuid, String email, String password, String nickname, Integer pictureId) {
+        session.execute(CassandraUserQueries.CREATE_USER, userUuid, email, password, nickname, pictureId);
+        return getByUUID(userUuid);
     }
 
     @Override

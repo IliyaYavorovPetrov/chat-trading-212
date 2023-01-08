@@ -21,29 +21,34 @@ public class CassandraFriendshipRepository implements FriendshipRepository {
     }
 
     @Override
-    public void createFriendship(UUID userUuid, UUID friendUuid, String friendNickname, Integer friendPictureId) {
-        session.execute(CassandraFriendshipQueries.CREATE_FRIENDSHIP, userUuid, friendUuid, friendNickname, friendPictureId);
+    public FriendshipEntity createFriendship(UUID friendshipUuid, UUID userUuid, String userNickname, Integer userPictureId, UUID friendUuid, String friendNickname, Integer friendPictureId) {
+        session.execute(CassandraFriendshipQueries.CREATE_FRIENDSHIP, friendshipUuid, userUuid, userNickname, userPictureId, friendUuid, friendNickname, friendPictureId);
+        return getFriendship(friendshipUuid);
     }
 
     @Override
-    public void deleteFriendship(UUID userUuid, UUID friendUuid) {
-        session.execute(CassandraFriendshipQueries.DELETE_FRIENDSHIP_USER_UUID, userUuid);
+    public FriendshipEntity deleteFriendship(UUID friendshipUuid) {
+        session.execute(CassandraFriendshipQueries.DELETE_FRIENDSHIP_BY_FRIENDSHIP_UUID, friendshipUuid);
+        return getFriendship(friendshipUuid);
     }
 
     @Override
-    public FriendshipEntity getFriendship(UUID userUuid, UUID friendUuid) {
-        ResultSet resultSet = session.execute(CassandraFriendshipQueries.GET_USER_BY_USER_UUID, userUuid, friendUuid);
+    public FriendshipEntity getFriendship(UUID friendshipUuid) {
+        ResultSet resultSet = session.execute(CassandraFriendshipQueries.GET_FRIENDSHIP_BY_FRIENDSHIP_UUID, friendshipUuid);
         Row row = resultSet.one();
 
         if (row != null) {
-            UUID friendEntityUserUuid = row.getUuid("user_uuid");
+            UUID friendEntityFriendshipUuid = row.getUuid("friendship_uuid");
             Instant friendEntityCreatedAt = row.getInstant("created_at");
             Boolean friendEntityIsDeleted = row.getBoolean("is_deleted");
+            UUID friendEntityUserUuid = row.getUuid("user_uuid");
+            String friendEntityUserNickname = row.getString("user_nickname");
+            Integer friendEntityUserPictureId = row.getInt("user_picture_id");
             UUID friendEntityFriendUuid = row.getUuid("friend_uuid");
             String friendEntityFriendNickname = row.getString("friend_nickname");
             Integer friendEntityFriendPictureId = row.getInt("friend_picture_id");
 
-            return new FriendshipEntity(friendEntityUserUuid, friendEntityCreatedAt, friendEntityIsDeleted, friendEntityFriendUuid, friendEntityFriendNickname, friendEntityFriendPictureId);
+            return new FriendshipEntity(friendEntityFriendshipUuid, friendEntityCreatedAt, friendEntityIsDeleted, friendEntityUserUuid, friendEntityUserNickname, friendEntityUserPictureId, friendEntityFriendUuid, friendEntityFriendNickname, friendEntityFriendPictureId);
         }
 
         return null;

@@ -2,9 +2,7 @@ package com.chattrading212.chat.controllers.dtos;
 
 import java.util.UUID;
 
-public class FriendshipDto {
-    public final UUID friendshipUuid;
-    public final Boolean isDelted;
+public class RequestFriendshipDto {
     public final UUID userUuid;
     public final String userNickname;
     public final Integer userPictureId;
@@ -12,9 +10,7 @@ public class FriendshipDto {
     public final String friendNickname;
     public final Integer friendPictureId;
 
-    public FriendshipDto(UUID friendshipUuid, Boolean isDelted, UUID userUuid, String userNickname, Integer userPictureId, UUID friendUuid, String friendNickname, Integer friendPictureId) {
-        this.friendshipUuid = friendshipUuid;
-        this.isDelted = isDelted;
+    public RequestFriendshipDto(UUID userUuid, String userNickname, Integer userPictureId, UUID friendUuid, String friendNickname, Integer friendPictureId) {
         this.userUuid = userUuid;
         this.userNickname = userNickname;
         this.userPictureId = userPictureId;
