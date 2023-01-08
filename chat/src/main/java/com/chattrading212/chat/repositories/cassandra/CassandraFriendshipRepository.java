@@ -9,6 +9,8 @@ import com.datastax.oss.driver.api.core.cql.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class CassandraFriendshipRepository implements FriendshipRepository {
@@ -54,5 +56,24 @@ public class CassandraFriendshipRepository implements FriendshipRepository {
         }
 
         return null;
+    }
+
+    @Override
+    public List<FriendshipEntity> getUserFriendships(UUID userUuid) {
+        ResultSet resultSetFriendsByUserUuid = session.execute(CassandraFriendshipQueries.GET_FRIENDS_BY_USER_UUID, userUuid);
+        ResultSet resultSetFriendsByFriendUuid = session.execute(CassandraFriendshipQueries.GET_FRIENDS_BY_FRIEND_UUID, userUuid);
+
+        List<FriendshipEntity> friendshipEntityList = new ArrayList<>();
+
+        List<Row> rowFriendsByUserUuid = resultSetFriendsByUserUuid.all();
+        for (var row : rowFriendsByUserUuid) {
+            friendshipEntityList.add(getFriendship(row.getUuid("friendship_uuid")));
+        }
+        List<Row> rowFriendsByFriendUuid = resultSetFriendsByFriendUuid.all();
+        for (var row : rowFriendsByFriendUuid) {
+            friendshipEntityList.add(getFriendship(row.getUuid("friendship_uuid")));
+        }
+
+        return friendshipEntityList;
     }
 }
