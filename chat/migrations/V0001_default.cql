@@ -44,4 +44,22 @@ create materialized view chat.friends_by_friend_uuid
 as select friendship_uuid, created_at, is_deleted, user_uuid, user_nickname, user_picture_id, friend_uuid, friend_nickname, friend_picture_id
     from chat.friends_by_friendship_uuid
     where friendship_uuid is not null and friend_uuid is not null
-primary key ( (friend_uuid), friendship_uuid )
+primary key ( (friend_uuid), friendship_uuid );
+
+create table chat.direct_msg_by_msg_uuid
+(
+    msg_uuid timeuuid primary key,
+    chat_uuid uuid,
+    created_at timestamp,
+    is_deleted boolean,
+    msg_text text,
+    from_user_uuid uuid,
+    from_user_nickname text,
+    from_user_picture_id int,
+);
+
+create materialized view chat.direct_msg_by_chat_uuid
+as select msg_uuid, chat_uuid, created_at, is_deleted, from_user_uuid, from_user_nickname, from_user_picture_id
+   from chat.direct_msg_by_msg_uuid
+   where msg_uuid is not null and chat_uuid is not null
+primary key ( (chat_uuid), msg_uuid );
