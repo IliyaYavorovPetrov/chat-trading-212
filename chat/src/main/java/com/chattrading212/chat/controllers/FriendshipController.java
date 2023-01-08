@@ -1,8 +1,10 @@
 package com.chattrading212.chat.controllers;
 
+import com.chattrading212.chat.controllers.dtos.FriendDto;
 import com.chattrading212.chat.controllers.dtos.FriendshipDto;
 import com.chattrading212.chat.controllers.dtos.RequestFriendshipDto;
 import com.chattrading212.chat.controllers.dtos.UserDto;
+import com.chattrading212.chat.mappers.FriendshipMapper;
 import com.chattrading212.chat.services.FriendshipService;
 import com.chattrading212.chat.services.models.FriendshipModel;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -22,9 +25,10 @@ public class FriendshipController {
     }
 
     @GetMapping("/home/getfriends")
-    public ResponseEntity<List<FriendshipModel>> getFriendshipsUser(@RequestBody UserDto userDto) {
+    public ResponseEntity<List<FriendDto>> getFriendshipsUser(@RequestBody UserDto userDto) {
         List<FriendshipModel> friendshipModelList = friendService.getUserFriendships(userDto.userUuid);
-        return ResponseEntity.ok(friendshipModelList);
+        List<FriendDto> friendDtoList = friendshipModelList.stream().map(x -> FriendshipMapper.toFriendDto(x, x.userUuid)).toList();
+        return ResponseEntity.ok(friendDtoList);
     }
 
     @PostMapping("/home/friends")
