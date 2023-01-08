@@ -62,4 +62,4 @@ create materialized view chat.direct_msg_by_chat_uuid
 as select msg_uuid, chat_uuid, created_at, is_deleted, from_user_uuid, from_user_nickname, from_user_picture_id
    from chat.direct_msg_by_msg_uuid
    where msg_uuid is not null and chat_uuid is not null
-primary key ( (chat_uuid), msg_uuid );
+primary key ( (chat_uuid), msg_uuid ) with clustering order by (msg_uuid desc);
