@@ -1,7 +1,6 @@
 package com.chattrading212.chat.mappers;
 
 import com.chattrading212.chat.controllers.dtos.FriendDto;
-import com.chattrading212.chat.controllers.dtos.FriendshipDto;
 import com.chattrading212.chat.repositories.entities.FriendshipEntity;
 import com.chattrading212.chat.services.models.FriendshipModel;
 
@@ -19,9 +18,9 @@ public class FriendshipMapper {
     // Extracts from FriendshipModel the friend of the user
     public static FriendDto toFriendDto(FriendshipModel friendshipDto, UUID userUuid) {
         if (friendshipDto.userUuid == userUuid) {
-            return new FriendDto(friendshipDto.friendUuid, friendshipDto.friendNickname, friendshipDto.friendPictureId);
+            return new FriendDto(friendshipDto.friendshipUuid, friendshipDto.friendUuid, friendshipDto.friendNickname, friendshipDto.friendPictureId);
         }
 
-        return new FriendDto(friendshipDto.userUuid, friendshipDto.userNickname, friendshipDto.userPictureId);
+        return new FriendDto(friendshipDto.friendshipUuid, friendshipDto.userUuid, friendshipDto.userNickname, friendshipDto.userPictureId);
     }
 }

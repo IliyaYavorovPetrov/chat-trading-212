@@ -10,27 +10,27 @@ import java.util.List;
 import java.util.UUID;
 
 public class FriendshipService {
-    private final FriendshipRepository repository;
+    private final FriendshipRepository friendshipRepository;
 
     public FriendshipService(FriendshipRepository repository) {
-        this.repository = repository;
+        this.friendshipRepository = repository;
     }
 
     public FriendshipModel createFriendship(UUID userUuid, String userNickname, Integer userPictureId, UUID friendUuid, String friendNickname, Integer friendPictureId) {
         UUID friendshipUuid = UUID.randomUUID();
-        return FriendshipMapper.toFriendshipModel(repository.createFriendship(friendshipUuid, userUuid, userNickname, userPictureId, friendUuid, friendNickname, friendPictureId));
+        return FriendshipMapper.toFriendshipModel(friendshipRepository.createFriendship(friendshipUuid, userUuid, userNickname, userPictureId, friendUuid, friendNickname, friendPictureId));
     }
 
     public FriendshipModel getFriendship(UUID friendshipUuid) {
-        return FriendshipMapper.toFriendshipModel(repository.getFriendship(friendshipUuid));
+        return FriendshipMapper.toFriendshipModel(friendshipRepository.getFriendship(friendshipUuid));
     }
 
     public FriendshipModel deleteFriendship(UUID friendshipUuid) {
-        return FriendshipMapper.toFriendshipModel(repository.deleteFriendship(friendshipUuid));
+        return FriendshipMapper.toFriendshipModel(friendshipRepository.deleteFriendship(friendshipUuid));
     }
 
     public List<FriendshipModel> getUserFriendships(UUID userUuid) {
-        List<FriendshipEntity> friendshipEntityList = repository.getUserFriendships(userUuid);
+        List<FriendshipEntity> friendshipEntityList = friendshipRepository.getUserFriendships(userUuid);
         List<FriendshipModel> friendshipModels = new ArrayList<>();
 
         for (var row : friendshipEntityList) {

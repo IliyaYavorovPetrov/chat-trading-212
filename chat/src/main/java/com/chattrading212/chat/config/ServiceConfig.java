@@ -24,8 +24,8 @@ public class ServiceConfig {
     }
 
     @Bean
-    public UserService userService(UserRepository userRepository) {
-        return new UserService(userRepository);
+    public UserService userService(UserRepository userRepository, FriendshipRepository friendshipRepository) {
+        return new UserService(userRepository, friendshipRepository);
     }
 
     @Bean

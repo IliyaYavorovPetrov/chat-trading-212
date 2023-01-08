@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -27,7 +26,7 @@ public class FriendshipController {
     @GetMapping("/home/getfriends")
     public ResponseEntity<List<FriendDto>> getFriendshipsUser(@RequestBody UserDto userDto) {
         List<FriendshipModel> friendshipModelList = friendService.getUserFriendships(userDto.userUuid);
-        List<FriendDto> friendDtoList = friendshipModelList.stream().map(x -> FriendshipMapper.toFriendDto(x, x.userUuid)).toList();
+        List<FriendDto> friendDtoList = friendshipModelList.stream().map(x -> FriendshipMapper.toFriendDto(x, userDto.userUuid)).toList();
         return ResponseEntity.ok(friendDtoList);
     }
 

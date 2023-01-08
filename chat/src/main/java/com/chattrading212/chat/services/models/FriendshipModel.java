@@ -6,7 +6,7 @@ import java.util.UUID;
 public class FriendshipModel {
     public final UUID friendshipUuid;
     public final Instant createdAt;
-    public final Boolean isDeleted;
+    public Boolean isDeleted;
     public final UUID userUuid;
     public final String userNickname;
     public final Integer userPictureId;
