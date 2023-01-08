@@ -9,7 +9,7 @@ public class UserEntity {
     public final String password;
     public final String nickname;
     public final Instant createdAt;
-    public final Boolean isDeleted;
+    public Boolean isDeleted;
     public final Integer pictureId;
 
     public UserEntity(UUID userUuid, String email, String password, String nickname, Instant createdAt, Boolean isDeleted, Integer pictureId) {

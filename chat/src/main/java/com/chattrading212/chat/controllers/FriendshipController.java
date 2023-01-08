@@ -26,6 +26,6 @@ public class FriendshipController {
     @PostMapping("/home/friends/delete")
     public ResponseEntity<FriendshipDto> deleteFriendship(@RequestBody FriendshipDto friendshipDto) {
         FriendshipModel friendsModel = friendService.deleteFriendship(friendshipDto.friendshipUuid);
-        return ResponseEntity.ok(new FriendshipDto(friendsModel.friendshipUuid, friendshipDto.isDelted, friendshipDto.userUuid, friendshipDto.userNickname, friendshipDto.userPictureId, friendshipDto.friendUuid, friendshipDto.friendNickname, friendshipDto.friendPictureId));
+        return ResponseEntity.ok(new FriendshipDto(friendsModel.friendshipUuid, friendsModel.isDeleted, friendsModel.userUuid, friendsModel.userNickname, friendsModel.userPictureId, friendsModel.friendUuid, friendsModel.friendNickname, friendsModel.friendPictureId));
     }
 }

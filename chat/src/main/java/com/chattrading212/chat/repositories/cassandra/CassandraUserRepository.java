@@ -86,7 +86,6 @@ public class CassandraUserRepository implements UserRepository {
 
         if (row != null) {
             long countUUID = row.getLong("count");
-
             return countUUID == 1;
         }
 
@@ -94,7 +93,10 @@ public class CassandraUserRepository implements UserRepository {
     }
 
     @Override
-    public void deleteUser(UUID userUuid) {
+    public UserEntity deleteUser(UUID userUuid) {
         session.execute(CassandraUserQueries.DELETE_USER_BY_UUID, userUuid);
+        UserEntity userEntity = getByUUID(userUuid);
+        userEntity.isDeleted = Boolean.TRUE;
+        return userEntity;
     }
 }
