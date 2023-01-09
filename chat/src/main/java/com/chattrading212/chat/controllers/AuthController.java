@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.text.ParseException;
-import java.util.List;
 
 @RestController
 public class AuthController {

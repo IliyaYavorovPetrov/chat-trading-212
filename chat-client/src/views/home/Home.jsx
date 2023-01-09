@@ -1,7 +1,7 @@
 import React from "react";
-import ChannelBar from "./widgets/ChannelBar";
-import ContentContainer from "./widgets/ContentContainer";
-import SideBar from "./widgets/SideBar";
+import ChannelBar from "./bar/ChannelBar";
+import ContentContainer from "./content/ContentContainer";
+import SideBar from "./sidebar/SideBar";
 
 function Home() {
     return (
