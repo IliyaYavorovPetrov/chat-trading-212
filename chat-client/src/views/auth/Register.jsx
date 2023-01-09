@@ -4,39 +4,38 @@ import Button from "./widgets/Button";
 
 import ThemeIcon from "../../widgets/ThemeIcon";
 import BigLogo from "../../widgets/BigLogo";
+import { useDispatch, useSelector } from "react-redux";
+import { updateJwt } from "../../redux/jwt";
 
 function Register() {
+  const jwt = useSelector((state) => state.jwt.token);
+  const dispacth = useDispatch();
+
   const [nickname, setNickname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const navigate = useNavigate();
 
-  function sendRegisterRequest() {
+  async function sendRegisterRequest() {
     const registerBody = {
-      nickname: nickname, 
+      nickname: nickname,
       email: email,
       password: password,
     };
 
-    fetch("/register", {
+    const response = await fetch("/register", {
       headers: {
         "Content-Type": "application/json",
       },
       method: "post",
       body: JSON.stringify(registerBody),
-    })
-      .then((response) => Promise.all([response.json(), response.headers]))
-      .then(([body, headers]) => {
-        setNickname("")
-        setEmail("");
-        setPassword("");
+    });
 
-        console.log(body);
-        if (body.hasOwnProperty("token")) {
-          navigate("/home");
-        }
-      });
+    const data = await response.json();
+    console.log(data);
+    console.log(data.jwtToken);
+    dispacth(updateJwt(data.jwtToken));
+    console.log(jwt);
   }
 
   return (
