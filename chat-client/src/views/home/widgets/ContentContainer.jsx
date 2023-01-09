@@ -100,7 +100,7 @@ const Post = ({ name, timestamp, text }) => {
             {timestamp}
           </small>
         </p>
-        <p className="ext-lg text-left text-gray-800 dark:text-white mr-auto whitespace-normal">
+        <p className="text-lg text-left text-gray-800 dark:text-white mr-auto whitespace-normal">
           {text}
         </p>
       </div>

@@ -7,7 +7,7 @@ import BigLogo from "../../widgets/BigLogo";
 import useLocalStorage from "../../hooks/LocalStorage";
 
 function Login() {
-  const [jwt, setJwt] = useLocalStorage("default_token", "jwt");
+  const [jwt, setJwt] = useLocalStorage("", "jwt");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
