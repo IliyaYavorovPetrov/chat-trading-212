@@ -4,10 +4,8 @@ import Button from "./widgets/Button";
 
 import ThemeIcon from "../../widgets/ThemeIcon";
 import BigLogo from "../../widgets/BigLogo";
-import useLocalStorage from "../../hooks/LocalStorage";
 
 function Login() {
-  const [jwt, setJwt] = useLocalStorage("", "jwt");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -33,7 +31,6 @@ function Login() {
 
         console.log(body);
         if (body.hasOwnProperty("token")) {
-          setJwt(body.token);
           navigate("/home");
         }
       });
