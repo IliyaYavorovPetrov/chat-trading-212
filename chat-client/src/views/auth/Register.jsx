@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { Link, redirect, useNavigate } from "react-router-dom";
 import Button from "./widgets/Button";
-
 import ThemeIcon from "../../widgets/ThemeIcon";
 import BigLogo from "../../widgets/BigLogo";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { updateJwt } from "../../redux/jwt";
+import ErrorPopup from "../popups/ErrorPopup";
 
 function Register() {
-  const jwt = useSelector((state) => state.jwt.token);
   const dispacth = useDispatch();
 
   const [nickname, setNickname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const [showError, setShowError] = useState(false);
 
   async function sendRegisterRequest() {
     const registerBody = {
@@ -31,15 +31,22 @@ function Register() {
       body: JSON.stringify(registerBody),
     });
 
+    if (!response.ok) {
+      setShowError(true);
+      setTimeout(() => setShowError(false), 2000);
+      return;
+    }
+
     const data = await response.json();
-    console.log(data);
-    console.log(data.jwtToken);
     dispacth(updateJwt(data.jwtToken));
-    console.log(jwt);
+    navigate("/home");
   }
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-1 h-screen w-full">
+      {showError && (
+        <ErrorPopup errorMsg="Email is taken, try with other one" />
+      )}
       <div className="dark:bg-gray-800 flex flex-col justify-center">
         <div className="fixed top-3 left-0">
           <ThemeIcon />

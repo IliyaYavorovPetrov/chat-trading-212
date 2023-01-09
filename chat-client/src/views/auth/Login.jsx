@@ -1,43 +1,50 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "./widgets/Button";
-
+import { useDispatch } from "react-redux";
+import { updateJwt } from "../../redux/jwt";
 import ThemeIcon from "../../widgets/ThemeIcon";
 import BigLogo from "../../widgets/BigLogo";
+import ErrorPopup from "../popups/ErrorPopup";
 
 function Login() {
+  const dispacth = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
+  const [showError, setShowError] = useState(false);
 
-  function sendLoginRequest() {
-    const loginBody = {
+  async function sendLoginRequest() {
+    const registerBody = {
       email: email,
       password: password,
     };
 
-    fetch("/login", {
+    const response = await fetch("/login", {
       headers: {
         "Content-Type": "application/json",
       },
       method: "post",
-      body: JSON.stringify(loginBody),
-    })
-      .then((response) => Promise.all([response.json(), response.headers]))
-      .then(([body, headers]) => {
-        setEmail("");
-        setPassword("");
+      body: JSON.stringify(registerBody),
+    });
 
-        console.log(body);
-        if (body.hasOwnProperty("token")) {
-          navigate("/home");
-        }
-      });
+    if (!response.ok) {
+      setShowError(true);
+      setTimeout(() => setShowError(false), 2000);
+      return;
+    }
+
+    const data = await response.json();
+    dispacth(updateJwt(data.jwtToken));
+    navigate("/home");
   }
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-1 h-screen w-full">
+    {showError && (
+        <ErrorPopup errorMsg="Wrong username or password" />
+      )}
       <div className="dark:bg-gray-800 flex flex-col justify-center">
         <div className="fixed top-3 left-0">
           <ThemeIcon />
