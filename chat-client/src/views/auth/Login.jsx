@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "./widgets/Button";
 import { useDispatch } from "react-redux";
@@ -6,6 +6,7 @@ import { updateJwt } from "../../redux/jwt";
 import ThemeIcon from "../../widgets/ThemeIcon";
 import BigLogo from "../../widgets/BigLogo";
 import ErrorPopup from "../popups/ErrorPopup";
+import { updateUserUuid, updateEmail, updateNickname, updatePictureId } from "../../redux/user";
 
 function Login() {
   const dispacth = useDispatch();
@@ -37,6 +38,10 @@ function Login() {
 
     const data = await response.json();
     dispacth(updateJwt(data.jwtToken));
+    dispacth(updateUserUuid(data.userUuid));
+    dispacth(updateNickname(data.nickname));
+    dispacth(updateEmail(data.email));
+    dispacth(updatePictureId(data.pictureId));
     navigate("/home");
   }
 

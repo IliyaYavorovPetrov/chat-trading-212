@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Link, redirect, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "./widgets/Button";
 import ThemeIcon from "../../widgets/ThemeIcon";
 import BigLogo from "../../widgets/BigLogo";
 import { useDispatch } from "react-redux";
 import { updateJwt } from "../../redux/jwt";
 import ErrorPopup from "../popups/ErrorPopup";
+import { updateUserUuid, updateEmail, updateNickname, updatePictureId } from "../../redux/user";
 
 function Register() {
   const dispacth = useDispatch();
@@ -13,6 +14,7 @@ function Register() {
   const [nickname, setNickname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  
   const navigate = useNavigate();
   const [showError, setShowError] = useState(false);
 
@@ -39,6 +41,10 @@ function Register() {
 
     const data = await response.json();
     dispacth(updateJwt(data.jwtToken));
+    dispacth(updateUserUuid(data.userUuid));
+    dispacth(updateNickname(data.nickname));
+    dispacth(updateEmail(data.email));
+    dispacth(updatePictureId(data.pictureId));
     navigate("/home");
   }
 
