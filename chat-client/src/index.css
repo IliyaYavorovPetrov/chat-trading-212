@@ -3,3 +3,12 @@
 @tailwind components;
 @tailwind utilities;
 
+::-webkit-scrollbar {
+  background-color: transparent;
+  border-radius: 10px;
+  width: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-500 dark:bg-gray-800 rounded-lg;
+}
