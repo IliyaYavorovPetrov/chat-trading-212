@@ -1,11 +1,14 @@
 import React from "react";
 import { BsPlus } from "react-icons/bs";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { updateJwt } from "../../../redux/jwt";
 import CloseButton from "./widgets/CloseButton";
 import DeleteAccountButton from "./widgets/DeleteAccountButton";
 import LogOutButton from "./widgets/LogOutButton";
 
 const UserInfo = () => {
+  const dispatch = useDispatch();
+
   const userUuid = useSelector((state) => state.user.userUuid);
   const nickname = useSelector((state) => state.user.nickname);
   const email = useSelector((state) => state.user.email);
@@ -27,7 +30,13 @@ const UserInfo = () => {
             <label>ID: {userUuid}</label>
             <label>Emial: {email}</label>
             <label>Nickname: {nickname}</label>
-            <LogOutButton text="Log Out" />
+            <LogOutButton
+              text="Log Out"
+              onClick={() => {
+                console.log("aa");
+                dispatch(updateJwt(""));
+              }}
+            />
             <DeleteAccountButton text="Delete Account" />
           </div>
         </div>

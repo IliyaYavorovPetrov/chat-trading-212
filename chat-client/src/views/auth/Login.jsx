@@ -11,12 +11,12 @@ import { returnHomeToDefault } from "../../redux/home";
 
 function Login() {
   useEffect(() => {
-    dispacth(returnJwtToDefault());
-    dispacth(returnUserToDefault());
-    dispacth(returnHomeToDefault());
+    dispatch(returnJwtToDefault());
+    dispatch(returnUserToDefault());
+    dispatch(returnHomeToDefault());
   });
 
-  const dispacth = useDispatch();
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -44,11 +44,11 @@ function Login() {
     }
 
     const data = await response.json();
-    dispacth(updateJwt(data.jwtToken));
-    dispacth(updateUserUuid(data.userUuid));
-    dispacth(updateNickname(data.nickname));
-    dispacth(updateEmail(data.email));
-    dispacth(updatePictureId(data.pictureId));
+    dispatch(updateJwt(data.jwtToken));
+    dispatch(updateUserUuid(data.userUuid));
+    dispatch(updateNickname(data.nickname));
+    dispatch(updateEmail(data.email));
+    dispatch(updatePictureId(data.pictureId));
     navigate("/home");
   }
 
