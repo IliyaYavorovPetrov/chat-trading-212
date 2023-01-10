@@ -1,7 +1,7 @@
 @import-normalize;
 @tailwind base;
 @tailwind components;
-*,
+/* *,
 *::before,
 *::after {
   box-sizing: border-box;
@@ -9,7 +9,7 @@
   padding: 0;
 }
 
-/* @layer components {
+@layer components {
   .top-navigation-icon:first {
     @apply ml-auto mr-4;
   }
@@ -19,8 +19,8 @@
 
 /* ::-webkit-scrollbar {
   background-color: transparent;
-} */
+}
 
-/* ::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
   @apply bg-gray-500 dark:bg-blue-400;
 } */
