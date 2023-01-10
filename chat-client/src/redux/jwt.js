@@ -15,5 +15,5 @@ export const jwtSlice = createSlice({
     }
 });
 
-export const { updateJwt } = jwtSlice.actions;
+export const { updateJwt, returnJwtToDefault } = jwtSlice.actions;
 export default jwtSlice.reducer;

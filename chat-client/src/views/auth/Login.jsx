@@ -2,13 +2,19 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "./widgets/Button";
 import { useDispatch } from "react-redux";
-import { updateJwt } from "../../redux/jwt";
+import { updateJwt, returnJwtToDefault } from "../../redux/jwt";
 import ThemeIcon from "../../widgets/ThemeIcon";
 import BigLogo from "../../widgets/BigLogo";
 import ErrorPopup from "../popups/ErrorPopup";
-import { updateUserUuid, updateEmail, updateNickname, updatePictureId } from "../../redux/user";
+import { updateUserUuid, updateEmail, updateNickname, updatePictureId, returnUserToDefault } from "../../redux/user";
+import userEvent from "@testing-library/user-event";
 
 function Login() {
+  userEvent(() => {
+    dispacth(returnJwtToDefault());
+    dispacth(returnUserToDefault());
+  });
+
   const dispacth = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

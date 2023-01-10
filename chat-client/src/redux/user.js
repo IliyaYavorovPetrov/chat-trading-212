@@ -30,5 +30,5 @@ export const userSlice = createSlice({
     }
 });
 
-export const { updateUserUuid, updateNickname, updateEmail, updatePictureId } = userSlice.actions;
+export const { updateUserUuid, updateNickname, updateEmail, updatePictureId, returnUserToDefault } = userSlice.actions;
 export default userSlice.reducer;

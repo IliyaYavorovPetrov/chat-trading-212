@@ -22,12 +22,14 @@ const UserInfo = () => {
       </div>
       <CloseButton icon={<BsPlus size="28" />}></CloseButton>
       <div className="flex flex-row">
-        <div className="flex flex-col justify-center dark:text-gray-400 text-gray-600 py-2 text-lg font-medium ">
-          <label>ID: {userUuid}</label>
-          <label>Emial: {email}</label>
-          <label>Nickname: {nickname}</label>
-          <LogOutButton text="Log Out" />
-          <DeleteAccountButton text="Delete Account" />
+        <div className="w-full mt-20 mb-2 p-2">
+          <div className="flex flex-col justify-center dark:text-gray-400 text-gray-600 py-2 text-lg font-medium ">
+            <label>ID: {userUuid}</label>
+            <label>Emial: {email}</label>
+            <label>Nickname: {nickname}</label>
+            <LogOutButton text="Log Out" />
+            <DeleteAccountButton text="Delete Account" />
+          </div>
         </div>
       </div>
     </div>

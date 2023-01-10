@@ -15,5 +15,5 @@ export const homeSlice = createSlice({
     }
 });
 
-export const { updateShowUserInfo } = homeSlice.actions;
+export const { updateShowUserInfo, returnHomeToDefault } = homeSlice.actions;
 export default homeSlice.reducer;
