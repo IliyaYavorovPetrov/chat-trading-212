@@ -44,7 +44,7 @@ const AddFriend = () => {
   }
 
   return (
-    <div className="absolute top-1/3 left-1/3 flex-col h-1/3 w-1/3 dark:bg-gray-600 bg-gray-400 rounded-lg">
+    <div className="absolute top-1/3 left-1/3 flex-col h-1/3 w-1/3 dark:bg-gray-800 bg-gray-400 rounded-lg">
       <div className="flex flex-col h-full">
         <div className="mt-0">
           <CloseButton
@@ -55,7 +55,7 @@ const AddFriend = () => {
         <div className="mt-16">
           <AddFriendInput />
         </div>
-        <div className="flex flex-col mt-2 bg-gray-400 dark:bg-gray-600 m-0 h-full w-full overflow-auto">
+        <div className="flex flex-col mt-2 bg-gray-400 dark:bg-gray-800 m-0 h-full w-full overflow-auto">
             <Friend id={"a1184094-820d-431c-a14d-5b84ee66b388"} name={"b"}/>
             <Friend id={"a1184094-820d-431c-a14d-5b84ee66b388"} name={"b"}/>
             <Friend id={"a1184094-820d-431c-a14d-5b84ee66b388"} name={"b"}/>

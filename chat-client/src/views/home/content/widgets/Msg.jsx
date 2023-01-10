@@ -1,12 +1,11 @@
 import React from "react";
 
-const Msg = ({ name, timestamp, text }) => {
-  const seed = Math.round(Math.random() * 100);
+const Msg = ({ name, pictureId, timestamp, text }) => {
   return (
     <div className="w-full flex flex-row items-center justify-start py-4 px-8 m-0 cursor-pointer">
       <div className="flex flex-col items-center w-12">
         <img
-          src={`https://robohash.org/${seed}?set=set2&size=180x180`}
+          src={`https://robohash.org/${pictureId}?set=set2&size=180x180`}
           alt=""
           className="flex-none w-14 h-full rounded-full shadow-md object-cover dark:bg-gray-400 bg-gray-500 mb-auto mt-0 mx-0 cursor-pointer"
         />

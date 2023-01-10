@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import AddFriend from "./addfriend/AddFriend";
-import ChannelBar from "./bar/ChannelBar";
+import Bar from "./bar/Bar";
 import ContentContainer from "./content/ContentContainer";
 import SideBar from "./sidebar/SideBar";
 import UserInfo from "./userinfo/UserInfo";
@@ -12,7 +12,7 @@ function Home() {
   return (
     <div className="flex">
       <SideBar />
-      <ChannelBar />
+      <Bar />
       <ContentContainer />
       {showUserInfo && <UserInfo />}
       {showAddFriends && <AddFriend />}
