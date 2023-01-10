@@ -4,11 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { returnHomeToDefault } from "../../../redux/home";
 import { returnJwtToDefault } from "../../../redux/jwt";
-import CloseButton from "./widgets/CloseButton";
-import DeleteAccountButton from "./widgets/DeleteAccountButton";
-import LogOutButton from "./widgets/LogOutButton";
 
-const UserInfo = () => {
+const AddFriend = () => {
   const dispatch = useDispatch();
   const jwtToken = useSelector((state) => state.jwt.token);
   const userUuid = useSelector((state) => state.user.userUuid);
@@ -52,31 +49,8 @@ const UserInfo = () => {
           className="absolute w-4/5 h-4/5 rounded-full shadow-md object-cover dark:bg-gray-400 bg-gray-500 mb-auto mt-0 mx-0"
         />
       </div>
-      <CloseButton
-        icon={<BsPlus size="28" />}
-        onClick={() => dispatch(returnHomeToDefault())}
-      ></CloseButton>
-      <div className="flex flex-row">
-        <div className="w-full mt-20 mb-2 p-2">
-          <div className="flex flex-col justify-center dark:text-gray-400 text-gray-600 py-2 text-lg font-medium ">
-            <label>ID: {userUuid}</label>
-            <label>Emial: {email}</label>
-            <label>Nickname: {nickname}</label>
-            <LogOutButton
-              text="Log Out"
-              onClick={() => {
-                dispatch(returnJwtToDefault());
-              }}
-            />
-            <DeleteAccountButton
-              text="Delete Account"
-              onClick={() => deleteUser()}
-            />
-          </div>
-        </div>
-      </div>
     </div>
   );
 };
 
-export default UserInfo;
+export default AddFriend;
