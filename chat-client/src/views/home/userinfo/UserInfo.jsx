@@ -1,7 +1,8 @@
 import React from "react";
 import { BsPlus } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
-import { updateJwt } from "../../../redux/jwt";
+import { returnHomeToDefault } from "../../../redux/home";
+import { returnJwtToDefault, updateJwt } from "../../../redux/jwt";
 import CloseButton from "./widgets/CloseButton";
 import DeleteAccountButton from "./widgets/DeleteAccountButton";
 import LogOutButton from "./widgets/LogOutButton";
@@ -23,7 +24,10 @@ const UserInfo = () => {
           className="absolute w-4/5 h-4/5 rounded-full shadow-md object-cover dark:bg-gray-400 bg-gray-500 mb-auto mt-0 mx-0"
         />
       </div>
-      <CloseButton icon={<BsPlus size="28" />}></CloseButton>
+      <CloseButton
+        icon={<BsPlus size="28" />}
+        onClick={() => dispatch(returnHomeToDefault())}
+      ></CloseButton>
       <div className="flex flex-row">
         <div className="w-full mt-20 mb-2 p-2">
           <div className="flex flex-col justify-center dark:text-gray-400 text-gray-600 py-2 text-lg font-medium ">
@@ -33,8 +37,7 @@ const UserInfo = () => {
             <LogOutButton
               text="Log Out"
               onClick={() => {
-                console.log("aa");
-                dispatch(updateJwt(""));
+                dispatch(returnJwtToDefault());
               }}
             />
             <DeleteAccountButton text="Delete Account" />
