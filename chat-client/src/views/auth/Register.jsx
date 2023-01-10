@@ -14,7 +14,7 @@ function Register() {
   const [nickname, setNickname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
+
   const navigate = useNavigate();
   const [showError, setShowError] = useState(false);
 
@@ -35,7 +35,7 @@ function Register() {
 
     if (!response.ok) {
       setShowError(true);
-      setTimeout(() => setShowError(false), 2000);
+      setTimeout(() => setShowError(false), 5000);
       return;
     }
 

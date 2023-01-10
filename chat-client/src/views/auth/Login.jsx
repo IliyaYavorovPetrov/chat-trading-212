@@ -32,7 +32,7 @@ function Login() {
 
     if (!response.ok) {
       setShowError(true);
-      setTimeout(() => setShowError(false), 2000);
+      setTimeout(() => setShowError(false), 5000);
       return;
     }
 
