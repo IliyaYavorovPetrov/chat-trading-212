@@ -8,6 +8,9 @@ export const homeSlice = createSlice({
     reducers: {
         updateShowUserInfo : (state, action) => {
             state.showUserInfo = action.payload;
+        },
+        returnHomeToDefault: (state) => {
+            state.showUserInfo = false;
         }
     }
 });

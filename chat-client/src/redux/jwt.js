@@ -8,6 +8,9 @@ export const jwtSlice = createSlice({
     reducers: {
         updateJwt: (state, action) => {
             state.token = action.payload;
+        },
+        returnJwtToDefault: (state) => {
+            state.token = "";
         }
     }
 });

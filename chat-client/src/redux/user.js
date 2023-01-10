@@ -21,6 +21,12 @@ export const userSlice = createSlice({
         updatePictureId: (state, action) => {
             state.pictureId = action.payload;
         },
+        returnUserToDefault: (state) => {
+            state.userUuid = "";
+            state.nickname = "";
+            state.email = "";
+            state.pictureId = 0;
+        }
     }
 });
 

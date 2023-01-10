@@ -1,26 +1,5 @@
 @import-normalize;
 @tailwind base;
 @tailwind components;
-/* *,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-@layer components {
-  .top-navigation-icon:first {
-    @apply ml-auto mr-4;
-  }
-} */
-
 @tailwind utilities;
 
-/* ::-webkit-scrollbar {
-  background-color: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  @apply bg-gray-500 dark:bg-blue-400;
-} */
