@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "./widgets/Button";
 import { useDispatch } from "react-redux";
@@ -7,12 +7,13 @@ import ThemeIcon from "../../widgets/ThemeIcon";
 import BigLogo from "../../widgets/BigLogo";
 import ErrorPopup from "../popups/ErrorPopup";
 import { updateUserUuid, updateEmail, updateNickname, updatePictureId, returnUserToDefault } from "../../redux/user";
-import userEvent from "@testing-library/user-event";
+import { returnHomeToDefault } from "../../redux/home";
 
 function Login() {
-  userEvent(() => {
+  useEffect(() => {
     dispacth(returnJwtToDefault());
     dispacth(returnUserToDefault());
+    dispacth(returnHomeToDefault());
   });
 
   const dispacth = useDispatch();

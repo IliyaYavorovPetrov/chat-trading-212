@@ -1,14 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "./widgets/Button";
 import ThemeIcon from "../../widgets/ThemeIcon";
 import BigLogo from "../../widgets/BigLogo";
 import { useDispatch } from "react-redux";
-import { updateJwt } from "../../redux/jwt";
+import { returnJwtToDefault, updateJwt } from "../../redux/jwt";
 import ErrorPopup from "../popups/ErrorPopup";
-import { updateUserUuid, updateEmail, updateNickname, updatePictureId } from "../../redux/user";
+import { updateUserUuid, updateEmail, updateNickname, updatePictureId, returnUserToDefault } from "../../redux/user";
+import { returnHomeToDefault } from "../../redux/home";
 
 function Register() {
+  useEffect(() => {
+    dispacth(returnJwtToDefault());
+    dispacth(returnUserToDefault());
+    dispacth(returnHomeToDefault());
+  });
   const dispacth = useDispatch();
 
   const [nickname, setNickname] = useState("");
