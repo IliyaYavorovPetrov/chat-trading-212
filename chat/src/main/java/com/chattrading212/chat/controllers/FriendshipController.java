@@ -26,7 +26,7 @@ public class FriendshipController {
         this.directMsgService = directMsgService;
     }
 
-    @GetMapping("/home/getfriends")
+    @GetMapping("/home/friends/get")
     public ResponseEntity<List<FriendDto>> getFriendshipsUser(@RequestBody UserDto userDto) {
         List<FriendshipModel> friendshipModelList = friendService.getUserFriendships(userDto.userUuid);
         List<FriendDto> friendDtoList = friendshipModelList.stream().map(x -> FriendshipMapper.toFriendDto(x, userDto.userUuid)).toList();

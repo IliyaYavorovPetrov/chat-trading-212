@@ -46,7 +46,7 @@ public class AuthController {
         return ResponseEntity.ok(authService.register(registerDto));
     }
 
-    @PostMapping("/home/settings")
+    @PostMapping("/home/personal/info/delete")
     public ResponseEntity<UserDto> deleteUser(@RequestBody UserDto userDto) {
         UserDto userDtoDeleted = UserMapper.toUserDto(userDto.jwtToken, userService.deleteUser(userDto.userUuid));
         return ResponseEntity.ok(userDtoDeleted);
