@@ -8,7 +8,7 @@ const Msg = ({ name, timestamp, text }) => {
           <img
             src={`https://robohash.org/${seed}?set=set2&size=180x180`}
             alt=""
-            className="flex-none w-14 h-full rounded-full shadow-md object-cover bg-gray-500 mb-auto mt-0 mx-0 cursor-pointer"
+            className="flex-none w-14 h-full rounded-full shadow-md object-cover dark:bg-gray-400 bg-gray-500 mb-auto mt-0 mx-0 cursor-pointer"
           />
         </div>
         <div className="w-4/5 flex flex-col justify-start ml-4">

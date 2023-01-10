@@ -60,11 +60,11 @@ function Register() {
         <div className="m-10">
           <BigLogo />
         </div>
-        <form className="max-w-[400px] w-full mx-auto rounded-lg dark:bg-gray-900 shadow-2xl p-8 px-8">
+        <form className="max-w-[400px] w-full mx-auto rounded-lg dark:bg-gray-900 bg-gray-300 shadow-2xl p-8 px-8">
           <h2 className="text-4xl dark:text-white font-bold text-center">
             Register
           </h2>
-          <div className="flex flex-col text-gray-400 py-2">
+          <div className="flex flex-col text-gray-500 py-2">
             <label>Nickname</label>
             <input
               className="rounded-lg dark:bg-gray-700 shadow-lg mt-2 p-2 focus:border-blue-500 focus:dark:bg-gray-800 focus:outline-none"
@@ -73,7 +73,7 @@ function Register() {
               onChange={(event) => setNickname(event.target.value)}
             />
           </div>
-          <div className="flex flex-col text-gray-400 py-2">
+          <div className="flex flex-col text-gray-500 py-2">
             <label>Email</label>
             <input
               className="rounded-lg dark:bg-gray-700 shadow-lg mt-2 p-2 focus:border-blue-500 focus:dark:bg-gray-800 focus:outline-none"
@@ -82,7 +82,7 @@ function Register() {
               onChange={(event) => setEmail(event.target.value)}
             />
           </div>
-          <div className="flex flex-col text-gray-400 py-2">
+          <div className="flex flex-col text-gray-500 py-2">
             <label>Password</label>
             <input
               className="p-2 rounded-lg dark:bg-gray-700 shadow-lg mt-2 focus:border-blue-500 focus:dark:bg-gray-800 focus:outline-none"

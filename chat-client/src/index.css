@@ -9,18 +9,18 @@
   padding: 0;
 }
 
-@layer components {
+/* @layer components {
   .top-navigation-icon:first {
     @apply ml-auto mr-4;
   }
-}
+} */
 
 @tailwind utilities;
 
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   background-color: transparent;
-}
+} */
 
-::-webkit-scrollbar-thumb {
-  @apply bg-gray-500 dark:bg-green-400;
-}
+/* ::-webkit-scrollbar-thumb {
+  @apply bg-gray-500 dark:bg-blue-400;
+} */
