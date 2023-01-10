@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { returnHomeToDefault } from "../../../redux/home";
 import { returnJwtToDefault } from "../../../redux/jwt";
-import CloseButton from "./widgets/CloseButton";
+import CloseButton from "../../../widgets/CloseButton";
 import DeleteAccountButton from "./widgets/DeleteAccountButton";
 import LogOutButton from "./widgets/LogOutButton";
 
