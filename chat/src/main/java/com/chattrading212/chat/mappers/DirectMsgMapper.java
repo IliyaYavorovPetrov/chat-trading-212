@@ -14,6 +14,6 @@ public class DirectMsgMapper {
     }
 
     public static DirectMsgDto toDirectMsgDto (DirectMsgModel directMsgModel) {
-        return new DirectMsgDto(directMsgModel.msgUuid, directMsgModel.chatUuid, directMsgModel.createdAt, directMsgModel.isDeleted, directMsgModel.msgText, directMsgModel.fromUserUuid, directMsgModel.fromUserNickname, directMsgModel.fromUserPictureId);
+        return new DirectMsgDto(directMsgModel.chatUuid, directMsgModel.createdAt, directMsgModel.isDeleted, directMsgModel.msgText, directMsgModel.fromUserUuid, directMsgModel.fromUserNickname, directMsgModel.fromUserPictureId);
     }
 }

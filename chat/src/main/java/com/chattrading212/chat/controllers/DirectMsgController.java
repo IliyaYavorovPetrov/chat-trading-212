@@ -20,6 +20,6 @@ public class DirectMsgController {
     @PostMapping("/home/chats")
     public ResponseEntity<DirectMsgDto> createDirectMsg(@RequestBody RequestDirectMsgDto requestDirectMsgDto) {
         DirectMsgModel directMsgModel = directMsgService.createDirectMsg(requestDirectMsgDto.chatUuid, requestDirectMsgDto.msgText, requestDirectMsgDto.fromUserUuid, requestDirectMsgDto.fromUserNickname, requestDirectMsgDto.fromUserPictureId);
-        return ResponseEntity.ok(new DirectMsgDto(directMsgModel.msgUuid, directMsgModel.chatUuid, directMsgModel.createdAt, directMsgModel.isDeleted, directMsgModel.msgText, directMsgModel.fromUserUuid, directMsgModel.fromUserNickname, directMsgModel.fromUserPictureId));
+        return ResponseEntity.ok(new DirectMsgDto(directMsgModel.chatUuid, directMsgModel.createdAt, directMsgModel.isDeleted, directMsgModel.msgText, directMsgModel.fromUserUuid, directMsgModel.fromUserNickname, directMsgModel.fromUserPictureId));
     }
 }
