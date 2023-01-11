@@ -26,6 +26,7 @@ public class DirectMsgController {
 
     @PostMapping("/home/chats")
     public ResponseEntity<DirectMsgDto> sendDirectMessage(@RequestBody RequestDirectMsgDto requestDirectMsgDto) {
+        // sendDirectMessage handles POST request sent to server. It uses SimpMessagingTemplate to pass message to “/topic/message” destination.
         DirectMsgModel directMsgModel = directMsgService.createDirectMsg(requestDirectMsgDto.chatUuid, requestDirectMsgDto.msgText, requestDirectMsgDto.fromUserUuid, requestDirectMsgDto.fromUserNickname, requestDirectMsgDto.fromUserPictureId);
         template.convertAndSend("/topic/message", requestDirectMsgDto);
         return ResponseEntity.ok(new DirectMsgDto(directMsgModel.chatUuid, directMsgModel.createdAt, directMsgModel.isDeleted, directMsgModel.msgText, directMsgModel.fromUserUuid, directMsgModel.fromUserNickname, directMsgModel.fromUserPictureId));
@@ -33,12 +34,13 @@ public class DirectMsgController {
 
     @MessageMapping("/sendMessage")
     public void receiveDirectMessage(@Payload RequestDirectMsgDto textMessageDTO) {
-        // receive message from client
+        // receiveDirectMessage is called whenever message is sent from client to “/app/sendMessage”. Here, “/app” prefix is from WebSocket Configuration. Please make note of annotations; MessageMapping and Payload.
     }
 
 
     @SendTo("/topic/message")
     public RequestDirectMsgDto broadcastDirectMessage(@Payload RequestDirectMsgDto textMessageDTO) {
+        // broadcastDirectMessage method just return payload received from “/send” POST request. Returned value is received by clients register at “/topic/message”.
         return textMessageDTO;
     }
 }

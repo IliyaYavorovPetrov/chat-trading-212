@@ -10,7 +10,7 @@ function App() {
   return (
     <div>
       <SockJsClient 
-        url="http://localhost:8080/ws-message"
+        url="http://localhost:8080/ws"
         topics={['/topic/message']}
         onConnect={() => console.log("connected to server")}
         onDisconnect={() => console.log("disconnected from server")}
