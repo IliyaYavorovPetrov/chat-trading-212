@@ -17,6 +17,9 @@ export const homeSlice = createSlice({
     updateSearchAddFriend: (state, action) => {
       state.searchAddFriend.push(action.payload);
     },
+    assignSearchAddFriend: (state, action) => {
+      state.searchAddFriend = action.payload;
+    },
     clearSearchAddFriend: (state) => {
       state.searchAddFriend = [];
     },
@@ -31,6 +34,7 @@ export const {
   updateShowUserInfo,
   updateAddFriend,
   updateSearchAddFriend,
+  assignSearchAddFriend,
   clearSearchAddFriend,
   returnHomeToDefault,
 } = homeSlice.actions;

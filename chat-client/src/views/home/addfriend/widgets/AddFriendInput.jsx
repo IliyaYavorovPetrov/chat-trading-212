@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { clearSearchAddFriend, updateSearchAddFriend } from "../../../../redux/home";
+import { clearSearchAddFriend, assignSearchAddFriend} from "../../../../redux/home";
 
 const AddFriendInput = () => {
   const dispatch = useDispatch();
   const jwtToken = useSelector((state) => state.jwt.token);
+  const searchAddFriend = useSelector((state) => state.home.searchAddFriend);
   const [search, setSearch] = useState("");
 
   async function sendUserInfoRequest() {
@@ -13,25 +14,32 @@ const AddFriendInput = () => {
     var uuidRegex =
       /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
+    let response = null
     if (uuidRegex.test(search)) {
-
-      const response = await fetch("/home/add/friends/" + search, {
+      response = await fetch("/home/add/friends/uuid/" + search, {
         headers: {
           'Authorization': 'Bearer ' + jwtToken,
           "Content-Type": "application/json",
         },
         method: "get",
       });
-
-      if (!response.ok) {
-        return;
-      }
-
-      const data = await response.json();
-      dispatch(updateSearchAddFriend(data));
     } else {
-      console.log(false);
+      response = await fetch("/home/add/friends/nickname/" + search, {
+        headers: {
+          'Authorization': 'Bearer ' + jwtToken,
+          "Content-Type": "application/json",
+        },
+        method: "get",
+      });
     }
+
+    if (!response.ok) {
+      return;
+    }
+    const data = await response.json();
+    dispatch(assignSearchAddFriend(data));
+    console.log(data);
+    console.log(searchAddFriend);
   }
 
   return (

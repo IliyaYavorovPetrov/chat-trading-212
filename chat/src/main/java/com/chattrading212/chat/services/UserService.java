@@ -39,4 +39,8 @@ public class UserService {
         }
         return userModel;
     }
+
+    public List<UserModel> getByNickname(String nickname) {
+        return userRepository.getByNickname(nickname).stream().map(UserMapper::toUserModel).toList();
+    }
 }

@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -48,9 +50,15 @@ public class UserController {
         return ResponseEntity.ok(userDtoDeleted);
     }
 
-    @GetMapping("/home/add/friends/{uuid}")
+    @GetMapping("/home/add/friends/uuid/{uuid}")
     public ResponseEntity<UserDto> getUserByUuid(@PathVariable UUID uuid) {
         UserDto userDto = UserMapper.toUserDto(userService.getByUUID(uuid));
         return ResponseEntity.ok(userDto);
+    }
+
+    @GetMapping("/home/add/friends/nickname/{nickname}")
+    public ResponseEntity<List<UserDto>> getUserByNickname(@PathVariable String nickname) {
+        List<UserDto> usersDto = userService.getByNickname(nickname).stream().map(UserMapper::toUserDto).toList();
+        return ResponseEntity.ok(usersDto);
     }
 }

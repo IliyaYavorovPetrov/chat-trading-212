@@ -3,6 +3,7 @@ package com.chattrading212.chat.repositories;
 import com.chattrading212.chat.repositories.entities.UserEntity;
 
 import java.text.ParseException;
+import java.util.List;
 import java.util.UUID;
 
 public interface UserRepository {
@@ -11,6 +12,6 @@ public interface UserRepository {
     Boolean doesUUIDExists(UUID userUuid);
     UserEntity getByEmail(String email);
     Boolean doesEmailExists(String email);
-
+    List<UserEntity> getByNickname(String nickname);
     UserEntity deleteUser(UUID userUuid);
 }

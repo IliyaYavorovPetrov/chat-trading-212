@@ -30,9 +30,11 @@ const AddFriend = () => {
                 id={friend.userUuid}
                 name={friend.nickname}
                 pictureId={friend.pictureId}
+                key={friend.userUuid}
               />
             );
           }
+          return <div>No Users</div>;
         })}
       </div>
     );
@@ -49,9 +51,10 @@ const AddFriend = () => {
         </div>
         <div className="mt-16">
           <AddFriendInput dispatch={dispatch} />
+        </div>
+        <div className="flex flex-col mt-2 bg-gray-400 dark:bg-gray-800 m-0 h-full w-full overflow-auto">
           {giveAddFriendOptions()}
         </div>
-        <div className="flex flex-col mt-2 bg-gray-400 dark:bg-gray-800 m-0 h-full w-full overflow-auto"></div>
       </div>
     </div>
   );

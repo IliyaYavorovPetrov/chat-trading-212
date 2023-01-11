@@ -9,6 +9,8 @@ import com.datastax.oss.driver.api.core.cql.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class CassandraUserRepository implements UserRepository {
@@ -90,6 +92,26 @@ public class CassandraUserRepository implements UserRepository {
         }
 
         return false;
+    }
+
+    @Override
+    public List<UserEntity> getByNickname(String nickname) {
+        ResultSet resultSet = session.execute(CassandraUserQueries.GET_USER_BY_NICKNAME, nickname);
+        List<Row> rows = resultSet.all();
+
+        List<UserEntity> userEntityList = new ArrayList<>();
+        for (var row : rows) {
+            UUID userEntityUuid = row.getUuid("user_uuid");
+            String userEntityEmail = row.getString("email");
+            String userEntityPassword = row.getString("password");
+            String userEntityNickname = row.getString("nickname");
+            Instant userEntityCreatedAt = row.getInstant("created_at");
+            Boolean userEntityIsDeleted = row.getBoolean("is_deleted");
+            Integer userEntityPictureId = row.getInt("picture_id");
+            userEntityList.add(new UserEntity(userEntityUuid, userEntityEmail, userEntityPassword, userEntityNickname, userEntityCreatedAt, userEntityIsDeleted, userEntityPictureId));
+        }
+
+        return userEntityList;
     }
 
     @Override
