@@ -20,18 +20,23 @@ const AddFriend = () => {
     setSearchAddFriend(updateSearchAddFriend);
   }, [updateSearchAddFriend]);
 
-  function giveAddFriendOptions(){
+  function giveAddFriendOptions() {
     return (
       <div>
         {searchAddFriend?.map((friend) => {
           if (friend.userUuid !== userUuid) {
-
+            return (
+              <Friend
+                id={friend.userUuid}
+                name={friend.nickname}
+                pictureId={friend.pictureId}
+              />
+            );
           }
-          return <Friend id={friend.userUuid} name={friend.nickname} pictureId={friend.pictureId}/>;
         })}
       </div>
     );
-  };
+  }
 
   return (
     <div className="absolute top-1/3 left-1/3 flex-col h-1/3 w-1/3 dark:bg-gray-800 bg-gray-400 rounded-lg">
