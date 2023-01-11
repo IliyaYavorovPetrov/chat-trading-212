@@ -1,6 +1,6 @@
 package com.chattrading212.chat.services;
 
-import com.chattrading212.chat.controllers.dtos.UserDto;
+import com.chattrading212.chat.controllers.dtos.UserJwtDto;
 import com.chattrading212.chat.controllers.dtos.LoginDto;
 import com.chattrading212.chat.controllers.dtos.RegisterDto;
 import com.chattrading212.chat.controllers.dtos.UserDetailsDto;
@@ -29,19 +29,19 @@ public class AuthService {
         this.authenticationManager = authenticationManager;
     }
 
-    public UserDto login(LoginDto loginDto) {
+    public UserJwtDto login(LoginDto loginDto) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDto.email, loginDto.password));
         UserModel userModel = UserMapper.toUserModel(userRepository.getByEmail(loginDto.email));
-        return new UserDto(jwtService.generateToken(UserDetailsMapper.toUserDetailsDto(userModel)), userModel.userUuid, userModel.nickname, userModel.email, userModel.pictureId, userModel.isDeleted);
+        return new UserJwtDto(jwtService.generateToken(UserDetailsMapper.toUserDetailsDto(userModel)), userModel.userUuid, userModel.nickname, userModel.email, userModel.pictureId, userModel.isDeleted);
     }
 
-    public UserDto register(RegisterDto registerDto) throws ParseException {
+    public UserJwtDto register(RegisterDto registerDto) throws ParseException {
         UserDetailsDto userDetailsDto = new UserDetailsDto(registerDto.email, registerDto.password, registerDto.roles, registerDto.isEnabled);
         UUID userUuid = UUID.randomUUID();
         Random random = new Random();
         Integer pictureId = random.nextInt(5);
         userRepository.createUser(userUuid, registerDto.email, passwordEncoder.encode(registerDto.password), registerDto.nickname, pictureId);
         UserModel userModel = UserMapper.toUserModel(userRepository.getByEmail(registerDto.email));
-        return new UserDto(jwtService.generateToken(userDetailsDto), userModel.userUuid, registerDto.nickname, registerDto.email, pictureId, userModel.isDeleted);
+        return new UserJwtDto(jwtService.generateToken(userDetailsDto), userModel.userUuid, registerDto.nickname, registerDto.email, pictureId, userModel.isDeleted);
     }
 }

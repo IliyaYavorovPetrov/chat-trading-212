@@ -3,7 +3,7 @@ package com.chattrading212.chat.controllers;
 import com.chattrading212.chat.controllers.dtos.FriendDto;
 import com.chattrading212.chat.controllers.dtos.FriendshipDto;
 import com.chattrading212.chat.controllers.dtos.RequestFriendshipDto;
-import com.chattrading212.chat.controllers.dtos.UserDto;
+import com.chattrading212.chat.controllers.dtos.UserJwtDto;
 import com.chattrading212.chat.mappers.FriendshipMapper;
 import com.chattrading212.chat.services.DirectMsgService;
 import com.chattrading212.chat.services.FriendshipService;
@@ -27,7 +27,7 @@ public class FriendshipController {
     }
 
     @GetMapping("/home/friends/get")
-    public ResponseEntity<List<FriendDto>> getFriendshipsUser(@RequestBody UserDto userDto) {
+    public ResponseEntity<List<FriendDto>> getFriendshipsUser(@RequestBody UserJwtDto userDto) {
         List<FriendshipModel> friendshipModelList = friendService.getUserFriendships(userDto.userUuid);
         List<FriendDto> friendDtoList = friendshipModelList.stream().map(x -> FriendshipMapper.toFriendDto(x, userDto.userUuid)).toList();
         return ResponseEntity.ok(friendDtoList);

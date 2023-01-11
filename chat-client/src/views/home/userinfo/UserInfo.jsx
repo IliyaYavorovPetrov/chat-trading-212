@@ -45,7 +45,7 @@ const UserInfo = () => {
   }
 
   return (
-    <div className="absolute top-1/3 left-1/3 flex-col grid grid-cols-1 sm:grid-cols-2 h-1/3 w-1/3 dark:bg-gray-700 bg-gray-400 rounded-lg">
+    <div className="absolute top-1/3 left-1/3 flex-col grid grid-cols-1 sm:grid-cols-2 h-96 w-[] dark:bg-gray-700 bg-gray-400 rounded-lg">
       <div className="relative flex items-center justify-center">
         <img
           src={`https://robohash.org/${pictureId}?set=set2&size=240x240`}
