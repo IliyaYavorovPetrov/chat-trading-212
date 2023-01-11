@@ -16,7 +16,7 @@ const FriendBar = ({ pictureId, name, isActive}) => {
             {name}
           </p>
         </div>
-        <Status isActive={false}/>
+        <Status isActive={isActive}/>
       </div>
     );
   };
