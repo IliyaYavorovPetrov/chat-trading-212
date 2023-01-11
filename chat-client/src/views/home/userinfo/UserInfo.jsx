@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { BsPlus } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { returnHomeToDefault } from "../../../redux/home";
 import { returnJwtToDefault } from "../../../redux/jwt";
+import { updateEmail } from "../../../redux/user";
 import CloseButton from "../../../widgets/CloseButton";
 import DeleteAccountButton from "./widgets/DeleteAccountButton";
 import LogOutButton from "./widgets/LogOutButton";

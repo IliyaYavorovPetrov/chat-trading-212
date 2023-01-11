@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import AddFriend from "./addfriend/AddFriend";
 import Bar from "./bar/Bar";
