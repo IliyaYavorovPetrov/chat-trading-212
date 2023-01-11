@@ -1,10 +1,7 @@
 package com.chattrading212.chat.config;
 
 import com.corundumstudio.socketio.Configuration;
-import com.corundumstudio.socketio.SocketIOClient;
 import com.corundumstudio.socketio.SocketIOServer;
-import com.corundumstudio.socketio.listener.ConnectListener;
-import com.corundumstudio.socketio.listener.DisconnectListener;
 import jakarta.annotation.PreDestroy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
@@ -18,7 +15,7 @@ public class SocketIOConfig {
     @Bean
     public SocketIOServer socketIOServer() {
         Configuration config = new Configuration();
-        String socketHost = "http://localhost";
+        String socketHost = "localhost";
         config.setHostname(socketHost);
         int socketPort = 8088;
         config.setPort(socketPort);
