@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { updateJwt, returnJwtToDefault } from "../../redux/jwt";
 import ThemeIcon from "../../widgets/ThemeIcon";
 import BigLogo from "../../widgets/BigLogo";
+import Loading from "../../widgets/Loading";
 import ErrorPopup from "../popups/ErrorPopup";
 import { updateUserUuid, updateEmail, updateNickname, updatePictureId, returnUserToDefault } from "../../redux/user";
 import { returnHomeToDefault } from "../../redux/home";
@@ -92,6 +93,7 @@ function Login() {
             </p>
           </div>
           <Button text="Sign in" onClick={() => sendLoginRequest()} />
+          {/* <Loading /> */}
         </form>
       </div>
     </div>
