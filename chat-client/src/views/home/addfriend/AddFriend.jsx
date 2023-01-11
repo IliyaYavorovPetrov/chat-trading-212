@@ -7,6 +7,7 @@ import { returnJwtToDefault } from "../../../redux/jwt";
 import CloseButton from "../../../widgets/CloseButton";
 import AddFriendInput from "./widgets/AddFriendInput";
 import Friend from "./widgets/Friend";
+import NoUserFound from "./widgets/NoUserFound";
 
 const AddFriend = () => {
   const dispatch = useDispatch();
@@ -34,7 +35,7 @@ const AddFriend = () => {
               />
             );
           }
-          return <div>No Users</div>;
+          return <NoUserFound />;
         })}
       </div>
     );
