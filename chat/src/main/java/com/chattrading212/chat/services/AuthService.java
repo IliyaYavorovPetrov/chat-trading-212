@@ -39,7 +39,7 @@ public class AuthService {
         UserDetailsDto userDetailsDto = new UserDetailsDto(registerDto.email, registerDto.password, registerDto.roles, registerDto.isEnabled);
         UUID userUuid = UUID.randomUUID();
         Random random = new Random();
-        Integer pictureId = random.nextInt(5);
+        Integer pictureId = random.nextInt(100);
         userRepository.createUser(userUuid, registerDto.email, passwordEncoder.encode(registerDto.password), registerDto.nickname, pictureId);
         UserModel userModel = UserMapper.toUserModel(userRepository.getByEmail(registerDto.email));
         return new UserJwtDto(jwtService.generateToken(userDetailsDto), userModel.userUuid, registerDto.nickname, registerDto.email, pictureId, userModel.isDeleted);
