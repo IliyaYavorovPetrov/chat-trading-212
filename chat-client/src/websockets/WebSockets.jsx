@@ -27,9 +27,6 @@ const useWebSocket = () => {
   }, []);
 
   const onMsgReceived = (payload) => {
-    // const data = JSON.parse(payload.data);
-    // console.log(data);
-    // dispatch(assignFriends(data));
     try {
       var data = JSON.parse(payload.body);
       dispatch(assignFriends(data));
