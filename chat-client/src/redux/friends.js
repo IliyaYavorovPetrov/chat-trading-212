@@ -7,13 +7,13 @@ export const friendsSlice = createSlice({
   },
   reducers: {
     updateFriends: (state, action) => {
-      state.searchAddFriend.push(action.payload);
+      state.friends.push(action.payload);
     },
     assignFriends: (state, action) => {
-      state.searchAddFriend = action.payload;
+      state.friends = action.payload;
     },
     clearFriends: (state) => {
-      state.searchAddFriend = [];
+      state.friends = [];
     },
   },
 });
