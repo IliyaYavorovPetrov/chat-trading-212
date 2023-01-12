@@ -6,8 +6,6 @@ import com.chattrading212.chat.services.DirectMsgService;
 import com.chattrading212.chat.services.FriendshipService;
 import com.chattrading212.chat.services.models.FriendshipModel;
 import org.springframework.http.ResponseEntity;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,8 +32,8 @@ public class FriendshipController {
         return ResponseEntity.ok(friendDtoList);
     }
 
-    @MessageMapping("/friends")
-    public ResponseEntity<FriendshipDto> createFriendship(@Payload RequestFriendshipDto requestFriendshipDto) {
+    @PostMapping("/home/friends")
+    public ResponseEntity<FriendshipDto> createFriendship(@RequestBody RequestFriendshipDto requestFriendshipDto) {
         FriendshipModel friendsModel = friendService.createFriendship(requestFriendshipDto.userUuid, requestFriendshipDto.userNickname, requestFriendshipDto.userPictureId, requestFriendshipDto.friendUuid, requestFriendshipDto.friendNickname, requestFriendshipDto.friendPictureId);
         directMsgService.createDirectMsg(friendsModel.friendshipUuid, "Hi", friendsModel.userUuid, friendsModel.userNickname, friendsModel.userPictureId);
         FriendshipDto friendshipDto = new FriendshipDto(friendsModel.friendshipUuid, friendsModel.isDeleted, requestFriendshipDto.userUuid, requestFriendshipDto.userNickname, requestFriendshipDto.userPictureId, requestFriendshipDto.friendUuid, requestFriendshipDto.friendNickname, requestFriendshipDto.friendPictureId);

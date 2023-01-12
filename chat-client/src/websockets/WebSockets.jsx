@@ -1,15 +1,13 @@
 import { useEffect } from "react";
 import { over } from "stompjs";
 import SockJS from "sockjs-client";
-import { useDispatch, useSelector } from "react-redux";
-import { assignFriends } from "../redux/friends";
+import { useSelector } from "react-redux";
 
 let socket = null;
 let stompClient = null;
 
 const useWebSocket = () => {
   const userUuid = useSelector((state) => state.user.userUuid);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     socket = new SockJS("http://localhost:8080/ws");
@@ -27,17 +25,11 @@ const useWebSocket = () => {
 
   const onMsgReceived = (payload) => {
     var payloadData = JSON.parse(payload.body);
-    if (payload.friendshipUuid) {
-        console.log(payloadData);
-        dispatch(assignFriends(payloadData));
-    }
-    else {
-        console.log("No such object");
-    }
+    console.log(payloadData);
   };
 
-  const sendMsg = (url, message) => {
-    stompClient.send("http://localhost:8080" + url, {}, JSON.stringify(message));
+  const sendMsg = (message) => {
+    console.log("send msg");
   };
 
   const closeSocket = () => {

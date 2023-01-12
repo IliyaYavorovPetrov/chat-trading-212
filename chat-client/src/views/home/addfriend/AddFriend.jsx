@@ -9,7 +9,6 @@ import CloseButton from "../../../widgets/CloseButton";
 import AddFriendInput from "./widgets/AddFriendInput";
 import Friend from "./widgets/Friend";
 import NoUserFound from "./widgets/NoUserFound";
-import useWebSocket from "../../../websockets/WebSockets";
 
 const AddFriend = () => {
   const dispatch = useDispatch();
@@ -21,8 +20,6 @@ const AddFriend = () => {
   const nickname = useSelector((state) => state.user.nickname);
   const pictureId = useSelector((state) => state.user.pictureId);
   const [searchAddFriend, setSearchAddFriend] = useState();
-
-  const { sendMsg, closeSocket } = useWebSocket();
 
   useEffect(() => {
     setSearchAddFriend(updateSearchAddFriend);
@@ -38,7 +35,21 @@ const AddFriend = () => {
         friendPictureid: friendPictureId,
       };
 
-      sendMsg("/chat/friends", requestFriendship);
+      const response = await fetch("/home/friends", {
+        headers: {
+          Authorization: "Bearer " + jwtToken,
+          "Content-Type": "application/json",
+        },
+        method: "post",
+        body: JSON.stringify(requestFriendship),
+      });
+
+      if (!response.ok) {
+        return;
+      }
+
+      const data = await response.json();
+      console.log(data);
     }
 
   function giveAddFriendOptions() {
