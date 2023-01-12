@@ -1,6 +1,6 @@
 import AddFriendButton from "./AddFriendButton";
 
-const Friend = ({ id, name, pictureId }) => {
+const Friend = ({ id, name, pictureId, onClick }) => {
     return (
       <div className="w-full flex flex-row items-center justify-start py-1 px-1 m-0">
         <div className="flex flex-col items-center w-12">
@@ -18,7 +18,7 @@ const Friend = ({ id, name, pictureId }) => {
             Nickname: {name}
           </p>
         </div>
-        <AddFriendButton text={"Add Friend"}/>
+        <AddFriendButton text={"Add Friend"} onClick={() => onClick()}/>
       </div>
     );
   };

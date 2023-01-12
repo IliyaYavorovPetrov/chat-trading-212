@@ -1,3 +1,4 @@
+import { click } from "@testing-library/user-event/dist/click";
 import React, { useEffect, useState } from "react";
 import { BsPlus } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,12 +15,42 @@ const AddFriend = () => {
   const updateSearchAddFriend = useSelector(
     (state) => state.home.searchAddFriend
   );
+  const jwtToken = useSelector((state) => state.jwt.token);
   const userUuid = useSelector((state) => state.user.userUuid);
+  const nickname = useSelector((state) => state.user.nickname);
+  const pictureId = useSelector((state) => state.user.pictureId);
   const [searchAddFriend, setSearchAddFriend] = useState();
 
   useEffect(() => {
     setSearchAddFriend(updateSearchAddFriend);
   }, [updateSearchAddFriend]);
+
+    async function sendFriendRequest (friendUserUuid, friendNickname, friendPictureId) {
+      const requestFriendship = {
+        userUuid: userUuid,
+        userNickname: nickname,
+        userPictureid: pictureId,
+        friendUuid: friendUserUuid,
+        friendNickname: friendNickname,
+        friendPictureid: friendPictureId,
+      };
+
+      const response = await fetch("/home/friends", {
+        headers: {
+          Authorization: "Bearer " + jwtToken,
+          "Content-Type": "application/json",
+        },
+        method: "post",
+        body: JSON.stringify(requestFriendship),
+      });
+
+      if (!response.ok) {
+        return;
+      }
+
+      const data = await response.json();
+      console.log(data);
+    }
 
   function giveAddFriendOptions() {
     return (
@@ -32,6 +63,9 @@ const AddFriend = () => {
                 name={friend.nickname}
                 pictureId={friend.pictureId}
                 key={friend.userUuid}
+                onClick={() => {
+                  sendFriendRequest(friend.userUuid, friend.nickname, friend.pictureId)
+                }}
               />
             );
           }
