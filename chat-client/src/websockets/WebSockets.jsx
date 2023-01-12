@@ -29,7 +29,11 @@ const useWebSocket = () => {
   const onMsgReceived = (payload) => {
     try {
       var data = JSON.parse(payload.body);
-      dispatch(assignFriends(data));
+      if (data[0].friendshipUuid) {
+        dispatch(assignFriends(data));
+      } else {
+        console.log("bad");
+      }
     } catch (error) {
       console.log(error);
     }
