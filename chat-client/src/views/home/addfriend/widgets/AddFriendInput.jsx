@@ -6,7 +6,6 @@ import { clearSearchAddFriend, assignSearchAddFriend} from "../../../../redux/ho
 const AddFriendInput = () => {
   const dispatch = useDispatch();
   const jwtToken = useSelector((state) => state.jwt.token);
-  const searchAddFriend = useSelector((state) => state.home.searchAddFriend);
   const [search, setSearch] = useState("");
 
   async function sendUserInfoRequest() {
