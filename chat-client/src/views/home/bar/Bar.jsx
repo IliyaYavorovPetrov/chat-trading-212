@@ -8,50 +8,6 @@ const Bar = () => {
       <TitleBar text="Friends" />
       <div className="flex flex-col bg-gray-200 dark:bg-gray-800 h-full w-full overflow-y-auto">
         <FriendBar pictureId={2} name="Yunakut" isActive={true} />
-        <FriendBar pictureId={1} name={"aa"} isActive={false} />
-        <FriendBar pictureId={1} name={"aa"} isActive={true} />
-        <FriendBar pictureId={1} name={"aa"} isActive={true} />
-        <FriendBar pictureId={1} name={"aa"} isActive={true} />
-        <FriendBar pictureId={1} name={"aa"} isActive={true} />
-        <FriendBar pictureId={1} name={"aa"} isActive={true} />
-        <FriendBar pictureId={1} name={"aa"} isActive={false} />
-        <FriendBar pictureId={1} name={"aa"} isActive={true} />
-        <FriendBar pictureId={1} name={"aa"} isActive={true} />
-        <FriendBar pictureId={1} name={"aa"} isActive={true} />
-        <FriendBar pictureId={1} name={"aa"} isActive={true} />
-        <FriendBar pictureId={1} name={"aa"} isActive={true} />
-        <FriendBar pictureId={1} name={"aa"} isActive={true} />
-        <FriendBar pictureId={1} name={"aa"} isActive={true} />
-        <FriendBar pictureId={1} name={"aa"} isActive={true} />
-        <FriendBar pictureId={1} name={"aa"} isActive={true} />
-        <FriendBar pictureId={1} name={"aa"} isActive={true} />
-        <FriendBar pictureId={1} name={"aa"} isActive={true} />
-        <FriendBar pictureId={1} name={"aa"} isActive={true} />
-        <FriendBar pictureId={1} name={"aa"} isActive={false} />
-        <FriendBar pictureId={1} name={"aa"} isActive={true} />
-        <FriendBar pictureId={1} name={"aa"} isActive={true} />
-        <FriendBar pictureId={1} name={"aa"} isActive={true} />
-        <FriendBar pictureId={1} name={"aa"} isActive={true} />
-        <FriendBar pictureId={1} name={"aa"} isActive={true} />
-        <FriendBar pictureId={1} name={"aa"} isActive={true} />
-        <FriendBar pictureId={1} name={"aa"} isActive={true} />
-        <FriendBar pictureId={1} name={"aa"} isActive={true} />
-        <FriendBar pictureId={1} name={"aa"} isActive={true} />
-        <FriendBar pictureId={1} name={"aa"} isActive={true} />
-        <FriendBar pictureId={1} name={"aa"} isActive={true} />
-        <FriendBar pictureId={1} name={"aa"} isActive={true} />
-        <FriendBar pictureId={1} name={"aa"} isActive={true} />
-        <FriendBar pictureId={1} name={"aa"} isActive={true} />
-        <FriendBar pictureId={1} name={"aa"} isActive={true} />
-        <FriendBar pictureId={1} name={"aa"} isActive={true} />
-        <FriendBar pictureId={1} name={"aa"} isActive={true} />
-        <FriendBar pictureId={1} name={"aa"} isActive={true} />
-        <FriendBar pictureId={1} name={"aa"} isActive={true} />
-        <FriendBar pictureId={1} name={"aa"} isActive={true} />
-        <FriendBar pictureId={1} name={"aa"} isActive={true} />
-        <FriendBar pictureId={1} name={"aa"} isActive={true} />
-        <FriendBar pictureId={1} name={"aa"} isActive={true} />
-        <FriendBar pictureId={1} name={"aa"} isActive={true} />
       </div>
     </div>
   );

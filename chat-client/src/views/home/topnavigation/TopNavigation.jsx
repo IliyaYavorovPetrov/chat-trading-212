@@ -12,7 +12,7 @@ const TopNavigation = () => {
   const dispacth = useDispatch();
 
   return (
-    <div className="flex flex-row items-center justify-end bg-gray-300 dark:bg-gray-700 bg-opacity-90 w-full h-16 m-0 shadow-lg">
+    <div className="flex flex-row items-center justify-end bg-gray-200 dark:bg-gray-700 bg-opacity-90 w-full h-16 m-0 shadow-lg">
       <ThemeIcon />
       <button
         type="button"
