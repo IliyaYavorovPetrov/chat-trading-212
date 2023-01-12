@@ -2,11 +2,11 @@ package com.chattrading212.chat.controllers;
 
 import com.chattrading212.chat.controllers.dtos.*;
 import com.chattrading212.chat.mappers.FriendshipMapper;
-import com.chattrading212.chat.mappers.UserMapper;
 import com.chattrading212.chat.services.DirectMsgService;
 import com.chattrading212.chat.services.FriendshipService;
 import com.chattrading212.chat.services.models.FriendshipModel;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,9 +17,12 @@ public class FriendshipController {
     private final FriendshipService friendService;
     private final DirectMsgService directMsgService;
 
-    public FriendshipController(FriendshipService friendService, DirectMsgService directMsgService) {
+    private final SimpMessagingTemplate template;
+
+    public FriendshipController(FriendshipService friendService, DirectMsgService directMsgService, SimpMessagingTemplate template) {
         this.friendService = friendService;
         this.directMsgService = directMsgService;
+        this.template = template;
     }
 
     @GetMapping("/home/friends/get/{uuid}")
@@ -33,7 +36,10 @@ public class FriendshipController {
     public ResponseEntity<FriendshipDto> createFriendship(@RequestBody RequestFriendshipDto requestFriendshipDto) {
         FriendshipModel friendsModel = friendService.createFriendship(requestFriendshipDto.userUuid, requestFriendshipDto.userNickname, requestFriendshipDto.userPictureId, requestFriendshipDto.friendUuid, requestFriendshipDto.friendNickname, requestFriendshipDto.friendPictureId);
         directMsgService.createDirectMsg(friendsModel.friendshipUuid, "Hi", friendsModel.userUuid, friendsModel.userNickname, friendsModel.userPictureId);
-        return ResponseEntity.ok(new FriendshipDto(friendsModel.friendshipUuid, friendsModel.isDeleted, requestFriendshipDto.userUuid, requestFriendshipDto.userNickname, requestFriendshipDto.userPictureId, requestFriendshipDto.friendUuid, requestFriendshipDto.friendNickname, requestFriendshipDto.friendPictureId));
+        FriendshipDto friendshipDto = new FriendshipDto(friendsModel.friendshipUuid, friendsModel.isDeleted, requestFriendshipDto.userUuid, requestFriendshipDto.userNickname, requestFriendshipDto.userPictureId, requestFriendshipDto.friendUuid, requestFriendshipDto.friendNickname, requestFriendshipDto.friendPictureId);
+        template.convertAndSend("/user/" + friendsModel.userUuid + "/private", friendshipDto);
+        template.convertAndSend("/user/" + friendsModel.friendUuid + "/private", friendshipDto);
+        return ResponseEntity.ok(friendshipDto);
     }
 
     @PostMapping("/home/friends/delete")
