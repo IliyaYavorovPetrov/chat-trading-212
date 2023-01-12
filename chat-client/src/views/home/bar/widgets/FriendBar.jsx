@@ -1,7 +1,7 @@
 import React from "react";
 import Status from "./Status";
 
-const FriendBar = ({ pictureId, name, isActive}) => {
+const FriendBar = ({ friendshipUuid, userUuid, pictureId, name, isActive}) => {
     return (
       <div className="flex flex-row items-center justify-start py-1 px-1 m-0 ml-16">
         <div className="flex flex-col items-center w-16">

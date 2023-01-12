@@ -17,7 +17,7 @@ public class FriendshipMapper {
 
     // Extracts from FriendshipModel the friend of the user
     public static FriendDto toFriendDto(FriendshipModel friendshipDto, UUID userUuid) {
-        if (friendshipDto.userUuid == userUuid) {
+        if (friendshipDto.userUuid.equals(userUuid)) {
             return new FriendDto(friendshipDto.friendshipUuid, friendshipDto.friendUuid, friendshipDto.friendNickname, friendshipDto.friendPictureId);
         }
 

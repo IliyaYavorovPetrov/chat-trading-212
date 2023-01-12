@@ -1,20 +1,16 @@
 package com.chattrading212.chat.controllers;
 
-import com.chattrading212.chat.controllers.dtos.FriendDto;
-import com.chattrading212.chat.controllers.dtos.FriendshipDto;
-import com.chattrading212.chat.controllers.dtos.RequestFriendshipDto;
-import com.chattrading212.chat.controllers.dtos.UserJwtDto;
+import com.chattrading212.chat.controllers.dtos.*;
 import com.chattrading212.chat.mappers.FriendshipMapper;
+import com.chattrading212.chat.mappers.UserMapper;
 import com.chattrading212.chat.services.DirectMsgService;
 import com.chattrading212.chat.services.FriendshipService;
 import com.chattrading212.chat.services.models.FriendshipModel;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 public class FriendshipController {
@@ -26,10 +22,10 @@ public class FriendshipController {
         this.directMsgService = directMsgService;
     }
 
-    @GetMapping("/home/friends/get")
-    public ResponseEntity<List<FriendDto>> getFriendshipsUser(@RequestBody UserJwtDto userDto) {
-        List<FriendshipModel> friendshipModelList = friendService.getUserFriendships(userDto.userUuid);
-        List<FriendDto> friendDtoList = friendshipModelList.stream().map(x -> FriendshipMapper.toFriendDto(x, userDto.userUuid)).toList();
+    @GetMapping("/home/friends/get/{uuid}")
+    public ResponseEntity<List<FriendDto>> getFriendshipsUser(@PathVariable UUID uuid) {
+        List<FriendshipModel> friendshipModelList = friendService.getUserFriendships(uuid);
+        List<FriendDto> friendDtoList = friendshipModelList.stream().map(x -> FriendshipMapper.toFriendDto(x, uuid)).toList();
         return ResponseEntity.ok(friendDtoList);
     }
 
