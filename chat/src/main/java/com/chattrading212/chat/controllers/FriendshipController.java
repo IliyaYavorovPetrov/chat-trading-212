@@ -5,6 +5,7 @@ import com.chattrading212.chat.mappers.FriendshipMapper;
 import com.chattrading212.chat.services.DirectMsgService;
 import com.chattrading212.chat.services.FriendshipService;
 import com.chattrading212.chat.services.models.FriendshipModel;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
@@ -33,13 +34,17 @@ public class FriendshipController {
     }
 
     @PostMapping("/home/friends")
-    public ResponseEntity<FriendshipDto> createFriendship(@RequestBody RequestFriendshipDto requestFriendshipDto) {
+    public ResponseEntity<Void> createFriendship(@RequestBody RequestFriendshipDto requestFriendshipDto) {
         FriendshipModel friendsModel = friendService.createFriendship(requestFriendshipDto.userUuid, requestFriendshipDto.userNickname, requestFriendshipDto.userPictureId, requestFriendshipDto.friendUuid, requestFriendshipDto.friendNickname, requestFriendshipDto.friendPictureId);
         directMsgService.createDirectMsg(friendsModel.friendshipUuid, "Hi", friendsModel.userUuid, friendsModel.userNickname, friendsModel.userPictureId);
-        FriendshipDto friendshipDto = new FriendshipDto(friendsModel.friendshipUuid, friendsModel.isDeleted, requestFriendshipDto.userUuid, requestFriendshipDto.userNickname, requestFriendshipDto.userPictureId, requestFriendshipDto.friendUuid, requestFriendshipDto.friendNickname, requestFriendshipDto.friendPictureId);
-        template.convertAndSend("/user/" + friendsModel.userUuid + "/private", friendshipDto);
-        template.convertAndSend("/user/" + friendsModel.friendUuid + "/private", friendshipDto);
-        return ResponseEntity.ok(friendshipDto);
+//        FriendshipDto friendshipDto = new FriendshipDto(friendsModel.friendshipUuid, friendsModel.isDeleted, requestFriendshipDto.userUuid, requestFriendshipDto.userNickname, requestFriendshipDto.userPictureId, requestFriendshipDto.friendUuid, requestFriendshipDto.friendNickname, requestFriendshipDto.friendPictureId);
+        List<FriendshipModel> friendsUser = friendService.getUserFriendships(friendsModel.userUuid);
+        template.convertAndSend("/user/" + friendsModel.userUuid + "/private", friendsUser.stream().map(x -> FriendshipMapper.toFriendDto(x, friendsModel.userUuid)).toList());
+
+        List<FriendshipModel> friendsFriend = friendService.getUserFriendships(friendsModel.userUuid);
+        template.convertAndSend("/user/" + friendsModel.friendUuid + "/private", friendsFriend.stream().map(x -> FriendshipMapper.toFriendDto(x, friendsModel.friendUuid)).toList());
+
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PostMapping("/home/friends/delete")

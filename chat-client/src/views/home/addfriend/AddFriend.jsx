@@ -43,13 +43,6 @@ const AddFriend = () => {
         method: "post",
         body: JSON.stringify(requestFriendship),
       });
-
-      if (!response.ok) {
-        return;
-      }
-
-      const data = await response.json();
-      console.log(data);
     }
 
   function giveAddFriendOptions() {
