@@ -38,12 +38,10 @@ const AddFriendInput = () => {
     }
     const data = await response.json();
     dispatch(assignSearchAddFriend(data));
-    console.log(data);
-    console.log(searchAddFriend);
   }
 
   return (
-    <div className="w-full flex items-center justify-start bg-gray-500 dark:bg-gray-600 dark:text-gray-400 px-2 h-9 ml-0 mr-0 rounded-md shadow-md transition duration-300 ease-in-out">
+    <div className="w-full flex items-center justify-start bg-gray-500 dark:bg-gray-600 dark:text-gray-400 text-gray-400 px-2 h-9 ml-0 mr-0 rounded-md shadow-md transition duration-300 ease-in-out">
       <input
         className="w-full font-sans font-semibold bg-transparent outline-none text-gray-640  placeholder-gray-400 pl-1 rounded"
         type="text"
