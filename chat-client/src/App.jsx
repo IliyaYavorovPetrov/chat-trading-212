@@ -9,15 +9,6 @@ import SockJsClient from 'react-stomp';
 function App() {
   return (
     <div>
-      {/* <SockJsClient 
-        url="http://localhost:8080/ws"
-        topics={['/topic/message']}
-        onConnect={() => console.log("connected to server")}
-        onDisconnect={() => console.log("disconnected from server")}
-        onMessage={(data) => console.log(data)}
-        debug={false}
-      /> */}
-
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

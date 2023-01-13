@@ -30,12 +30,10 @@ const useWebSocket = () => {
   const onMsgReceived = (payload) => {
     try {
       var data = JSON.parse(payload.body);
-      if (data[0].hasOwnProperty("friendshipUuid")) {
-        console.log("hit it mada" + data);
+      if (data[0].friendshipUuid) {
         dispatch(assignFriends(data));
         stompClient.subscribe("/user/" + data[0].friendshipUuid + "/private");
-      } else if (data[0].hasOwnProperty("chatUuid")) {
-        console.log("rec msg");
+      } else if (data[0].chatUuid) {
         console.log(data);
         dispatch(assignMsgs(data));
       }

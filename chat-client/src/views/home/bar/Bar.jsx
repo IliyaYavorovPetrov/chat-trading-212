@@ -12,6 +12,7 @@ const Bar = () => {
   const jwtToken = useSelector((state) => state.jwt.token);
   const userUuid = useSelector((state) => state.user.userUuid);
   const friends = useSelector((state) => state.friends.friends);
+  useWebSocket();
 
   async function getFriendshipsUser() {
     const response = await fetch("/home/friends/get/" + userUuid, {
@@ -27,9 +28,7 @@ const Bar = () => {
     }
 
     const data = await response.json();
-    console.log(data);
     dispatch(assignFriends(data));
-    console.log("subscribed to " + data[0].friendshipUuid);
   }
 
   async function getFriendshipsMsgs(chatUuid) {
@@ -42,12 +41,10 @@ const Bar = () => {
     });
 
     if (!response.ok) {
-      console.log("wtf");
       return;
     }
 
     const data = await response.json();
-    console.log("msgs: " + data);
     dispatch(assignCurrentMsgs(data));
   }
 

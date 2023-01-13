@@ -21,7 +21,6 @@ export const homeSlice = createSlice({
       state.searchAddFriend = action.payload;
     },
     clearSearchAddFriend: (state) => {
-      console.log("kura na maika ti");
       state.searchAddFriend = [];
     },
     returnHomeToDefault: (state) => {

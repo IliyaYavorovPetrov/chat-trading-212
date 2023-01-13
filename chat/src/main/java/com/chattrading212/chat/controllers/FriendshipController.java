@@ -4,6 +4,7 @@ import com.chattrading212.chat.controllers.dtos.*;
 import com.chattrading212.chat.mappers.FriendshipMapper;
 import com.chattrading212.chat.services.DirectMsgService;
 import com.chattrading212.chat.services.FriendshipService;
+import com.chattrading212.chat.services.MemberService;
 import com.chattrading212.chat.services.models.FriendshipModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,12 +18,13 @@ import java.util.UUID;
 public class FriendshipController {
     private final FriendshipService friendService;
     private final DirectMsgService directMsgService;
-
+    private final MemberService memberService;
     private final SimpMessagingTemplate template;
 
-    public FriendshipController(FriendshipService friendService, DirectMsgService directMsgService, SimpMessagingTemplate template) {
+    public FriendshipController(FriendshipService friendService, DirectMsgService directMsgService, MemberService memberService, SimpMessagingTemplate template) {
         this.friendService = friendService;
         this.directMsgService = directMsgService;
+        this.memberService = memberService;
         this.template = template;
     }
 
@@ -37,6 +39,8 @@ public class FriendshipController {
     public ResponseEntity<Void> createFriendship(@RequestBody RequestFriendshipDto requestFriendshipDto) {
         FriendshipModel friendsModel = friendService.createFriendship(requestFriendshipDto.userUuid, requestFriendshipDto.userNickname, requestFriendshipDto.userPictureId, requestFriendshipDto.friendUuid, requestFriendshipDto.friendNickname, requestFriendshipDto.friendPictureId);
         directMsgService.createDirectMsg(friendsModel.friendshipUuid, "Hi", friendsModel.userUuid, friendsModel.userNickname, friendsModel.userPictureId);
+        memberService.createMember(friendsModel.friendshipUuid, friendsModel.userUuid);
+        memberService.createMember(friendsModel.friendshipUuid, friendsModel.friendshipUuid);
 
         List<FriendshipModel> friendsUser = friendService.getUserFriendships(requestFriendshipDto.userUuid);
         List<FriendDto> friendUserDtoList = friendsUser.stream().map(x -> FriendshipMapper.toFriendDto(x, friendsModel.userUuid)).toList();

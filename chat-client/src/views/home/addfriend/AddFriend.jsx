@@ -83,7 +83,6 @@ const AddFriend = () => {
           <CloseButton
             icon={<BsPlus size="28" />}
             onClick={() => {
-              console.log("AAAAAAA");
               dispatch(returnHomeToDefault());
               dispatch(clearSearchAddFriend());
               setSearchAddFriend("");

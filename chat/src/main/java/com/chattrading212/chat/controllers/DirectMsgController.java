@@ -4,13 +4,11 @@ import com.chattrading212.chat.controllers.dtos.DirectMsgDto;
 import com.chattrading212.chat.controllers.dtos.RequestDirectMsgDto;
 import com.chattrading212.chat.mappers.DirectMsgMapper;
 import com.chattrading212.chat.services.DirectMsgService;
+import com.chattrading212.chat.services.MemberService;
 import com.chattrading212.chat.services.models.DirectMsgModel;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.chattrading212.chat.services.models.MemberModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,16 +20,20 @@ import java.util.UUID;
 public class DirectMsgController {
     private final SimpMessagingTemplate template;
     private final DirectMsgService directMsgService;
+    private final MemberService memberService;
 
-    public DirectMsgController(DirectMsgService directMsgService, SimpMessagingTemplate template) {
+    public DirectMsgController(DirectMsgService directMsgService, SimpMessagingTemplate template, MemberService memberService) {
         this.directMsgService = directMsgService;
         this.template = template;
+        this.memberService = memberService;
     }
 
     @PostMapping("/home/chats")
     public ResponseEntity<Void> sendDirectMessage(@RequestBody RequestDirectMsgDto requestDirectMsgDto) {
-
-//        template.convertAndSend("/user/" + friendsModel.userUuid + "/private", getDirectMsgsByChatUuid(requestDirectMsgDto.chatUuid));
+        List<MemberModel> memberModelList = memberService.getMembersInChat(requestDirectMsgDto.chatUuid);
+        for (var member : memberModelList) {
+            template.convertAndSend("/user/" + member.memberUuid + "/private", getDirectMsgsByChatUuid(requestDirectMsgDto.chatUuid));
+        }
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
@@ -42,16 +44,4 @@ public class DirectMsgController {
         Collections.reverse(directMsgDtoList);
         return ResponseEntity.ok(directMsgDtoList);
     }
-
-//    @MessageMapping("/sendMessage")
-//    public void receiveDirectMessage(@Payload RequestDirectMsgDto textMessageDTO) {
-//        // receiveDirectMessage is called whenever message is sent from client to “/app/sendMessage”. Here, “/app” prefix is from WebSocket Configuration. Please make note of annotations; MessageMapping and Payload.
-//    }
-//
-//
-//    @SendTo("/topic/message")
-//    public RequestDirectMsgDto broadcastDirectMessage(@Payload RequestDirectMsgDto textMessageDTO) {
-//        // broadcastDirectMessage method just return payload received from “/send” POST request. Returned value is received by clients register at “/topic/message”.
-//        return textMessageDTO;
-//    }
 }
