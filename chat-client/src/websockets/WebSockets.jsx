@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { over } from "stompjs";
 import SockJS from "sockjs-client";
 import { useDispatch, useSelector } from "react-redux";
-import { assignFriends } from "../redux/friends";
+import { assignFriends, updateFriends } from "../redux/friends";
 import { assignCurrentMsgs } from "../redux/msgs";
 
 let socket = null;
@@ -31,7 +31,7 @@ const useWebSocket = () => {
     try {
       var data = JSON.parse(payload.body);
       if (data[0].friendshipUuid) {
-        dispatch(assignFriends(data));
+        dispatch(updateFriends(data));
       } else if (data[0].msgUuid) {
         dispatch(assignCurrentMsgs(data));
       } else {

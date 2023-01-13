@@ -7,7 +7,9 @@ export const friendsSlice = createSlice({
   },
   reducers: {
     updateFriends: (state, action) => {
-      state.friends.push(action.payload);
+      const temp = state.friends;
+      temp.push(action.payload);
+      state.friends = temp;
     },
     assignFriends: (state, action) => {
       state.friends = action.payload;

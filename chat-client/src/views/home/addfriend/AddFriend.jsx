@@ -33,10 +33,10 @@ const AddFriend = () => {
     const requestFriendship = {
       userUuid: userUuid,
       userNickname: nickname,
-      userPictureid: pictureId,
+      userPictureId: pictureId,
       friendUuid: friendUserUuid,
       friendNickname: friendNickname,
-      friendPictureid: friendPictureId,
+      friendPictureId: friendPictureId,
     };
 
     const response = await fetch("/home/friends", {

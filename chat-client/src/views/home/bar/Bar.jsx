@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { assignFriends } from "../../../redux/friends";
 import { assignCurrentMsgs } from "../../../redux/msgs";
@@ -10,6 +10,11 @@ const Bar = () => {
   const jwtToken = useSelector((state) => state.jwt.token);
   const userUuid = useSelector((state) => state.user.userUuid);
   const friends = useSelector((state) => state.friends.friends);
+
+  const [fr, setFr] = useState();
+  useEffect(() => {
+    setFr(friends);
+  }, [friends]);
 
   async function getFriendshipsUser() {
     const response = await fetch("/home/friends/get/" + userUuid, {
@@ -51,7 +56,8 @@ const Bar = () => {
   function giveAllFriends() {
     return (
       <div>
-        {friends?.map((friend) => {
+        {fr?.map((friend) => {
+          console.log(friend.userPictureId);
           return (
             <button
               className="w-full"
@@ -66,7 +72,7 @@ const Bar = () => {
                 pictureId={friend.userPictureId}
                 name={friend.userNickname}
                 isActive={true}
-                key={"friend.friendshipUuid"}
+                key={friend.userUuid}
               />
             </button>
           );
