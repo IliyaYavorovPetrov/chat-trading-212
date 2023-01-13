@@ -86,6 +86,7 @@ const AddFriend = () => {
               console.log("AAAAAAA");
               dispatch(returnHomeToDefault());
               dispatch(clearSearchAddFriend());
+              setSearchAddFriend("");
             }}
           ></CloseButton>
         </div>
