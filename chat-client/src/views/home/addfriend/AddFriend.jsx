@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { BsPlus } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { returnHomeToDefault } from "../../../redux/home";
+import { clearSearchAddFriend, returnHomeToDefault } from "../../../redux/home";
 import { returnJwtToDefault } from "../../../redux/jwt";
 import CloseButton from "../../../widgets/CloseButton";
 import AddFriendInput from "./widgets/AddFriendInput";
@@ -25,25 +25,29 @@ const AddFriend = () => {
     setSearchAddFriend(updateSearchAddFriend);
   }, [updateSearchAddFriend]);
 
-    async function sendFriendRequest (friendUserUuid, friendNickname, friendPictureId) {
-      const requestFriendship = {
-        userUuid: userUuid,
-        userNickname: nickname,
-        userPictureid: pictureId,
-        friendUuid: friendUserUuid,
-        friendNickname: friendNickname,
-        friendPictureid: friendPictureId,
-      };
+  async function sendFriendRequest(
+    friendUserUuid,
+    friendNickname,
+    friendPictureId
+  ) {
+    const requestFriendship = {
+      userUuid: userUuid,
+      userNickname: nickname,
+      userPictureid: pictureId,
+      friendUuid: friendUserUuid,
+      friendNickname: friendNickname,
+      friendPictureid: friendPictureId,
+    };
 
-      const response = await fetch("/home/friends", {
-        headers: {
-          Authorization: "Bearer " + jwtToken,
-          "Content-Type": "application/json",
-        },
-        method: "post",
-        body: JSON.stringify(requestFriendship),
-      });
-    }
+    const response = await fetch("/home/friends", {
+      headers: {
+        Authorization: "Bearer " + jwtToken,
+        "Content-Type": "application/json",
+      },
+      method: "post",
+      body: JSON.stringify(requestFriendship),
+    });
+  }
 
   function giveAddFriendOptions() {
     return (
@@ -57,7 +61,11 @@ const AddFriend = () => {
                 pictureId={friend.pictureId}
                 key={friend.userUuid}
                 onClick={() => {
-                  sendFriendRequest(friend.userUuid, friend.nickname, friend.pictureId)
+                  sendFriendRequest(
+                    friend.userUuid,
+                    friend.nickname,
+                    friend.pictureId
+                  );
                 }}
               />
             );
@@ -74,11 +82,15 @@ const AddFriend = () => {
         <div className="mt-0">
           <CloseButton
             icon={<BsPlus size="28" />}
-            onClick={() => dispatch(returnHomeToDefault())}
+            onClick={() => {
+              console.log("AAAAAAA");
+              dispatch(returnHomeToDefault());
+              dispatch(clearSearchAddFriend());
+            }}
           ></CloseButton>
         </div>
         <div className="mt-16">
-          <AddFriendInput dispatch={dispatch} />
+          <AddFriendInput />
         </div>
         <div className="flex flex-col mt-2 bg-gray-400 dark:bg-gray-800 m-0 h-full w-full overflow-auto">
           {giveAddFriendOptions()}
