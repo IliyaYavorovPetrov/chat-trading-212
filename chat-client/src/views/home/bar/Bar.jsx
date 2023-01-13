@@ -5,8 +5,6 @@ import { assignCurrentMsgs, assignMsgs } from "../../../redux/msgs";
 import FriendBar from "./widgets/FriendBar";
 import TitleBar from "./widgets/TitleBar";
 import useWebSocket from "../../../websockets/WebSockets"
-import { over } from "stompjs";
-import SockJS from "sockjs-client";
 
 
 const Bar = () => {
@@ -14,13 +12,6 @@ const Bar = () => {
   const jwtToken = useSelector((state) => state.jwt.token);
   const userUuid = useSelector((state) => state.user.userUuid);
   const friends = useSelector((state) => state.friends.friends);
-  const {subscribeMe, closeSocket} = useWebSocket();
-
-  let socket = null;
-  let stompClient = null;
-
-  socket = new SockJS("http://localhost:8080/ws");
-  stompClient = over(socket);
 
   async function getFriendshipsUser() {
     const response = await fetch("/home/friends/get/" + userUuid, {
@@ -39,30 +30,7 @@ const Bar = () => {
     console.log(data);
     dispatch(assignFriends(data));
     console.log("subscribed to " + data[0].friendshipUuid);
-    // subscribeMe("/user/" + data[0].friendshipUuid + "/private");
-    stompClient.connect(
-      {},
-      () => {
-        stompClient.subscribe("/user/" + data[0].friendshipUuid + "/private", onMsgReceived);
-      },
-      () => {
-        console.log("error with web sockets");
-      }
-    );
   }
-
-  const onMsgReceived = (payload) => {
-    try {
-      var data = JSON.parse(payload.body);
-      if (data[0].hasOwnProperty("chatUuid")) {
-        console.log("rec msg");
-        console.log(data);
-        dispatch(assignMsgs(data));
-      } 
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   async function getFriendshipsMsgs(chatUuid) {
     const response = await fetch("/home/chats/" + chatUuid, {

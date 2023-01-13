@@ -63,3 +63,16 @@ as select msg_uuid, chat_uuid, created_at, is_deleted, from_user_uuid, from_user
    from chat.direct_msg_by_msg_uuid
    where msg_uuid is not null and chat_uuid is not null
 primary key ( (chat_uuid), msg_uuid ) with clustering order by (msg_uuid desc);
+
+create table chat.members_by_connection_uuid
+(
+    connection_uuid uuid primary key,
+    chat_uuid uuid,
+    member_uuid uuid,
+);
+
+create materialized view chat.members_by_chat_uuid
+as select connection_uuid, chat_uuid, member_uuid
+    from chat.members_by_connection_uuid
+    where connection_uuid is not null and chat_uuid is not null and member_uuid is not null
+primary key ( (chat_uuid),  connection_uuid);

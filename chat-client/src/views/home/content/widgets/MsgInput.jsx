@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import PlusIconImage from "./PlusIconImage";
 import { FaSearch } from "react-icons/fa";
 
-
 const MsgInput = () => {
   const dispatch = useDispatch();
   const jwtToken = useSelector((state) => state.jwt.token);
@@ -14,7 +13,6 @@ const MsgInput = () => {
   const [inputMsg, setInputMsg] = useState("");
 
   async function sendMsg() {
-    console.log("aaa");
     const msgBody = {
       chatUuid: currMsgs[0].chatUuid,
       msgText: inputMsg,
@@ -25,7 +23,7 @@ const MsgInput = () => {
 
     const response = await fetch("/home/chats", {
       headers: {
-        'Authorization': 'Bearer ' + jwtToken,
+        Authorization: "Bearer " + jwtToken,
         "Content-Type": "application/json",
       },
       method: "post",
@@ -44,7 +42,10 @@ const MsgInput = () => {
         onChange={(event) => setInputMsg(event.target.value)}
       />
       <button type="button" onClick={() => sendMsg()}>
-        <FaSearch size="18" className="text-secondary my-auto dark:text-gray-500 text-gray-600" />
+        <FaSearch
+          size="18"
+          className="text-secondary my-auto dark:text-gray-500 text-gray-600"
+        />
       </button>
     </div>
   );

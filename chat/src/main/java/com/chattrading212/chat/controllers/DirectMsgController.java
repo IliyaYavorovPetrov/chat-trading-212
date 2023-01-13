@@ -30,9 +30,8 @@ public class DirectMsgController {
 
     @PostMapping("/home/chats")
     public ResponseEntity<Void> sendDirectMessage(@RequestBody RequestDirectMsgDto requestDirectMsgDto) {
-        // sendDirectMessage handles POST request sent to server. It uses SimpMessagingTemplate to pass message to “/topic/message” destination.
-        DirectMsgModel directMsgModel = directMsgService.createDirectMsg(requestDirectMsgDto.chatUuid, requestDirectMsgDto.msgText, requestDirectMsgDto.fromUserUuid, requestDirectMsgDto.fromUserNickname, requestDirectMsgDto.fromUserPictureId);
-        template.convertAndSend("/user/" + requestDirectMsgDto.chatUuid + "/private", getDirectMsgsByChatUuid(requestDirectMsgDto.chatUuid));
+
+//        template.convertAndSend("/user/" + friendsModel.userUuid + "/private", getDirectMsgsByChatUuid(requestDirectMsgDto.chatUuid));
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 

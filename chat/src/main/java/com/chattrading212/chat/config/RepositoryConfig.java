@@ -5,6 +5,7 @@ import com.chattrading212.chat.repositories.FriendshipRepository;
 import com.chattrading212.chat.repositories.UserRepository;
 import com.chattrading212.chat.repositories.cassandra.CassandraDirectMsgRepository;
 import com.chattrading212.chat.repositories.cassandra.CassandraFriendshipRepository;
+import com.chattrading212.chat.repositories.cassandra.CassandraMembersRepository;
 import com.chattrading212.chat.repositories.cassandra.CassandraUserRepository;
 import com.datastax.oss.driver.api.core.CqlSession;
 import org.springframework.context.annotation.Bean;
@@ -25,5 +26,10 @@ public class RepositoryConfig {
     @Bean
     public CassandraDirectMsgRepository directMsgRepository(CqlSession session) {
         return new CassandraDirectMsgRepository(session);
+    }
+
+    @Bean
+    CassandraMembersRepository cassandraMembersRepository(CqlSession session){
+        return new CassandraMembersRepository(session);
     }
 }

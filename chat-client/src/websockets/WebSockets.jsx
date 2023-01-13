@@ -34,32 +34,15 @@ const useWebSocket = () => {
         console.log("hit it mada" + data);
         dispatch(assignFriends(data));
         stompClient.subscribe("/user/" + data[0].friendshipUuid + "/private");
-      }
-      if (data[0].hasOwnProperty("chatUuid")) {
+      } else if (data[0].hasOwnProperty("chatUuid")) {
         console.log("rec msg");
         console.log(data);
         dispatch(assignMsgs(data));
-      } 
+      }
     } catch (error) {
       console.log(error);
     }
   };
-
-  
-
-  const sendMsg = (message) => {
-    console.log("send msg");
-  };
-
-  const closeSocket = () => {
-    console.log("close socket");
-  };
-
-  const subscribeMe = (url) => {
-    stompClient.subscribe(url, ((payload) => {onMsgReceived(payload)}));
-  };
-
-  return { sendMsg, closeSocket, subscribeMe };
 };
 
 export default useWebSocket;
