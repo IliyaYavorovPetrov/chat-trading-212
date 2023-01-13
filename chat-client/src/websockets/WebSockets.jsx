@@ -3,7 +3,7 @@ import { over } from "stompjs";
 import SockJS from "sockjs-client";
 import { useDispatch, useSelector } from "react-redux";
 import { assignFriends, updateFriends } from "../redux/friends";
-import { assignCurrentMsgs } from "../redux/msgs";
+import { assignCurrentMsgs, assignMsgs } from "../redux/msgs";
 
 let socket = null;
 let stompClient = null;
@@ -30,18 +30,22 @@ const useWebSocket = () => {
   const onMsgReceived = (payload) => {
     try {
       var data = JSON.parse(payload.body);
-      if (data[0].friendshipUuid) {
-        console.log("hit it mada");
+      if (data[0].hasOwnProperty("friendshipUuid")) {
+        console.log("hit it mada" + data);
         dispatch(assignFriends(data));
-      } else if (data[0].msgUuid) {
-        dispatch(assignCurrentMsgs(data));
-      } else {
-        console.log("bad");
+        stompClient.subscribe("/user/" + data[0].friendshipUuid + "/private");
       }
+      if (data[0].hasOwnProperty("chatUuid")) {
+        console.log("rec msg");
+        console.log(data);
+        dispatch(assignMsgs(data));
+      } 
     } catch (error) {
       console.log(error);
     }
   };
+
+  
 
   const sendMsg = (message) => {
     console.log("send msg");
@@ -51,7 +55,11 @@ const useWebSocket = () => {
     console.log("close socket");
   };
 
-  return { sendMsg, closeSocket };
+  const subscribeMe = (url) => {
+    stompClient.subscribe(url, ((payload) => {onMsgReceived(payload)}));
+  };
+
+  return { sendMsg, closeSocket, subscribeMe };
 };
 
 export default useWebSocket;
