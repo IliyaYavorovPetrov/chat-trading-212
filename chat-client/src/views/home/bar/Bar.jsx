@@ -51,7 +51,7 @@ const Bar = () => {
   function giveAllFriends() {
     return (
       <div>
-        {friends?.map((friend, index) => {
+        {friends?.map((friend) => {
           return (
             <button
               className="w-full"
@@ -66,7 +66,7 @@ const Bar = () => {
                 pictureId={friend.userPictureId}
                 name={friend.userNickname}
                 isActive={true}
-                key={index}
+                key={friend.friendshipUuid}
               />
             </button>
           );
