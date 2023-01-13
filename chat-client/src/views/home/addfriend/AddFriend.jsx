@@ -52,14 +52,14 @@ const AddFriend = () => {
   function giveAddFriendOptions() {
     return (
       <div>
-        {searchAddFriend?.map((friend) => {
+        {searchAddFriend?.map((friend, index) => {
           if (friend.userUuid !== userUuid) {
             return (
               <Friend
                 id={friend.userUuid}
                 name={friend.nickname}
                 pictureId={friend.pictureId}
-                key={friend.userUuid}
+                key={index}
                 onClick={() => {
                   sendFriendRequest(
                     friend.userUuid,

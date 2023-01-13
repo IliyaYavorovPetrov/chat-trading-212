@@ -11,11 +11,6 @@ const Bar = () => {
   const userUuid = useSelector((state) => state.user.userUuid);
   const friends = useSelector((state) => state.friends.friends);
 
-  const [fr, setFr] = useState();
-  useEffect(() => {
-    setFr(friends);
-  }, [friends]);
-
   async function getFriendshipsUser() {
     const response = await fetch("/home/friends/get/" + userUuid, {
       headers: {
@@ -56,8 +51,7 @@ const Bar = () => {
   function giveAllFriends() {
     return (
       <div>
-        {fr?.map((friend) => {
-          console.log(friend.userPictureId);
+        {friends?.map((friend, index) => {
           return (
             <button
               className="w-full"
@@ -72,7 +66,7 @@ const Bar = () => {
                 pictureId={friend.userPictureId}
                 name={friend.userNickname}
                 isActive={true}
-                key={friend.userUuid}
+                key={index}
               />
             </button>
           );

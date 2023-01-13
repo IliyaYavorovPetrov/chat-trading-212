@@ -11,7 +11,7 @@ let stompClient = null;
 const useWebSocket = () => {
   const dispatch = useDispatch();
   const userUuid = useSelector((state) => state.user.userUuid);
-  // const friends = useSelector((state) => state.friends.friends);
+  const friends = useSelector((state) => state.friends.friends);
 
   useEffect(() => {
     socket = new SockJS("http://localhost:8080/ws");
@@ -31,7 +31,8 @@ const useWebSocket = () => {
     try {
       var data = JSON.parse(payload.body);
       if (data[0].friendshipUuid) {
-        dispatch(updateFriends(data));
+        console.log("hit it mada");
+        dispatch(assignFriends(data));
       } else if (data[0].msgUuid) {
         dispatch(assignCurrentMsgs(data));
       } else {

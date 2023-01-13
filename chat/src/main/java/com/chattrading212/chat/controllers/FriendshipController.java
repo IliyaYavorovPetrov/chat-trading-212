@@ -38,11 +38,14 @@ public class FriendshipController {
         FriendshipModel friendsModel = friendService.createFriendship(requestFriendshipDto.userUuid, requestFriendshipDto.userNickname, requestFriendshipDto.userPictureId, requestFriendshipDto.friendUuid, requestFriendshipDto.friendNickname, requestFriendshipDto.friendPictureId);
         directMsgService.createDirectMsg(friendsModel.friendshipUuid, "Hi", friendsModel.userUuid, friendsModel.userNickname, friendsModel.userPictureId);
 
-        List<FriendshipModel> friendsUser = friendService.getUserFriendships(friendsModel.userUuid);
-        template.convertAndSend("/user/" + friendsModel.userUuid + "/private", friendsUser.stream().map(x -> FriendshipMapper.toFriendDto(x, friendsModel.userUuid)).toList());
+        List<FriendshipModel> friendsUser = friendService.getUserFriendships(requestFriendshipDto.userUuid);
+        List<FriendDto> friendUserDtoList = friendsUser.stream().map(x -> FriendshipMapper.toFriendDto(x, friendsModel.userUuid)).toList();
+        template.convertAndSend("/user/" + friendsModel.userUuid + "/private", friendUserDtoList);
 
-        List<FriendshipModel> friendsFriend = friendService.getUserFriendships(friendsModel.userUuid);
-        template.convertAndSend("/user/" + friendsModel.friendUuid + "/private", friendsFriend.stream().map(x -> FriendshipMapper.toFriendDto(x, friendsModel.friendUuid)).toList());
+        List<FriendshipModel> friendsFriend = friendService.getUserFriendships(requestFriendshipDto.friendUuid);
+        List<FriendDto> friendFriendDtoList = friendsFriend.stream().map(x -> FriendshipMapper.toFriendDto(x, friendsModel.friendUuid)).toList();
+
+        template.convertAndSend("/user/" + friendsModel.friendUuid + "/private", friendFriendDtoList);
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
