@@ -3,6 +3,7 @@ import { over } from "stompjs";
 import SockJS from "sockjs-client";
 import { useDispatch, useSelector } from "react-redux";
 import { assignFriends } from "../redux/friends";
+import { assignCurrentMsgs } from "../redux/msgs";
 
 let socket = null;
 let stompClient = null;
@@ -31,6 +32,8 @@ const useWebSocket = () => {
       var data = JSON.parse(payload.body);
       if (data[0].friendshipUuid) {
         dispatch(assignFriends(data));
+      } else if (data[0].msgUuid) {
+        dispatch(assignCurrentMsgs(data));
       } else {
         console.log("bad");
       }

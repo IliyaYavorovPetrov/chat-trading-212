@@ -48,7 +48,7 @@ public class CassandraDirectMsgRepository implements DirectMsgRepository {
 
     @Override
     public List<DirectMsgEntity> getDirectMsgByChatUuid(UUID chatUuid) {
-        ResultSet resultSet = session.execute(CassandraDirectMsgQueries.GET_DIRECT_MSGS_BY_CHAT_UUID);
+        ResultSet resultSet = session.execute(CassandraDirectMsgQueries.GET_DIRECT_MSGS_BY_CHAT_UUID, chatUuid);
         List<Row> rows = resultSet.all();
 
         List<DirectMsgEntity> directMsgEntityList = new ArrayList<>();

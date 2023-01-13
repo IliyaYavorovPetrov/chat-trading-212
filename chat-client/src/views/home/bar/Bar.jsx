@@ -26,10 +26,10 @@ const Bar = () => {
 
     const data = await response.json();
     console.log(data);
-    dispatch(assignCurrentMsgs(data));
+    dispatch(assignFriends(data));
   }
 
-  async function getFriendshipsMsgs({chatUuid}) {
+  async function getFriendshipsMsgs(chatUuid) {
     const response = await fetch("/home/chats/" + chatUuid, {
       headers: {
         Authorization: "Bearer " + jwtToken,
@@ -39,11 +39,12 @@ const Bar = () => {
     });
 
     if (!response.ok) {
+      console.log("wtf");
       return;
     }
 
     const data = await response.json();
-    console.log(data);
+    console.log("msgs: " + data);
     dispatch(assignCurrentMsgs(data));
   }
 
@@ -52,7 +53,13 @@ const Bar = () => {
       <div>
         {friends?.map((friend) => {
           return (
-            <button className="w-full" type="button" onClick={() => getFriendshipsMsgs()}>
+            <button
+              className="w-full"
+              type="button"
+              onClick={() => {
+                getFriendshipsMsgs(friend.friendshipUuid);
+              }}
+            >
               <FriendBar
                 friendshipUuid={friend.friendshipUuid}
                 userUuid={friend.userUuid}
