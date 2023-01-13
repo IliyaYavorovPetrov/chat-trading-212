@@ -8,6 +8,8 @@ import com.datastax.oss.driver.api.core.cql.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class CassandraDirectMsgRepository implements DirectMsgRepository {
@@ -42,5 +44,26 @@ public class CassandraDirectMsgRepository implements DirectMsgRepository {
             return new DirectMsgEntity(directMsgEntityMsgUuid, directMsgEntityChatUuid, directMsgEntityCreatedAt, directMsgEntityIsDeleted, directMsgEntityMsgText, directMsgEntityUserUuid, directMsgEntityUserNickname, directMsgEntityUserPictureId);
         }
         return null;
+    }
+
+    @Override
+    public List<DirectMsgEntity> getDirectMsgByChatUuid(UUID chatUuid) {
+        ResultSet resultSet = session.execute(CassandraDirectMsgQueries.GET_DIRECT_MSGS_BY_CHAT_UUID);
+        List<Row> rows = resultSet.all();
+
+        List<DirectMsgEntity> directMsgEntityList = new ArrayList<>();
+        for (var row : rows) {
+            UUID directMsgEntityMsgUuid = row.getUuid("msg_uuid");
+            UUID directMsgEntityChatUuid = row.getUuid("chat_uuid");
+            Instant directMsgEntityCreatedAt = row.getInstant("created_at");
+            Boolean directMsgEntityIsDeleted = row.getBoolean("is_deleted");
+            String directMsgEntityMsgText = row.getString("msg_text");
+            UUID directMsgEntityUserUuid = row.getUuid("from_user_uuid");
+            String directMsgEntityUserNickname = row.getString("from_user_nickname");
+            Integer directMsgEntityUserPictureId = row.getInt("from_user_picture_id");
+            DirectMsgEntity directMsgEntity = new DirectMsgEntity(directMsgEntityMsgUuid, directMsgEntityChatUuid, directMsgEntityCreatedAt, directMsgEntityIsDeleted, directMsgEntityMsgText, directMsgEntityUserUuid, directMsgEntityUserNickname, directMsgEntityUserPictureId);
+            directMsgEntityList.add(directMsgEntity);
+        }
+        return directMsgEntityList;
     }
 }

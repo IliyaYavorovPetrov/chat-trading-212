@@ -6,6 +6,7 @@ import com.chattrading212.chat.repositories.entities.DirectMsgEntity;
 import com.chattrading212.chat.services.models.DirectMsgModel;
 import com.datastax.oss.driver.api.core.uuid.Uuids;
 
+import java.util.List;
 import java.util.UUID;
 
 public class DirectMsgService {
@@ -22,5 +23,10 @@ public class DirectMsgService {
 
     public DirectMsgModel getDirectMsg(UUID msgUuid) {
         return DirectMsgMapper.toDirectMsgModel(directMsgRepository.getDirectMsg(msgUuid));
+    }
+
+    public List<DirectMsgModel> getDirectMsgsByChatUuid(UUID chatUuid) {
+        List<DirectMsgEntity> directMsgEntityList = directMsgRepository.getDirectMsgByChatUuid(chatUuid);
+        return directMsgEntityList.stream().map(DirectMsgMapper::toDirectMsgModel).toList();
     }
 }

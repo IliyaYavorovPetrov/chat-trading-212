@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { assignFriends } from "../../../redux/friends";
+import { assignCurrentMsgs } from "../../../redux/msgs";
 import FriendBar from "./widgets/FriendBar";
 import TitleBar from "./widgets/TitleBar";
 
@@ -25,7 +26,25 @@ const Bar = () => {
 
     const data = await response.json();
     console.log(data);
-    dispatch(assignFriends(data));
+    dispatch(assignCurrentMsgs(data));
+  }
+
+  async function getFriendshipsMsgs({chatUuid}) {
+    const response = await fetch("/home/chats/" + chatUuid, {
+      headers: {
+        Authorization: "Bearer " + jwtToken,
+        "Content-Type": "application/json",
+      },
+      method: "get",
+    });
+
+    if (!response.ok) {
+      return;
+    }
+
+    const data = await response.json();
+    console.log(data);
+    dispatch(assignCurrentMsgs(data));
   }
 
   function giveAllFriends() {
@@ -33,14 +52,16 @@ const Bar = () => {
       <div>
         {friends?.map((friend) => {
           return (
-            <FriendBar
-              friendshipUuid={friend.friendshipUuid}
-              userUuid={friend.userUuid}
-              pictureId={friend.userPictureId}
-              name={friend.userNickname}
-              isActive={true}
-              key={"friend.friendshipUuid"}
-            />
+            <button className="w-full" type="button" onClick={() => getFriendshipsMsgs()}>
+              <FriendBar
+                friendshipUuid={friend.friendshipUuid}
+                userUuid={friend.userUuid}
+                pictureId={friend.userPictureId}
+                name={friend.userNickname}
+                isActive={true}
+                key={"friend.friendshipUuid"}
+              />
+            </button>
           );
         })}
       </div>
