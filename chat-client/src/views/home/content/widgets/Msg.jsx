@@ -11,7 +11,7 @@ const Msg = ({ name, pictureId, timestamp, text }) => {
         />
       </div>
       <div className="w-4/5 flex flex-col justify-start ml-4">
-        <p className="text-left font-semibold text-gray-800 dark:text-white mr-2 cursor-pointer">
+        <p className="text-left font-bold underline text-gray-800 dark:text-white mr-2 cursor-pointer">
           {name}
           {/* <small className="text-xs text-left font-semibold text-gray-500 dark:text-gray-600 ml-2">
               {timestamp}
