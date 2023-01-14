@@ -40,7 +40,7 @@ public class FriendshipController {
         FriendshipModel friendsModel = friendService.createFriendship(requestFriendshipDto.userUuid, requestFriendshipDto.userNickname, requestFriendshipDto.userPictureId, requestFriendshipDto.friendUuid, requestFriendshipDto.friendNickname, requestFriendshipDto.friendPictureId);
         directMsgService.createDirectMsg(friendsModel.friendshipUuid, "Hi", friendsModel.userUuid, friendsModel.userNickname, friendsModel.userPictureId);
         memberService.createMember(friendsModel.friendshipUuid, friendsModel.userUuid);
-        memberService.createMember(friendsModel.friendshipUuid, friendsModel.friendshipUuid);
+        memberService.createMember(friendsModel.friendshipUuid, friendsModel.friendUuid);
 
         List<FriendshipModel> friendsUser = friendService.getUserFriendships(requestFriendshipDto.userUuid);
         List<FriendDto> friendUserDtoList = friendsUser.stream().map(x -> FriendshipMapper.toFriendDto(x, friendsModel.userUuid)).toList();

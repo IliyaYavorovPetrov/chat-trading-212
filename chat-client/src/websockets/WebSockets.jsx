@@ -31,11 +31,11 @@ const useWebSocket = () => {
     try {
       var data = JSON.parse(payload.body);
       if (data[0].friendshipUuid) {
+        console.log("friendship rec");
         dispatch(assignFriends(data));
-        stompClient.subscribe("/user/" + data[0].friendshipUuid + "/private");
       } else if (data[0].chatUuid) {
         console.log(data);
-        dispatch(assignMsgs(data));
+        dispatch(assignCurrentMsgs(data));
       }
     } catch (error) {
       console.log(error);

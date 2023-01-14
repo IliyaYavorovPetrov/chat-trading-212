@@ -31,8 +31,12 @@ public class DirectMsgController {
     @PostMapping("/home/chats")
     public ResponseEntity<Void> sendDirectMessage(@RequestBody RequestDirectMsgDto requestDirectMsgDto) {
         List<MemberModel> memberModelList = memberService.getMembersInChat(requestDirectMsgDto.chatUuid);
+        directMsgService.createDirectMsg(requestDirectMsgDto.chatUuid, requestDirectMsgDto.msgText, requestDirectMsgDto.fromUserUuid, requestDirectMsgDto.fromUserNickname, requestDirectMsgDto.fromUserPictureId);
         for (var member : memberModelList) {
-            template.convertAndSend("/user/" + member.memberUuid + "/private", getDirectMsgsByChatUuid(requestDirectMsgDto.chatUuid));
+            List<DirectMsgModel> directMsgModelList = directMsgService.getDirectMsgsByChatUuid(member.chatUuid);
+            List<DirectMsgDto> directMsgDtoList = new java.util.ArrayList<>(directMsgModelList.stream().map(DirectMsgMapper::toDirectMsgDto).toList());
+            Collections.reverse(directMsgDtoList);
+            template.convertAndSend("/user/" + member.memberUuid + "/private", directMsgDtoList);
         }
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
