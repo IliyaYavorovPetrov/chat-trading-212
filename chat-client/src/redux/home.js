@@ -5,6 +5,8 @@ export const homeSlice = createSlice({
   initialState: {
     showUserInfo: false,
     showAddFriends: false,
+    isHomePressed: false,
+    isAddGroupPressed: false,
     searchAddFriend: [],
   },
   reducers: {
@@ -23,6 +25,12 @@ export const homeSlice = createSlice({
     clearSearchAddFriend: (state) => {
       state.searchAddFriend = [];
     },
+    updateIsHomePressed: (state, action) => {
+      state.isHomePressed = action.payload;
+    },
+    updateIsAddGroupPressed: (state, action) => {
+      state.isAddGroupPressed = action.payload;
+    },
     returnHomeToDefault: (state) => {
       state.showUserInfo = false;
       state.showAddFriends = false;
@@ -36,6 +44,8 @@ export const {
   updateSearchAddFriend,
   assignSearchAddFriend,
   clearSearchAddFriend,
+  updateIsHomePressed,
   returnHomeToDefault,
+  updateIsAddGroupPressed,
 } = homeSlice.actions;
 export default homeSlice.reducer;

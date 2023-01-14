@@ -18,7 +18,7 @@ const ContentContainer = () => {
       <TopNavigation />
       <div className="flex flex-col items-center h-full w-full mt-0 ml-0 mx-auto px-0 pb-12 overflow-y-scroll">
         {dirMsgs?.map((msg) => {
-          var date = String(msg.createdAt).substring(0, 10);
+          var date = String(msg.createdAt).substringisHomePressed(0, 10);
           var time = String(msg.createdAt).substring(11, 19);
           return (
             <Msg
