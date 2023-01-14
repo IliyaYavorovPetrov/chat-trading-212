@@ -39,7 +39,7 @@ const MsgInput = () => {
   return (
     <div className="flex flex-row items-center justify-between fixed left-88 right-8 bottom-0 rounded-lg shadow-lg bg-gray-400 dark:bg-gray-700 px-2 h-12">
       <PlusIconImage />
-      <button type="button" onClick={() => {setEmoji(true)}}>
+      <button type="button" onClick={() => {setEmoji(!emoji)}}>
         <BsEmojiSmileFill
           size="24"
           className="text-blue-500 dark:shadow-lg mx-2 dark:text-primary hover:scale-110 cursor-pointer"
