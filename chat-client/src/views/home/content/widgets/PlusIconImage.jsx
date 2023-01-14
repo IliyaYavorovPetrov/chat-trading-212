@@ -5,7 +5,7 @@ const PlusIconImage = () => {
   const [selectedFile, setSelectedFile] = useState();
   const [isFilePicked, setIsFilePicked] = useState(false);
 
-  const uploadImage = (event) => {
+  const upload = (event) => {
     console.log(event.target.files[0].name);
     const data = new FormData();
     data.append("file", event.target.files[0]);
@@ -40,24 +40,25 @@ const PlusIconImage = () => {
   // };
 
   return (
-    <label
-      htmlFor="file-upload"
-      type="file"
-      style={{
-        backgroundImage: { BsPlusCircleFill },
-      }}
-    >
-      <BsPlusCircleFill
-        size="22"
-        className="text-blue-500 dark:shadow-lg mx-2 dark:text-primary hover:scale-110 cursor-pointer"
-      />
-      <input
-        type="file"
-        id="file-upload"
-        onChange={uploadImage}
-        style={{ display: "none" }}
-      />
-    </label>
+    // <label
+    //   htmlFor="file-upload"
+    //   type="file"
+    //   style={{
+    //     backgroundImage: { BsPlusCircleFill },
+    //   }}
+    // >
+    //   <BsPlusCircleFill
+    //     size="22"
+    //     className="text-blue-500 dark:shadow-lg mx-2 dark:text-primary hover:scale-110 cursor-pointer"
+    //   />
+    //   <input
+    //     type="file"
+    //     id="file-upload"
+    //     onChange={console.log("a")}
+    //     style={{ display: "none" }}
+    //   />
+    // </label>
+    <div></div>
   );
 };
 
