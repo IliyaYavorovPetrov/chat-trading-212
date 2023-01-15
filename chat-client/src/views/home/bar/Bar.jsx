@@ -15,6 +15,12 @@ const Bar = () => {
   const isHomePr = useSelector((state) => state.home.isHomePressed);
   useWebSocket();
 
+  const [h, setH] = useState();
+
+  useEffect(() => {
+    setH(isHomePr);
+  }, [isHomePr]);
+
   async function getFriendshipsUser() {
     const response = await fetch("/home/friends/get/" + userUuid, {
       headers: {
@@ -58,12 +64,10 @@ const Bar = () => {
               className="w-full"
               type="button"
               onClick={() => {
-                if (isHomePr) {
+                if (h) {
                   dispatch(updateIsStart(false));
-                  dispatch(updateIsHomePressed(false));
                   getFriendshipsMsgs(friend.friendshipUuid);
-                }
-                else {
+                } else {
                   console.log("doesnt work because we are in group chat");
                 }
               }}

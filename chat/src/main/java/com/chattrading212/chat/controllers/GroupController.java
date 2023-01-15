@@ -55,12 +55,22 @@ public class GroupController {
     public ResponseEntity<Void> addToGroup(@RequestBody RequestAddToGroupDto requestAddToGroupDto) {
         memberService.createMember(requestAddToGroupDto.groupUuid, requestAddToGroupDto.userUuid);
         List<MemberModel> memberModelList = memberService.getMembersInChat(requestAddToGroupDto.groupUuid);
-        List<UserDto> userDtoList = new ArrayList<>();
+        List<FriendDto> userDtoList = new ArrayList<>();
         for (var x : memberModelList) {
             UserDto userDto = UserMapper.toUserDto(userService.getByUUID(x.memberUuid));
-            userDtoList.add(userDto);
+            FriendDto friendDto = new FriendDto(x.chatUuid, userDto.userUuid, userDto.nickname, userDto.pictureId);
+            userDtoList.add(friendDto);
         }
-        template.convertAndSend("/user/" + requestAddToGroupDto.userUuid + "/private", userDtoList);
+        for (var x : memberModelList) {
+            template.convertAndSend("/user/" + x.memberUuid + "/private", userDtoList);
+        }
+
+        List<GroupDto> groupDtoList = new ArrayList<>();
+
+        List<MemberModel> a = memberService.getChatsByMember(requestAddToGroupDto.userUuid);
+        GroupModel groupModel1 = groupService.getGroupByGroupUuid(a.get(0).chatUuid);
+        groupDtoList.add(new GroupDto(groupModel1.groupUuid, groupModel1.groupName, groupModel1.groupUrl));
+        template.convertAndSend("/user/" + requestAddToGroupDto.userUuid + "/private", groupDtoList);
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

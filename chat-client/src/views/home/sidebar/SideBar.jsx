@@ -114,7 +114,6 @@ const SideBar = () => {
         type="button"
         onClick={() => {
           console.log("Home Button");
-          // dispatch(updateIsStart(false));
           dispatch(updateIsHomePressed(true));
           getFriendshipUser();
         }}
