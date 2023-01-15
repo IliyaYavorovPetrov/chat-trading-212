@@ -4,7 +4,7 @@ import userReducer from './user';
 import homeReducer from './home';
 import friendsReducer from './friends';
 import msgsReducer from './msgs';
-
+import groupReducer from './groups';
 
 export default configureStore({
     reducer: {
@@ -13,5 +13,6 @@ export default configureStore({
         home: homeReducer,
         friends: friendsReducer,
         msgs: msgsReducer,
+        group: groupReducer,
     }
 });

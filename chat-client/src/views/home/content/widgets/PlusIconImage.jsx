@@ -30,22 +30,22 @@ const PlusIconImage = () => {
   };
 
   async function sendUrlMsg(url) {
-    const msgBody = {
-      chatUuid: currMsgs[0].chatUuid,
-      msgText: url,
-      fromUserUuid: userUuid,
-      fromUserNickname: nickname,
-      fromUserPictureId: pictureId,
-    };
+    // const msgBody = {
+    //   chatUuid: currMsgs[0].chatUuid,
+    //   msgText: url,
+    //   fromUserUuid: userUuid,
+    //   fromUserNickname: nickname,
+    //   fromUserPictureId: pictureId,
+    // };
 
-    const response = await fetch("/home/chats", {
-      headers: {
-        Authorization: "Bearer " + jwtToken,
-        "Content-Type": "application/json",
-      },
-      method: "post",
-      body: JSON.stringify(msgBody),
-    });
+    // const response = await fetch("/home/chats", {
+    //   headers: {
+    //     Authorization: "Bearer " + jwtToken,
+    //     "Content-Type": "application/json",
+    //   },
+    //   method: "post",
+    //   body: JSON.stringify(msgBody),
+    // });
   };
 
   return (

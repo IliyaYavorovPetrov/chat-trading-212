@@ -4,6 +4,7 @@ import SockJS from "sockjs-client";
 import { useDispatch, useSelector } from "react-redux";
 import { assignFriends, updateFriends } from "../redux/friends";
 import { assignCurrentMsgs, assignMsgs } from "../redux/msgs";
+import { assignGroups } from "../redux/groups";
 
 let socket = null;
 let stompClient = null;
@@ -33,6 +34,10 @@ const useWebSocket = () => {
       if (data[0].friendshipUuid) {
         console.log("friendship rec");
         dispatch(assignFriends(data));
+      } else if (data[0].groupUuid) {
+        console.log("groupss");
+        console.log(data);
+        dispatch(assignGroups(data));
       } else if (data[0].chatUuid) {
         console.log(data);
         dispatch(assignCurrentMsgs(data));
