@@ -52,4 +52,18 @@ public class CassandraMembersRepository implements MembersRepository {
 
         return memberEntityList;
     }
+
+    @Override
+    public List<MemberEntity> getChatsByMember(UUID memberUuid) {
+        ResultSet resultSet = session.execute(CassandraMembersQueries.GET_CHAT_BY_MEMBER_UUID, memberUuid);
+        List<Row> rows = resultSet.all();
+
+        List<MemberEntity> memberEntityList = new ArrayList<>();
+        for (var row : rows) {
+            MemberEntity memberEntity = getMembershipByConnectionUuid(row.getUuid("connection_uuid"));
+            memberEntityList.add(memberEntity);
+        }
+
+        return memberEntityList;
+    }
 }

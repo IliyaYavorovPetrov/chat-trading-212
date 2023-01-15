@@ -28,4 +28,8 @@ public class MemberService {
     public List<MemberModel> getMembersInChat(UUID chatUuid) {
         return membersRepository.getMembersInChat(chatUuid).stream().map(MembersMapper::toMemberModel).toList();
     }
+
+    public List<MemberModel> getChatsByMember(UUID memberUuid) {
+        return membersRepository.getChatsByMember(memberUuid).stream().map(MembersMapper::toMemberModel).toList();
+    }
 }

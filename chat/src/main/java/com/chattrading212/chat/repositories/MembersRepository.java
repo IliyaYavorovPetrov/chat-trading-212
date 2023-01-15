@@ -9,4 +9,5 @@ public interface MembersRepository {
     MemberEntity createMember(UUID connectionUuid, UUID chatUuid, UUID memberUuid);
     MemberEntity getMembershipByConnectionUuid(UUID connectionUuid);
     List<MemberEntity> getMembersInChat(UUID chatUuid);
+    List<MemberEntity> getChatsByMember(UUID memberUuid);
 }
