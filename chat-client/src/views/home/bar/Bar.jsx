@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { assignFriends } from "../../../redux/friends";
 import { assignCurrentMsgs, assignMsgs } from "../../../redux/msgs";
+import { updateIsHomePressed, updateIsStart } from "../../../redux/home";
 import FriendBar from "./widgets/FriendBar";
 import TitleBar from "./widgets/TitleBar";
-import useWebSocket from "../../../websockets/WebSockets"
-
+import useWebSocket from "../../../websockets/WebSockets";
 
 const Bar = () => {
   const dispatch = useDispatch();
@@ -57,6 +57,8 @@ const Bar = () => {
               className="w-full"
               type="button"
               onClick={() => {
+                dispatch(updateIsStart(false));
+                dispatch(updateIsHomePressed(false));
                 getFriendshipsMsgs(friend.friendshipUuid);
               }}
             >

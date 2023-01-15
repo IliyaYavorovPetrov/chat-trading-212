@@ -5,10 +5,12 @@ export const homeSlice = createSlice({
   initialState: {
     showUserInfo: false,
     showAddFriends: false,
-    isHomePressed: false,
+    isHomePressed: true,
     isAddGroupPressed: false,
     textGroupNameInput: "",
     urlGroupName: "",
+    isStart: true,
+    isPrivatePressed: true,
     searchAddFriend: [],
   },
   reducers: {
@@ -39,6 +41,12 @@ export const homeSlice = createSlice({
     updateUrlGroupName: (state, action) => {
       state.urlGroupName = action.payload;
     },
+    updateIsStart: (state, action) => {
+      state.isStart = action.payload;
+    },
+    updateIsPrivatePressed: (state, action) => {
+      state.isPrivatePressed = action.payload;
+    },
     returnHomeToDefault: (state) => {
       state.showUserInfo = false;
       state.showAddFriends = false;
@@ -50,12 +58,14 @@ export const {
   updateShowUserInfo,
   updateAddFriend,
   updateSearchAddFriend,
-  assignSearchAddFriend,
+  assignSearchAddFriend, 
   clearSearchAddFriend,
   updateIsHomePressed,
   returnHomeToDefault,
   updateTextGroupNameInput,
   updateUrlGroupName,
+  updateIsStart,
+  updateIsPrivatePressed,
   updateIsAddGroupPressed,
 } = homeSlice.actions;
 export default homeSlice.reducer;

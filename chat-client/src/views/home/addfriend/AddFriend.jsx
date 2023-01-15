@@ -19,6 +19,8 @@ const AddFriend = () => {
   const userUuid = useSelector((state) => state.user.userUuid);
   const nickname = useSelector((state) => state.user.nickname);
   const pictureId = useSelector((state) => state.user.pictureId);
+  const isHomePressed = useSelector((state) => state.home.isHomePressed);
+
   const [searchAddFriend, setSearchAddFriend] = useState();
 
   useEffect(() => {
@@ -30,23 +32,28 @@ const AddFriend = () => {
     friendNickname,
     friendPictureId
   ) {
-    const requestFriendship = {
-      userUuid: userUuid,
-      userNickname: nickname,
-      userPictureId: pictureId,
-      friendUuid: friendUserUuid,
-      friendNickname: friendNickname,
-      friendPictureId: friendPictureId,
-    };
-
-    const response = await fetch("/home/friends", {
-      headers: {
-        Authorization: "Bearer " + jwtToken,
-        "Content-Type": "application/json",
-      },
-      method: "post",
-      body: JSON.stringify(requestFriendship),
-    });
+    if (isHomePressed) {
+      const requestFriendship = {
+        userUuid: userUuid,
+        userNickname: nickname,
+        userPictureId: pictureId,
+        friendUuid: friendUserUuid,
+        friendNickname: friendNickname,
+        friendPictureId: friendPictureId,
+      };
+  
+      const response = await fetch("/home/friends", {
+        headers: {
+          Authorization: "Bearer " + jwtToken,
+          "Content-Type": "application/json",
+        },
+        method: "post",
+        body: JSON.stringify(requestFriendship),
+      });
+    }
+    else {
+      console.log("add to group");
+    }
   }
 
   function giveAddFriendOptions() {

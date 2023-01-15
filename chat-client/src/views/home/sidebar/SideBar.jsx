@@ -4,9 +4,13 @@ import SideBarIcon from "./widgets/SideBarIcon";
 import Divider from "./widgets/Divider";
 import SmallLogo from "../../../widgets/SmallLogo";
 import { useDispatch, useSelector } from "react-redux";
-import { assignGroups } from "../../../redux/groups";
+import { assignCurrentGroupId, assignGroups } from "../../../redux/groups";
+import { assignCurrentMsgs, assignMsgs } from "../../../redux/msgs";
+import { assignFriends } from "../../../redux/friends";
+
 import {
   updateIsAddGroupPressed,
+  updateIsStart,
   updateIsHomePressed,
 } from "../../../redux/home";
 
@@ -15,6 +19,8 @@ const SideBar = () => {
   const jwtToken = useSelector((state) => state.jwt.token);
   const userUuid = useSelector((state) => state.user.userUuid);
   const isHomePressed = useSelector((state) => state.home.isHomePressed);
+  const groupUuid = useSelector((state) => state.group.currGroupUuid);
+
   const isAddGroupPressed = useSelector(
     (state) => state.home.isAddGroupPressed
   );
@@ -27,7 +33,28 @@ const SideBar = () => {
   }, [groupsRedux]);
 
   async function getGroupsUser() {
+    debugger;
     const response = await fetch("/home/groups/" + userUuid, {
+      headers: {
+        Authorization: "Bearer " + jwtToken,
+        "Content-Type": "application/json",
+      },
+      method: "get",
+    });
+
+    debugger;
+
+    if (!response.ok) {
+      return;
+    }
+
+    const data = await response.json();
+    dispatch(assignGroups(data));
+  }
+
+  async function getMemebersInGroup(groupid) {
+    debugger;
+    const response = await fetch("/home/groups/users/" + groupid, {
       headers: {
         Authorization: "Bearer " + jwtToken,
         "Content-Type": "application/json",
@@ -40,7 +67,24 @@ const SideBar = () => {
     }
 
     const data = await response.json();
-    dispatch(assignGroups(data));
+    dispatch(assignFriends(data));
+  }
+
+  async function getGroupMsgs(chatUuid) {
+    const response = await fetch("/home/chats/" + chatUuid, {
+      headers: {
+        Authorization: "Bearer " + jwtToken,
+        "Content-Type": "application/json",
+      },
+      method: "get",
+    });
+
+    if (!response.ok) {
+      return;
+    }
+
+    const data = await response.json();
+    dispatch(assignCurrentMsgs(data));
   }
 
   useEffect(() => {
@@ -51,13 +95,27 @@ const SideBar = () => {
     <div className="fixed top-0 left-0 h-screen w-16 flex flex-col bg-white dark:bg-gray-900 shadow-lg">
       <button
         type="button"
-        onClick={() => dispatch(updateIsHomePressed(!isHomePressed))}
+        onClick={() => {
+          console.log("Home Button");
+          // dispatch(updateIsStart(false));
+          dispatch(updateIsHomePressed(true));
+        }}
       >
         <SideBarIcon icon={<SmallLogo size="28" />} />
       </button>
       {groups?.map((group) => {
         return (
-          <button type="button" onClick={() => console.log("Clicky")}>
+          <button
+            type="button"
+            onClick={() => {
+              debugger;
+              dispatch(updateIsStart(false));
+              dispatch(assignCurrentGroupId(group.groupUuid));
+              dispatch(updateIsHomePressed(false));
+              getGroupMsgs(group.groupUuid);
+              getMemebersInGroup(group.groupUuid);
+            }}
+          >
             <img
               src={group.groupUrl}
               alt=""
