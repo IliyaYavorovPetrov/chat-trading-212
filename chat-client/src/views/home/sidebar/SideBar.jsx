@@ -52,6 +52,23 @@ const SideBar = () => {
     dispatch(assignGroups(data));
   }
 
+  async function getFriendshipUser() {
+    const response = await fetch("/home/friends/get/" + userUuid, {
+      headers: {
+        Authorization: "Bearer " + jwtToken,
+        "Content-Type": "application/json",
+      },
+      method: "get",
+    });
+
+    if (!response.ok) {
+      return;
+    }
+
+    const data = await response.json();
+    dispatch(assignFriends(data));
+  }
+
   async function getMemebersInGroup(groupid) {
     debugger;
     const response = await fetch("/home/groups/users/" + groupid, {
@@ -99,6 +116,7 @@ const SideBar = () => {
           console.log("Home Button");
           // dispatch(updateIsStart(false));
           dispatch(updateIsHomePressed(true));
+          getFriendshipUser();
         }}
       >
         <SideBarIcon icon={<SmallLogo size="28" />} />

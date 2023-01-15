@@ -12,6 +12,7 @@ const Bar = () => {
   const jwtToken = useSelector((state) => state.jwt.token);
   const userUuid = useSelector((state) => state.user.userUuid);
   const friends = useSelector((state) => state.friends.friends);
+  const isHomePr = useSelector((state) => state.home.isHomePressed);
   useWebSocket();
 
   async function getFriendshipsUser() {
@@ -57,9 +58,14 @@ const Bar = () => {
               className="w-full"
               type="button"
               onClick={() => {
-                dispatch(updateIsStart(false));
-                dispatch(updateIsHomePressed(false));
-                getFriendshipsMsgs(friend.friendshipUuid);
+                if (isHomePr) {
+                  dispatch(updateIsStart(false));
+                  dispatch(updateIsHomePressed(false));
+                  getFriendshipsMsgs(friend.friendshipUuid);
+                }
+                else {
+                  console.log("doesnt work because we are in group chat");
+                }
               }}
             >
               <FriendBar
