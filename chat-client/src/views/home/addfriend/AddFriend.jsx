@@ -20,6 +20,7 @@ const AddFriend = () => {
   const nickname = useSelector((state) => state.user.nickname);
   const pictureId = useSelector((state) => state.user.pictureId);
   const isHomePressed = useSelector((state) => state.home.isHomePressed);
+  const groupId = useSelector((state) => state.group.currGroupUuid);
 
   const [searchAddFriend, setSearchAddFriend] = useState();
 
@@ -41,18 +42,34 @@ const AddFriend = () => {
         friendNickname: friendNickname,
         friendPictureId: friendPictureId,
       };
-  
-      const response = await fetch("/home/friends", {
+
+      if (isHomePressed) {
+        debugger;
+        const response = await fetch("/home/friends", {
+          headers: {
+            Authorization: "Bearer " + jwtToken,
+            "Content-Type": "application/json",
+          },
+          method: "post",
+          body: JSON.stringify(requestFriendship),
+        });
+      }
+    } else {
+      const reqGroupAdd = {
+        groupUuid: groupId,
+        userUuid: friendUserUuid,
+        userNickname: friendNickname,
+        userPictureId: friendPictureId,
+      };
+
+      const response = await fetch("home/groups/add", {
         headers: {
           Authorization: "Bearer " + jwtToken,
           "Content-Type": "application/json",
         },
         method: "post",
-        body: JSON.stringify(requestFriendship),
+        body: JSON.stringify(reqGroupAdd),
       });
-    }
-    else {
-      console.log("add to group");
     }
   }
 
