@@ -17,7 +17,8 @@ public class GroupService {
         this.groupRepository = groupRepository;
     }
 
-    public GroupModel createGroup(UUID groupUuid, String groupName, String groupUrl) {
+    public GroupModel createGroup(String groupName, String groupUrl) {
+        UUID groupUuid = UUID.randomUUID();
         return GroupMapper.toGroupModel(groupRepository.createGroup(groupUuid, groupName, groupUrl));
     }
 
