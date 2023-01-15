@@ -39,8 +39,6 @@ const SideBar = () => {
       return;
     }
 
-    // debugger;
-
     const data = await response.json();
     dispatch(assignGroups(data));
   }
