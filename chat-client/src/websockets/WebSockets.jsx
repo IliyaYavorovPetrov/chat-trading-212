@@ -13,6 +13,7 @@ const useWebSocket = () => {
   const dispatch = useDispatch();
   const userUuid = useSelector((state) => state.user.userUuid);
   const friends = useSelector((state) => state.friends.friends);
+  const groups = useSelector((state) => state.group.groups);
 
   useEffect(() => {
     socket = new SockJS("http://localhost:8080/ws");
@@ -32,11 +33,8 @@ const useWebSocket = () => {
     try {
       var data = JSON.parse(payload.body);
       if (data[0].friendshipUuid) {
-        console.log("friendship rec");
         dispatch(assignFriends(data));
       } else if (data[0].groupUuid) {
-        console.log("groupss");
-        console.log(data);
         dispatch(assignGroups(data));
       } else if (data[0].chatUuid) {
         console.log(data);

@@ -19,6 +19,7 @@ const AddImageGroupButton = () => {
     data.append("upload_preset", "zps5pozv");
     data.append("cloud_name", "duiqnhfar");
 
+    console.log("AddImgGroupButton");
     fetch(" https://api.cloudinary.com/v1_1/duiqnhfar/image/upload", {
       method: "post",
       body: data,
@@ -31,40 +32,21 @@ const AddImageGroupButton = () => {
       .catch((err) => console.log(err));
   };
 
-  // async function uploadImage(event) {
-  //   console.log(event.target.files[0].name);
-  //   const data = new FormData();
-  //   data.append("file", event.target.files[0]);
-  //   data.append("upload_preset", "zps5pozv");
-  //   data.append("cloud_name", "duiqnhfar");
-
-  //   const response = fetch(
-  //     " https://api.cloudinary.com/v1_1/duiqnhfar/image/upload",
-  //     {
-  //       method: "post",
-  //       body: data,
-  //     }
-  //   );
-
-  //   console.log("response " + data);
-
-  //   if (!response.ok) {
-  //       console.log("error cloudinary");
-  //     return;
-  //   }
-  //   const out = await response.json();
-  //   dispatch(updateUrlGroupName(out.url));
-  // }
-
   return (
-    <label htmlFor="file-upload" type="file">
+    <label
+      htmlFor="file-upload-1"
+      type="file"
+      style={{
+        backgroundImage: { BsPlusCircleFill },
+      }}
+    >
       <BsPlusCircleFill
         size="22"
         className="text-blue-500 dark:shadow-lg mx-2 dark:text-primary hover:scale-110 cursor-pointer"
       />
       <input
         type="file"
-        id="file-upload"
+        id="file-upload-1"
         onChange={(event) => uploadImage(event)}
         style={{ display: "none" }}
       />

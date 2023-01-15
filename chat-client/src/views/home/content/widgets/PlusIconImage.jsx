@@ -18,6 +18,9 @@ const PlusIconImage = () => {
     data.append("upload_preset", "zps5pozv");
     data.append("cloud_name", "duiqnhfar");
 
+    debugger;
+
+    console.log("PlusIconImg");
     fetch(" https://api.cloudinary.com/v1_1/duiqnhfar/image/upload", {
       method: "post",
       body: data,
@@ -30,27 +33,27 @@ const PlusIconImage = () => {
   };
 
   async function sendUrlMsg(url) {
-    // const msgBody = {
-    //   chatUuid: currMsgs[0].chatUuid,
-    //   msgText: url,
-    //   fromUserUuid: userUuid,
-    //   fromUserNickname: nickname,
-    //   fromUserPictureId: pictureId,
-    // };
+    const msgBody = {
+      chatUuid: currMsgs[0].chatUuid,
+      msgText: url,
+      fromUserUuid: userUuid,
+      fromUserNickname: nickname,
+      fromUserPictureId: pictureId,
+    };
 
-    // const response = await fetch("/home/chats", {
-    //   headers: {
-    //     Authorization: "Bearer " + jwtToken,
-    //     "Content-Type": "application/json",
-    //   },
-    //   method: "post",
-    //   body: JSON.stringify(msgBody),
-    // });
+    const response = await fetch("/home/chats", {
+      headers: {
+        Authorization: "Bearer " + jwtToken,
+        "Content-Type": "application/json",
+      },
+      method: "post",
+      body: JSON.stringify(msgBody),
+    });
   };
 
   return (
     <label
-      htmlFor="file-upload"
+      htmlFor="file-upload-2"
       type="file"
       style={{
         backgroundImage: { BsPlusCircleFill },
@@ -62,7 +65,7 @@ const PlusIconImage = () => {
       />
       <input
         type="file"
-        id="file-upload"
+        id="file-upload-2"
         onChange={(event) => upload(event)}
         style={{ display: "none" }}
       />

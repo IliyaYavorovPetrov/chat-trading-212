@@ -1,10 +1,8 @@
 package com.chattrading212.chat.controllers;
 
-import com.chattrading212.chat.controllers.dtos.DirectMsgDto;
-import com.chattrading212.chat.controllers.dtos.GroupDto;
-import com.chattrading212.chat.controllers.dtos.RequestDirectMsgDto;
-import com.chattrading212.chat.controllers.dtos.RequestGroupDto;
+import com.chattrading212.chat.controllers.dtos.*;
 import com.chattrading212.chat.mappers.DirectMsgMapper;
+import com.chattrading212.chat.mappers.UserMapper;
 import com.chattrading212.chat.services.DirectMsgService;
 import com.chattrading212.chat.services.GroupService;
 import com.chattrading212.chat.services.MemberService;
@@ -14,13 +12,12 @@ import com.chattrading212.chat.services.models.MemberModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 public class GroupController {
@@ -54,5 +51,18 @@ public class GroupController {
 //        }
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @GetMapping("/home/groups/{uuid}")
+    public ResponseEntity<List<GroupDto>> getUserByUuid(@PathVariable UUID uuid) {
+        List<GroupDto> groupDtoList = new ArrayList<>();
+
+        List<MemberModel> memberModelList = memberService.getChatsByMember(uuid);
+        for (var x : memberModelList) {
+            GroupModel groupModel = groupService.getGroupByGroupUuid(x.chatUuid);
+            groupDtoList.add(new GroupDto(groupModel.groupUuid, groupModel.groupName, groupModel.groupUrl));
+        }
+
+        return ResponseEntity.ok(groupDtoList);
     }
 }

@@ -1,19 +1,19 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-const CreateGroupButton = ({text, groupName, url}) => {
+const CreateGroupButton = ({ text, groupName, url }) => {
   const jwtToken = useSelector((state) => state.jwt.token);
   const userUuid = useSelector((state) => state.user.userUuid);
   const userNickname = useSelector((state) => state.user.nickname);
   const userPictureId = useSelector((state) => state.user.userPictureId);
 
-  const textGroupNameInput = useSelector((state) => state.home.textGroupNameInput);
+  const textGroupNameInput = useSelector(
+    (state) => state.home.textGroupNameInput
+  );
   const urlGroupName = useSelector((state) => state.home.urlGroupName);
 
-  // textGroupNameInput: "",
-  //   urlGroupName: "",
-
   async function createGroup(groupName, url) {
+    console.log("hitt");
     if (groupName === "") {
       return;
     }
@@ -22,14 +22,14 @@ const CreateGroupButton = ({text, groupName, url}) => {
     }
 
     const groupReqBody = {
-    groupName: textGroupNameInput,
-    groupUrl: urlGroupName,
-    userUuid: userUuid,
-    userNickname: userNickname,
-    userPictureId: userPictureId,
+      groupName: textGroupNameInput,
+      groupUrl: urlGroupName,
+      userUuid: userUuid,
+      userNickname: userNickname,
+      userPictureId: userPictureId,
     };
 
-    const response = await fetch("/home/chats", {
+    const response = await fetch("/home/groups/create", {
       headers: {
         Authorization: "Bearer " + jwtToken,
         "Content-Type": "application/json",
