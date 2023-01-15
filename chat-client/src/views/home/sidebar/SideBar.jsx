@@ -4,6 +4,7 @@ import SideBarIcon from "./widgets/SideBarIcon";
 import Divider from "./widgets/Divider";
 import SmallLogo from "../../../widgets/SmallLogo";
 import { useDispatch, useSelector } from "react-redux";
+import { assignGroups } from "../../../redux/groups";
 import {
   updateIsAddGroupPressed,
   updateIsHomePressed,
@@ -11,6 +12,8 @@ import {
 
 const SideBar = () => {
   const dispatch = useDispatch();
+  const jwtToken = useSelector((state) => state.jwt.token);
+  const userUuid = useSelector((state) => state.user.userUuid);
   const isHomePressed = useSelector((state) => state.home.isHomePressed);
   const isAddGroupPressed = useSelector(
     (state) => state.home.isAddGroupPressed
@@ -22,6 +25,29 @@ const SideBar = () => {
   useEffect(() => {
     setGroups(groupsRedux);
   }, [groupsRedux]);
+
+  async function getGroupsUser() {
+    const response = await fetch("/home/groups/" + userUuid, {
+      headers: {
+        Authorization: "Bearer " + jwtToken,
+        "Content-Type": "application/json",
+      },
+      method: "get",
+    });
+
+    if (!response.ok) {
+      return;
+    }
+
+    // debugger;
+
+    const data = await response.json();
+    dispatch(assignGroups(data));
+  }
+
+  useEffect(() => {
+    getGroupsUser();
+  }, []);
 
   return (
     <div className="fixed top-0 left-0 h-screen w-16 flex flex-col bg-white dark:bg-gray-900 shadow-lg">

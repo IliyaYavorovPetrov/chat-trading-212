@@ -40,15 +40,13 @@ public class GroupController {
         memberService.createMember(groupModel.groupUuid, requestGroupDto.userUuid);
 
         List<GroupDto> groupDtoList = new ArrayList<>();
-        groupDtoList.add(new GroupDto(groupModel.groupUuid, groupModel.groupName, groupModel.groupUrl));
+
+        List<MemberModel> memberModelList = memberService.getChatsByMember(requestGroupDto.userUuid);
+        for (var x : memberModelList) {
+            GroupModel groupModel1 = groupService.getGroupByGroupUuid(x.chatUuid);
+            groupDtoList.add(new GroupDto(groupModel1.groupUuid, groupModel1.groupName, groupModel1.groupUrl));
+        }
         template.convertAndSend("/user/" + requestGroupDto.userUuid + "/private", groupDtoList);
-//        List<MemberModel> memberModelList = memberService.getMembersInChat(groupModel.groupUuid);
-//        for (var member : memberModelList) {
-//            List<DirectMsgModel> directMsgModelList = directMsgService.getDirectMsgsByChatUuid(member.chatUuid);
-//            List<DirectMsgDto> directMsgDtoList = new java.util.ArrayList<>(directMsgModelList.stream().map(DirectMsgMapper::toDirectMsgDto).toList());
-//            Collections.reverse(directMsgDtoList);
-//            template.convertAndSend("/user/" + member.memberUuid + "/private", directMsgDtoList);
-//        }
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
