@@ -76,3 +76,17 @@ as select connection_uuid, chat_uuid, member_uuid
     from chat.members_by_connection_uuid
     where connection_uuid is not null and chat_uuid is not null and member_uuid is not null
 primary key ( (chat_uuid),  connection_uuid);
+
+create materialized view chat.members_by_member_uuid
+as select connection_uuid, chat_uuid, member_uuid
+   from chat.members_by_connection_uuid
+   where connection_uuid is not null and chat_uuid is not null and member_uuid is not null
+primary key ( (member_uuid),  connection_uuid);
+
+create table chat.groups_by_group_uuid
+(
+    group_uuid uuid primary key,
+    group_name text,
+    group_url text,
+);
+

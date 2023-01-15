@@ -1,9 +1,6 @@
 package com.chattrading212.chat.config;
 
-import com.chattrading212.chat.repositories.DirectMsgRepository;
-import com.chattrading212.chat.repositories.FriendshipRepository;
-import com.chattrading212.chat.repositories.MembersRepository;
-import com.chattrading212.chat.repositories.UserRepository;
+import com.chattrading212.chat.repositories.*;
 import com.chattrading212.chat.services.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -39,5 +36,9 @@ public class ServiceConfig {
 
     @Bean MemberService memberService(MembersRepository membersRepository) {
         return new MemberService(membersRepository);
+    }
+
+    @Bean GroupService groupService(GroupRepository groupRepository) {
+        return new GroupService(groupRepository);
     }
 }
