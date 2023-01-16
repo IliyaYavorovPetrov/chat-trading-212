@@ -13,13 +13,14 @@ const CreateGroupButton = ({ text, groupName, url }) => {
   const urlGroupName = useSelector((state) => state.home.urlGroupName);
 
   async function createGroup(groupName, url) {
-    console.log("hitt");
     if (groupName === "") {
       return;
     }
     if (url === "") {
       return;
     }
+
+    debugger;
 
     const groupReqBody = {
       groupName: textGroupNameInput,

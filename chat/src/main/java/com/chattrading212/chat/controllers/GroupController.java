@@ -43,8 +43,13 @@ public class GroupController {
 
         List<MemberModel> memberModelList = memberService.getChatsByMember(requestGroupDto.userUuid);
         for (var x : memberModelList) {
-            GroupModel groupModel1 = groupService.getGroupByGroupUuid(x.chatUuid);
-            groupDtoList.add(new GroupDto(groupModel1.groupUuid, groupModel1.groupName, groupModel1.groupUrl));
+            try {
+                GroupModel groupModel1 = groupService.getGroupByGroupUuid(x.chatUuid);
+                groupDtoList.add(new GroupDto(groupModel1.groupUuid, groupModel1.groupName, groupModel1.groupUrl));
+            }
+            catch (Exception ex) {
+
+            }
         }
         template.convertAndSend("/user/" + requestGroupDto.userUuid + "/private", groupDtoList);
 

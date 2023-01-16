@@ -62,6 +62,9 @@ const AddFriendInput = () => {
           },
           method: "get",
         });
+        const data = await response.json();
+        console.log(data);
+        dispatch(assignSearchAddFriend(data));
       } else {
         response = await fetch("/home/add/friends/nickname/" + search, {
           headers: {
@@ -70,9 +73,11 @@ const AddFriendInput = () => {
           },
           method: "get",
         });
+        const data = await response.json();
+        console.log(data);
+        dispatch(assignSearchAddFriend(data));
       }
     }
-    // dispatch(assignSearchAddFriend(data));
   }
 
   return (

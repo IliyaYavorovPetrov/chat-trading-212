@@ -34,6 +34,7 @@ const AddFriend = () => {
     friendPictureId
   ) {
     if (isHomePressed) {
+      debugger;
       const requestFriendship = {
         userUuid: userUuid,
         userNickname: nickname,
@@ -42,8 +43,6 @@ const AddFriend = () => {
         friendNickname: friendNickname,
         friendPictureId: friendPictureId,
       };
-
-      if (isHomePressed) {
         const response = await fetch("/home/friends", {
           headers: {
             Authorization: "Bearer " + jwtToken,
@@ -52,7 +51,6 @@ const AddFriend = () => {
           method: "post",
           body: JSON.stringify(requestFriendship),
         });
-      }
     } else {
       const reqGroupAdd = {
         groupUuid: groupId,
