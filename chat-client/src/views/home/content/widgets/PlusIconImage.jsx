@@ -18,8 +18,6 @@ const PlusIconImage = () => {
     data.append("upload_preset", "zps5pozv");
     data.append("cloud_name", "duiqnhfar");
 
-    debugger;
-
     console.log("PlusIconImg");
     fetch(" https://api.cloudinary.com/v1_1/duiqnhfar/image/upload", {
       method: "post",

@@ -44,7 +44,6 @@ const AddFriend = () => {
       };
 
       if (isHomePressed) {
-        debugger;
         const response = await fetch("/home/friends", {
           headers: {
             Authorization: "Bearer " + jwtToken,

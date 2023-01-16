@@ -18,6 +18,7 @@ const AddFriendInput = () => {
       /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
     let response = null;
+    debugger;
     if (isHomePressed) {
       if (uuidRegex.test(search)) {
         response = await fetch("/home/add/friends/uuid/" + search, {
@@ -27,6 +28,15 @@ const AddFriendInput = () => {
           },
           method: "get",
         });
+
+        if (!response.ok) {
+          return;
+        }
+        const data = await response.json();
+        console.log(data);
+        var temp = [];
+        temp.push(data);
+        dispatch(assignSearchAddFriend(temp));
       } else {
         response = await fetch("/home/add/friends/nickname/" + search, {
           headers: {
@@ -35,6 +45,13 @@ const AddFriendInput = () => {
           },
           method: "get",
         });
+
+        if (!response.ok) {
+          return;
+        }
+        const data = await response.json();
+        console.log(data);
+        dispatch(assignSearchAddFriend(data));
       }
     } else {
       if (uuidRegex.test(search)) {
@@ -55,12 +72,7 @@ const AddFriendInput = () => {
         });
       }
     }
-
-    if (!response.ok) {
-      return;
-    }
-    const data = await response.json();
-    dispatch(assignSearchAddFriend(data));
+    // dispatch(assignSearchAddFriend(data));
   }
 
   return (

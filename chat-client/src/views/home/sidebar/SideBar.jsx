@@ -33,7 +33,6 @@ const SideBar = () => {
   }, [groupsRedux]);
 
   async function getGroupsUser() {
-    debugger;
     const response = await fetch("/home/groups/" + userUuid, {
       headers: {
         Authorization: "Bearer " + jwtToken,
@@ -41,8 +40,6 @@ const SideBar = () => {
       },
       method: "get",
     });
-
-    debugger;
 
     if (!response.ok) {
       return;
@@ -70,7 +67,6 @@ const SideBar = () => {
   }
 
   async function getMemebersInGroup(groupid) {
-    debugger;
     const response = await fetch("/home/groups/users/" + groupid, {
       headers: {
         Authorization: "Bearer " + jwtToken,
@@ -125,7 +121,7 @@ const SideBar = () => {
           <button
             type="button"
             onClick={() => {
-              debugger;
+              ;
               dispatch(updateIsStart(false));
               dispatch(assignCurrentGroupId(group.groupUuid));
               dispatch(updateIsHomePressed(false));
