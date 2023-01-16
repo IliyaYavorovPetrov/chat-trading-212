@@ -20,7 +20,6 @@ const CreateGroupButton = ({ text, groupName, url }) => {
       return;
     }
 
-    debugger;
 
     const groupReqBody = {
       groupName: textGroupNameInput,

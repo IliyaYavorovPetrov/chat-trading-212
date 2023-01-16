@@ -6,6 +6,7 @@ import com.chattrading212.chat.services.DirectMsgService;
 import com.chattrading212.chat.services.GroupService;
 import com.chattrading212.chat.services.MemberService;
 import com.chattrading212.chat.services.UserService;
+import com.chattrading212.chat.services.models.FriendshipModel;
 import com.chattrading212.chat.services.models.GroupModel;
 import com.chattrading212.chat.services.models.MemberModel;
 import org.springframework.http.HttpStatus;
@@ -109,5 +110,27 @@ public class GroupController {
        }
 
         return ResponseEntity.ok(userDtoList);
+    }
+
+    @GetMapping("/home/add/group/nickname/{nickname}/{uuid}/{groupUuid}")
+    public ResponseEntity<List<UserDto>> getUserByNickname(@PathVariable String nickname, @PathVariable UUID uuid, @PathVariable UUID groupUuid) {
+        List<UserDto> usersDto = userService.getByNickname(nickname).stream().map(UserMapper::toUserDto).toList();
+        List<MemberModel> memberModelList = memberService.getMembersInChat(groupUuid);
+
+        List<UserDto> answ = new ArrayList<>();
+        for (var x : usersDto) {
+            Boolean foo = false;
+            for (var y : memberModelList) {
+                if (x.userUuid.equals(y.memberUuid)) {
+                    foo = true;
+                    break;
+                }
+            }
+            if (!foo) {
+                answ.add(x);
+            }
+        }
+
+        return ResponseEntity.ok(answ);
     }
 }

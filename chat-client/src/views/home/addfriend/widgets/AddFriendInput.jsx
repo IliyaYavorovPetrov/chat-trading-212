@@ -9,6 +9,8 @@ import {
 const AddFriendInput = () => {
   const dispatch = useDispatch();
   const jwtToken = useSelector((state) => state.jwt.token);
+  const userUuid = useSelector((state) => state.user.userUuid);
+  const currGroupUuid = useSelector((state) => state.group.currGroupUuid);
   const isHomePressed = useSelector((state) => state.home.isHomePressed);
   const [search, setSearch] = useState("");
 
@@ -18,7 +20,6 @@ const AddFriendInput = () => {
       /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
     let response = null;
-    debugger;
     if (isHomePressed) {
       if (uuidRegex.test(search)) {
         response = await fetch("/home/add/friends/uuid/" + search, {
@@ -38,7 +39,7 @@ const AddFriendInput = () => {
         temp.push(data);
         dispatch(assignSearchAddFriend(temp));
       } else {
-        response = await fetch("/home/add/friends/nickname/" + search, {
+        response = await fetch("/home/add/friends/nickname/" + search+ "/" + userUuid, {
           headers: {
             Authorization: "Bearer " + jwtToken,
             "Content-Type": "application/json",
@@ -66,7 +67,7 @@ const AddFriendInput = () => {
         console.log(data);
         dispatch(assignSearchAddFriend(data));
       } else {
-        response = await fetch("/home/add/friends/nickname/" + search, {
+        response = await fetch("/home/add/group/nickname/" + search + "/" + userUuid + "/" + currGroupUuid, {
           headers: {
             Authorization: "Bearer " + jwtToken,
             "Content-Type": "application/json",

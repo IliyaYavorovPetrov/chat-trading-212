@@ -34,7 +34,6 @@ const AddFriend = () => {
     friendPictureId
   ) {
     if (isHomePressed) {
-      debugger;
       const requestFriendship = {
         userUuid: userUuid,
         userNickname: nickname,
@@ -43,14 +42,14 @@ const AddFriend = () => {
         friendNickname: friendNickname,
         friendPictureId: friendPictureId,
       };
-        const response = await fetch("/home/friends", {
-          headers: {
-            Authorization: "Bearer " + jwtToken,
-            "Content-Type": "application/json",
-          },
-          method: "post",
-          body: JSON.stringify(requestFriendship),
-        });
+      const response = await fetch("/home/friends", {
+        headers: {
+          Authorization: "Bearer " + jwtToken,
+          "Content-Type": "application/json",
+        },
+        method: "post",
+        body: JSON.stringify(requestFriendship),
+      });
     } else {
       const reqGroupAdd = {
         groupUuid: groupId,
@@ -73,7 +72,7 @@ const AddFriend = () => {
   function giveAddFriendOptions() {
     return (
       <div>
-        {searchAddFriend?.map((friend) => {
+        { searchAddFriend?.map((friend) => {
           if (friend.userUuid !== userUuid) {
             return (
               <Friend
@@ -92,7 +91,10 @@ const AddFriend = () => {
             );
           }
           return <NoUserFound />;
-        })}
+        })
+
+        }
+        {searchAddFriend.length === 0 && <NoUserFound />}
       </div>
     );
   }
