@@ -94,7 +94,7 @@ const AddFriend = () => {
         })
 
         }
-        {searchAddFriend.length === 0 && <NoUserFound />}
+        {searchAddFriend === [] && <NoUserFound />}
       </div>
     );
   }
